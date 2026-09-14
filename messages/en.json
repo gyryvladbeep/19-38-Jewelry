@@ -1,0 +1,242 @@
+{
+  "meta": {
+    "siteName": "19:38 Jewelry",
+    "tagline": "A sign worth keeping",
+    "defaultDescription": "19:38 Jewelry — handmade jewelry made from natural stones, rhodium, and pearl. Every piece is numbered and exists only once."
+  },
+  "nav": {
+    "catalog": "Catalog",
+    "about": "About",
+    "shipping": "Shipping & Payment",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "menu": "Menu",
+    "search": "Search",
+    "searchPlaceholder": "Search jewelry…"
+  },
+  "common": {
+    "addToCart": "Add to cart",
+    "addedToCart": "Added to cart",
+    "addToWishlist": "Add to wishlist",
+    "removeFromWishlist": "Remove from wishlist",
+    "inStock": "In stock",
+    "madeToOrder": "Made to order",
+    "currency": "₽",
+    "viewProduct": "View",
+    "price": "Price",
+    "material": "Material",
+    "size": "Size",
+    "color": "Color",
+    "engraving": "Engraving",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "promoCode": "Promo code",
+    "apply": "Apply",
+    "remove": "Remove",
+    "empty": "Nothing here yet",
+    "readMore": "Read more",
+    "close": "Close",
+    "loading": "Loading…",
+    "error": "Something went wrong. Please try again.",
+    "submit": "Submit",
+    "required": "Required",
+    "sendRequest": "Submit request",
+    "requestSent": "Request sent",
+    "backToCatalog": "Back to catalog",
+    "relatedProducts": "You may also like",
+    "reviews": "Reviews",
+    "noReviews": "No reviews yet — be the first to leave your sign.",
+    "filters": "Filters",
+    "sortBy": "Sort by",
+    "clearFilters": "Clear",
+    "sortNewest": "Newest first",
+    "sortPriceAsc": "Price: low to high",
+    "sortPriceDesc": "Price: high to low",
+    "all": "All",
+    "from": "from",
+    "pieces": "pcs",
+    "skipToContent": "Skip to content"
+  },
+  "home": {
+    "heroEyebrow": "19:38",
+    "heroTitle": "Some moments are meant to be noticed",
+    "heroSubtitle": "Some moments are meant to be noticed",
+    "heroCta": "Shop the catalog",
+    "heroSecondaryCta": "About the brand",
+    "signLine1": "Maybe it’s coincidence.",
+    "signLine1Ru": "Maybe it’s coincidence.",
+    "signLine2": "Maybe it’s a sign.",
+    "signLine2Ru": "Maybe it’s a sign.",
+    "signIntro": "19:38 is not just a time. It’s the moment you stop and notice a sign: someone remembers you, someone writes, something ends, something begins.",
+    "bestsellersTitle": "Pieces worth noticing",
+    "bestsellersSubtitle": "The ones people notice first",
+    "aboutTeaserTitle": "Every piece is a personal sign",
+    "aboutTeaserBody": "You don’t just choose a piece of jewelry. You notice it. Every 19:38 piece carries its own number and a message card — it exists only once.",
+    "aboutTeaserCta": "Read the brand story",
+    "trustTitle": "Why 19:38",
+    "trustHandmadeTitle": "Handmade",
+    "trustHandmadeBody": "Natural stones, rhodium, and pearl — every piece is made by hand.",
+    "trustOneOfOneTitle": "One of one",
+    "trustOneOfOneBody": "A numbered piece and a message card make every jewel a near-collectible object.",
+    "trustWorldwideTitle": "Worldwide shipping",
+    "trustWorldwideBody": "We ship orders anywhere in the world.",
+    "trustPersonalTitle": "Personalization",
+    "trustPersonalBody": "Engraving, size, and color — we discuss the details with you individually."
+  },
+  "product": {
+    "oneOfOneBadge": "One of one",
+    "pieceNumberLabel": "Piece",
+    "existsOnceNote": "This piece exists only once.",
+    "messageCardTitle": "Message card",
+    "messageCardBody": "Every piece comes with a card: “What were you thinking about when you found this piece?” — a place for a personal story that stays with the jewelry.",
+    "materialsTitle": "Materials",
+    "careTitle": "Care instructions",
+    "careBody": "Store the piece separately from other jewelry, avoid contact with water, perfume, and chemicals. Wipe gently with a soft cloth.",
+    "deliveryTitle": "Delivery",
+    "deliveryNote": "Production and shipping details are confirmed after your request — we’ll reach out to clarify everything with you.",
+    "descriptionTitle": "Description",
+    "specsTitle": "Specifications",
+    "notFound": "Product not found",
+    "statusMixedNote": "Some pieces are in stock, others made to order; exact status is confirmed when you submit your request."
+  },
+  "catalog": {
+    "title": "Catalog",
+    "subtitle": "Handmade jewelry made from natural stones, rhodium, and pearl",
+    "filterMaterial": "Material",
+    "filterType": "Type",
+    "filterPrice": "Price",
+    "empty": "No pieces match your filters. Try adjusting them.",
+    "resultsCount": "{count} pieces found"
+  },
+  "cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty for now.",
+    "goToCatalog": "Go to catalog",
+    "orderNote": "Online payment isn’t available on the site yet: after you submit your request, we’ll contact you to confirm production, shipping, and payment details.",
+    "itemRemoved": "Item removed from cart",
+    "proceedToOrder": "Submit request"
+  },
+  "wishlist": {
+    "title": "Wishlist",
+    "empty": "You haven’t added any pieces to your wishlist yet.",
+    "moveAllToCart": "Add all to cart"
+  },
+  "order": {
+    "title": "Submit your request",
+    "subtitle": "Leave your contact details — we’ll reach out to confirm your order and discuss production, shipping, and payment.",
+    "name": "Name",
+    "contact": "Phone or e-mail",
+    "contactMethod": "Preferred contact method",
+    "whatsapp": "WhatsApp",
+    "telegram": "Telegram",
+    "phone": "Phone call",
+    "email": "E-mail",
+    "comment": "Order notes",
+    "commentPlaceholder": "Engraving, size, color preferences, etc.",
+    "submit": "Send request",
+    "successTitle": "Request received",
+    "successBody": "Thank you! We’ll contact you shortly to confirm the details of your order.",
+    "orderSummary": "Your order",
+    "promoApplied": "Promo code applied"
+  },
+  "about": {
+    "title": "About the brand",
+    "heroLine": "19:38 — THE SIGN",
+    "storyIntro": "For me, 19:38 is a special time. I started noticing it again and again, in moments when something in my life was about to happen.",
+    "paragraph1": "19:38 is not just a time. It’s the moment you stop and notice a sign. Someone remembers you. Someone writes. Something ends. Something begins. You meet the right person. Or you simply understand something you didn’t before.",
+    "paragraph2": "A 19:38 piece becomes the same kind of personal sign. You don’t just choose it. You notice it.",
+    "quote1": "Some call it angel time. We call it a sign.",
+    "quote1Ru": "Some call it angel time. We call it a sign.",
+    "cardTitle": "Every piece comes with a card",
+    "cardBody": "Front of the card: “19:38 — You noticed it.” Back: “Some moments feel like coincidence. Some feel like a message. Keep the ones that mean something to you.”",
+    "oneOfOneTitle": "One of one",
+    "oneOfOneBody": "Every piece carries a number — like “19:38 / 007” — and the note “This piece exists only once.” It turns the jewelry into a near-collectible object.",
+    "moodTitle": "Brand mood",
+    "moodBody": "A bordeaux bar, silver, pearls, red lipstick, vinyl records, an old phone, notes, mirrors, leather, silk, old photographs, camera flash, watches, natural stones.",
+    "closingLine": "A sign worth keeping."
+  },
+  "shipping": {
+    "title": "Shipping & Payment",
+    "shippingTitle": "Shipping",
+    "shippingBody": "We ship worldwide. Delivery time and cost depend on your country and whether the piece is in stock or made to order — we’ll confirm the details individually once you submit a request.",
+    "paymentTitle": "Payment",
+    "paymentBody": "At this stage, payment is arranged after your order is confirmed by our team, in whichever way is convenient for you. Online payment on the site is coming soon.",
+    "productionTitle": "Made to order",
+    "productionBody": "Some pieces are already in stock and ship within a few days. Made-to-order and personalized pieces (engraving, size, color) are produced individually — timing is discussed when you submit your request."
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What are 19:38 pieces made of?",
+        "a": "We use natural stones, rhodium, and pearl. Materials for each piece are listed on its product page."
+      },
+      {
+        "q": "What does the number on the product card mean?",
+        "a": "Every piece gets its own number (for example, “19:38 / 007”) and exists in a single copy — it’s part of the personal-sign idea."
+      },
+      {
+        "q": "Can I get an engraving or change the size?",
+        "a": "Yes, personalization is available for some pieces: engraving, size, color. Let us know when you submit your request and we’ll work out the details."
+      },
+      {
+        "q": "How do I place an order?",
+        "a": "Add pieces to your cart and submit a request. We’ll contact you to confirm the order and discuss production, shipping, and payment."
+      },
+      {
+        "q": "Do you ship internationally?",
+        "a": "Yes, we ship worldwide. Shipping cost and timing are confirmed individually."
+      },
+      {
+        "q": "Can I return a piece?",
+        "a": "Yes, return conditions are described on the Returns page."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "description": "Have a question about a piece, an order, or a collaboration? Write to us — we’ll get back to you as soon as we can.",
+    "emailLabel": "E-mail",
+    "socialLabel": "Follow us",
+    "formName": "Name",
+    "formEmail": "E-mail",
+    "formMessage": "Message",
+    "formSubmit": "Send message",
+    "formSuccess": "Message sent. Thank you!"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "updated": "Updated: September 2026",
+    "intro": "This section describes how 19:38 Jewelry collects and uses customers’ personal data. Replace this text with a legally reviewed policy before the public launch.",
+    "section1Title": "What data we collect",
+    "section1Body": "Name, contact details (phone, e-mail, messenger), shipping address, and the content of your order request.",
+    "section2Title": "How we use your data",
+    "section2Body": "Data is used solely to process your order, communicate with you, and improve our service. We do not share data with third parties except where required to deliver your order.",
+    "section3Title": "Data retention",
+    "section3Body": "Data is kept for as long as necessary to fulfill your order and meet legal requirements."
+  },
+  "returns": {
+    "title": "Returns",
+    "intro": "Draft terms — review and adjust before publishing.",
+    "section1Title": "Returning an item",
+    "section1Body": "Items in good condition that were not made to a personal order can be returned within 14 days of receipt, provided they keep their original condition and packaging.",
+    "section2Title": "Personalized pieces",
+    "section2Body": "Pieces made to a personal order (engraving, altered size) cannot be returned or exchanged, except in the case of a manufacturing defect.",
+    "section3Title": "How to request a return",
+    "section3Body": "Contact us via the Contact page with your order number and the reason for the return — we’ll guide you through the next steps."
+  },
+  "footer": {
+    "tagline": "A sign worth keeping.",
+    "shop": "Shop",
+    "information": "Information",
+    "followUs": "Follow us",
+    "rights": "All rights reserved.",
+    "newsletterTitle": "Don’t miss the next sign",
+    "newsletterBody": "Occasional notes about new pieces and brand ideas.",
+    "newsletterPlaceholder": "Your e-mail",
+    "newsletterCta": "Subscribe"
+  }
+}
