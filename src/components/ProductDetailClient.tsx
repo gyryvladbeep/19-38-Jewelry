@@ -56,6 +56,7 @@ export default function ProductDetailClient({
         <ProductImagePlaceholder
           type={product.type}
           pieceNumber={product.pieceNumber}
+          images={product.images}
           className="aspect-square w-full"
           iconClassName="w-24 h-24"
         />

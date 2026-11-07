@@ -143,20 +143,19 @@
     "promoApplied": "Promo code applied"
   },
   "about": {
-    "title": "About the brand",
-    "heroLine": "19:38 — THE SIGN",
-    "storyIntro": "For me, 19:38 is a special time. I started noticing it again and again, in moments when something in my life was about to happen.",
-    "paragraph1": "19:38 is not just a time. It’s the moment you stop and notice a sign. Someone remembers you. Someone writes. Something ends. Something begins. You meet the right person. Or you simply understand something you didn’t before.",
-    "paragraph2": "A 19:38 piece becomes the same kind of personal sign. You don’t just choose it. You notice it.",
-    "quote1": "Some call it angel time. We call it a sign.",
-    "quote1Ru": "Some call it angel time. We call it a sign.",
-    "cardTitle": "Every piece comes with a card",
-    "cardBody": "Front of the card: “19:38 — You noticed it.” Back: “Some moments feel like coincidence. Some feel like a message. Keep the ones that mean something to you.”",
-    "oneOfOneTitle": "One of one",
-    "oneOfOneBody": "Every piece carries a number — like “19:38 / 007” — and the note “This piece exists only once.” It turns the jewelry into a near-collectible object.",
-    "moodTitle": "Brand mood",
-    "moodBody": "A bordeaux bar, silver, pearls, red lipstick, vinyl records, an old phone, notes, mirrors, leather, silk, old photographs, camera flash, watches, natural stones.",
-    "closingLine": "A sign worth keeping."
+    "title": "About 19:38 JEWELRY",
+    "heroLine": "A little sign that finds you.",
+    "intro": "Everyone has moments they want to hold onto. For us, one of them is 19:38.",
+    "paragraph1": "For me, this time has always felt special. I started noticing it again and again — in moments when something important was happening in my life. An unexpected meeting, a message from someone I’d just been thinking about, a new beginning, or a quiet realization that could change everything.",
+    "paragraph2": "Over time, 19:38 became more than just numbers on a clock for me. A personal sign — a reminder that sometimes it’s worth pausing, listening to yourself, and noticing what might otherwise go unnoticed.",
+    "quote1": "That’s how the idea of 19:38 JEWELRY was born.",
+    "paragraph3": "We create jewelry that you don’t just want to wear, but want to feel is truly yours. Each piece is a blend of individuality, character, and attention to detail.",
+    "paragraph4": "Our jewelry is handmade in Yerevan, Armenia. We work with natural stones and pearls, paying close attention to their natural beauty, texture, and uniqueness. We’re drawn to vintage aesthetics, expressive details, and a balance of softness and character.",
+    "paragraph5": "We choose small batches and one-of-a-kind pieces because we believe special things don’t have to be mass-produced.",
+    "paragraph6": "For us, a 19:38 piece is more than a detail of your look. It’s a personal symbol, a memory, or a small sign — and its meaning is for you to decide.",
+    "closingBrand": "19:38 JEWELRY",
+    "closingLine": "A little sign that finds you.",
+    "closingNote": "Handmade in Yerevan, with attention to every detail."
   },
   "shipping": {
     "title": "Shipping & Payment",
@@ -177,10 +176,6 @@
       {
         "q": "What does the number on the product card mean?",
         "a": "Every piece gets its own number (for example, “19:38 / 007”) and exists in a single copy — it’s part of the personal-sign idea."
-      },
-      {
-        "q": "Can I get an engraving or change the size?",
-        "a": "Yes, personalization is available for some pieces: engraving, size, color. Let us know when you submit your request and we’ll work out the details."
       },
       {
         "q": "How do I place an order?",

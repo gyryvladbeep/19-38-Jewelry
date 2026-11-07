@@ -2,21 +2,27 @@
 
 import { useMemo } from "react";
 import { useTranslations } from "next-intl";
-import { getProductBySlug } from "@/data/products";
+import type { Product } from "@/data/products";
 import { useStore } from "@/lib/store";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/Button";
 
 export default function WishlistClient() {
   const t = useTranslations("wishlist");
-  const { wishlist, addToCart, hydrated } = useStore();
+  const { wishlist, addToCart, hydrated, getProduct, productsLoaded } = useStore();
 
   const products = useMemo(
-    () => wishlist.map((slug) => getProductBySlug(slug)).filter(Boolean),
-    [wishlist]
-  ) as ReturnType<typeof getProductBySlug>[];
+    () => wishlist.map((slug) => getProduct(slug)).filter((p): p is Product => Boolean(p)),
+    [wishlist, getProduct]
+  );
 
   if (!hydrated) return null;
+
+  if (products.length === 0 && wishlist.length > 0 && !productsLoaded) {
+    // Wishlist has slugs, but the catalog hasn't finished loading yet —
+    // render nothing rather than flashing an "empty wishlist" message.
+    return null;
+  }
 
   if (products.length === 0) {
     return (

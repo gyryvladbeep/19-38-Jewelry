@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+// Copy on this page is editable from /admin -> Content; re-checked every
+// minute so edits appear without a redeploy. See src/lib/content.ts.
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
 }: {

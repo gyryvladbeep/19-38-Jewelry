@@ -2,7 +2,6 @@
 
 import { useMemo, useState, type FormEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { getProductBySlug } from "@/data/products";
 import { getPromoDiscount } from "@/data/promocodes";
 import { formatPrice } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -14,7 +13,7 @@ export default function OrderClient() {
   const locale = useLocale() as "ru" | "en";
   const t = useTranslations("order");
   const tc = useTranslations("common");
-  const { cart, promoCode, clearCart, hydrated } = useStore();
+  const { cart, promoCode, clearCart, hydrated, getProduct } = useStore();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
@@ -23,11 +22,11 @@ export default function OrderClient() {
   const lines = useMemo(
     () =>
       cart
-        .map((line) => ({ line, product: getProductBySlug(line.slug) }))
+        .map((line) => ({ line, product: getProduct(line.slug) }))
         .filter((e): e is { line: typeof e.line; product: NonNullable<typeof e.product> } =>
           Boolean(e.product)
         ),
-    [cart]
+    [cart, getProduct]
   );
 
   const subtotal = lines.reduce(
@@ -71,6 +70,12 @@ export default function OrderClient() {
   }
 
   if (!hydrated) return null;
+
+  if (lines.length === 0 && cart.length > 0) {
+    // Cart has slugs, but the catalog hasn't finished loading yet —
+    // render nothing rather than flashing an "empty cart" message.
+    return null;
+  }
 
   if (status === "sent") {
     return (

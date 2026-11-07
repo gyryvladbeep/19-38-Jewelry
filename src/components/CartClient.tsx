@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { getProductBySlug } from "@/data/products";
 import { getPromoDiscount } from "@/data/promocodes";
 import { formatPrice } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -15,7 +14,7 @@ export default function CartClient() {
   const locale = useLocale() as "ru" | "en";
   const t = useTranslations("cart");
   const tc = useTranslations("common");
-  const { cart, setQuantity, removeFromCart, promoCode, setPromoCode, hydrated } =
+  const { cart, setQuantity, removeFromCart, promoCode, setPromoCode, hydrated, getProduct } =
     useStore();
   const [promoInput, setPromoInput] = useState(promoCode ?? "");
   const [promoMessage, setPromoMessage] = useState<string | null>(null);
@@ -23,11 +22,11 @@ export default function CartClient() {
   const lines = useMemo(
     () =>
       cart
-        .map((line) => ({ line, product: getProductBySlug(line.slug) }))
+        .map((line) => ({ line, product: getProduct(line.slug) }))
         .filter((entry): entry is { line: typeof entry.line; product: NonNullable<typeof entry.product> } =>
           Boolean(entry.product)
         ),
-    [cart]
+    [cart, getProduct]
   );
 
   const subtotal = lines.reduce(
@@ -50,6 +49,13 @@ export default function CartClient() {
   }
 
   if (!hydrated) return null;
+
+  if (lines.length === 0 && cart.length > 0) {
+    // Products haven't finished loading yet (cart has slugs, but
+    // getProduct() can't resolve them until /api/products responds) —
+    // render nothing rather than flashing an "empty cart" message.
+    return null;
+  }
 
   if (lines.length === 0) {
     return (
@@ -77,6 +83,7 @@ export default function CartClient() {
                   <ProductImagePlaceholder
                     type={product.type}
                     pieceNumber={product.pieceNumber}
+                    images={product.images}
                     className="h-24 w-24"
                     iconClassName="w-8 h-8"
                   />

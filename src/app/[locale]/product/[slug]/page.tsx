@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ProductDetailClient from "@/components/ProductDetailClient";
-import { getProductBySlug, getRelatedProducts, products } from "@/data/products";
+import { fetchProducts, getProductBySlug, getRelatedProducts } from "@/data/products";
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
-}
+// Products can be added/edited any time through /admin, so this page is
+// rendered on demand (no generateStaticParams) and revalidated every
+// minute rather than only at build/deploy time.
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -14,7 +15,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { locale, slug } = await params;
-  const product = getProductBySlug(slug);
+  const products = await fetchProducts();
+  const product = getProductBySlug(products, slug);
   if (!product) return {};
   const content = product[locale === "ru" ? "ru" : "en"];
   return {
@@ -32,12 +34,13 @@ export default async function ProductPage({
   setRequestLocale(locale);
   await getTranslations("product");
 
-  const product = getProductBySlug(slug);
+  const products = await fetchProducts();
+  const product = getProductBySlug(products, slug);
   if (!product) {
     notFound();
   }
 
-  const related = getRelatedProducts(product);
+  const related = getRelatedProducts(products, product);
 
   return <ProductDetailClient product={product} related={related} />;
 }

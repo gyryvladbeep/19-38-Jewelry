@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import CatalogClient from "@/components/CatalogClient";
-import { products } from "@/data/products";
+import { fetchProducts } from "@/data/products";
+
+export const revalidate = 60;
 
 export async function generateMetadata({
   params,
@@ -21,6 +23,7 @@ export default async function CatalogPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("catalog");
+  const products = await fetchProducts();
 
   return (
     <div className="container-content py-12 md:py-16">

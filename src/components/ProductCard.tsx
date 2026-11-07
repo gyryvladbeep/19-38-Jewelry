@@ -24,6 +24,7 @@ export default function ProductCard({ product }: { product: Product }) {
           <ProductImagePlaceholder
             type={product.type}
             pieceNumber={product.pieceNumber}
+            images={product.images}
             className="aspect-square w-full transition-opacity duration-300 group-hover:opacity-90"
           />
         </Link>

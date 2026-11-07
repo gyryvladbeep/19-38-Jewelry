@@ -3,7 +3,9 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import ProductCard from "@/components/ProductCard";
-import { getBestsellers } from "@/data/products";
+import { fetchProducts, getBestsellers } from "@/data/products";
+
+export const revalidate = 60;
 
 export default async function HomePage({
   params,
@@ -14,7 +16,8 @@ export default async function HomePage({
   setRequestLocale(locale);
 
   const t = await getTranslations("home");
-  const bestsellers = getBestsellers();
+  const products = await fetchProducts();
+  const bestsellers = getBestsellers(products);
 
   return (
     <>

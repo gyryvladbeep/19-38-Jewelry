@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
-import { products } from "@/data/products";
+import { fetchProducts } from "@/data/products";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 
@@ -15,7 +15,8 @@ const staticPaths = [
   "/returns",
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const products = await fetchProducts();
   const entries: MetadataRoute.Sitemap = [];
 
   for (const locale of routing.locales) {

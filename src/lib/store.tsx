@@ -9,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import type { Product } from "@/data/products";
 
 const CART_KEY = "1938-jewelry:cart";
 const WISHLIST_KEY = "1938-jewelry:wishlist";
@@ -34,6 +35,18 @@ interface StoreContextValue {
   hydrated: boolean;
   promoCode: string | null;
   setPromoCode: (code: string | null) => void;
+  /**
+   * The full product catalog, fetched once from /api/products on mount.
+   * Cart/wishlist/order only ever store slugs in localStorage, so client
+   * components that need full product details (price, name, images) for
+   * an arbitrary slug — rather than the server-rendered list a page
+   * already passed them — read it from here instead of importing
+   * src/data/products.ts directly (that module is server-only, since the
+   * catalog may live in Supabase).
+   */
+  products: Product[];
+  productsLoaded: boolean;
+  getProduct: (slug: string) => Product | undefined;
 }
 
 const StoreContext = createContext<StoreContextValue | null>(null);
@@ -53,6 +66,32 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [promoCode, setPromoCodeState] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [productsLoaded, setProductsLoaded] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/products")
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data: Product[]) => {
+        if (!cancelled) setProducts(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        // best-effort — cart/wishlist pages just show nothing for an
+        // unresolvable slug until the next successful fetch
+      })
+      .finally(() => {
+        if (!cancelled) setProductsLoaded(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const getProduct = useCallback(
+    (slug: string) => products.find((p) => p.slug === slug),
+    [products]
+  );
 
   // Hydrate from localStorage on mount only, deliberately inside an effect:
   // the server (and the client's first render) must match with an empty
@@ -156,6 +195,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       hydrated,
       promoCode,
       setPromoCode,
+      products,
+      productsLoaded,
+      getProduct,
     }),
     [
       cart,
@@ -169,6 +211,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       hydrated,
       promoCode,
       setPromoCode,
+      products,
+      productsLoaded,
+      getProduct,
     ]
   );
 

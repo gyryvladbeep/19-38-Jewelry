@@ -3,6 +3,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import ContactForm from "@/components/ContactForm";
 import { InstagramIcon, TelegramIcon } from "@/components/icons";
 
+// The description line is editable from /admin -> Content; re-checked
+// every minute so edits appear without a redeploy. See src/lib/content.ts.
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
 }: {

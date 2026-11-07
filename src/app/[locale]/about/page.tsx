@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+// Copy on this page is editable from /admin -> Content; re-checked every
+// minute so edits appear without a redeploy. See src/lib/content.ts.
+export const revalidate = 60;
+
 export async function generateMetadata({
   params,
 }: {
@@ -42,25 +46,16 @@ export default async function AboutPage({
       </section>
 
       <section className="container-content max-w-2xl py-16 md:py-24">
-        <p className="font-script text-2xl text-burgundy">{t("storyIntro")}</p>
+        <p className="font-script text-2xl text-burgundy">{t("intro")}</p>
         <p className="mt-8 leading-relaxed text-ink">{t("paragraph1")}</p>
         <p className="mt-6 leading-relaxed text-ink">{t("paragraph2")}</p>
         <p className="mt-8 border-l-2 border-burgundy pl-5 text-lg italic text-muted">
           {t("quote1")}
         </p>
-      </section>
-
-      <section className="border-y border-line bg-surface py-16 md:py-24">
-        <div className="container-content grid gap-12 md:grid-cols-2">
-          <div>
-            <h2 className="text-xl text-burgundy">{t("oneOfOneTitle")}</h2>
-            <p className="mt-4 leading-relaxed text-ink">{t("oneOfOneBody")}</p>
-          </div>
-          <div>
-            <h2 className="text-xl text-burgundy">{t("cardTitle")}</h2>
-            <p className="mt-4 leading-relaxed text-ink">{t("cardBody")}</p>
-          </div>
-        </div>
+        <p className="mt-8 leading-relaxed text-ink">{t("paragraph3")}</p>
+        <p className="mt-6 leading-relaxed text-ink">{t("paragraph4")}</p>
+        <p className="mt-6 leading-relaxed text-ink">{t("paragraph5")}</p>
+        <p className="mt-6 leading-relaxed text-ink">{t("paragraph6")}</p>
       </section>
 
       <section className="relative overflow-hidden bg-burgundy-deep py-16 text-on-dark md:py-24">
@@ -73,10 +68,10 @@ export default async function AboutPage({
         />
         <div className="container-content relative max-w-xl">
           <h2 className="text-xl uppercase tracking-[0.14em] text-on-dark-muted">
-            {t("moodTitle")}
+            {t("closingBrand")}
           </h2>
-          <p className="mt-4 text-lg leading-relaxed">{t("moodBody")}</p>
-          <p className="mt-10 font-script text-3xl">{t("closingLine")}</p>
+          <p className="mt-4 font-script text-3xl">{t("closingLine")}</p>
+          <p className="mt-6 text-lg leading-relaxed">{t("closingNote")}</p>
         </div>
       </section>
     </div>
