@@ -85,10 +85,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-start justify-between gap-6 border-t border-white/10 pt-8 text-xs text-on-dark-muted md:flex-row md:items-center">
-          <p>
-            &copy; {year} 19:38 Jewelry. {t("rights")}
-          </p>
+        <div className="mt-16 flex flex-col items-center gap-6 border-t border-white/10 pt-8 text-xs text-on-dark-muted">
           <div className="flex items-center gap-4">
             <span className="uppercase tracking-[0.2em]">{t("followUs")}</span>
             <a href="#" aria-label="Instagram" className="hover:text-on-dark">
@@ -98,6 +95,9 @@ export default function Footer() {
               <TelegramIcon className="h-4 w-4" />
             </a>
           </div>
+          <p>
+            &copy; {year} 19:38 Jewelry. {t("rights")}
+          </p>
         </div>
       </div>
     </footer>

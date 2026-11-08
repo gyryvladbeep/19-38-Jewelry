@@ -38,36 +38,40 @@ export default function Header() {
         >
           {tc("skipToContent")}
         </a>
-        <div className="container-content flex h-16 items-center justify-between md:h-20">
-          <button
-            type="button"
-            onClick={() => setMenuOpen(true)}
-            className="flex h-9 w-9 items-center justify-center lg:hidden"
-            aria-label={t("menu")}
-          >
-            <MenuIcon className="h-5 w-5" />
-          </button>
+        <div className="container-content grid h-16 grid-cols-[auto_1fr_auto] items-center gap-4 md:h-20">
+          <div className="flex items-center gap-8">
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              className="flex h-9 w-9 items-center justify-center lg:hidden"
+              aria-label={t("menu")}
+            >
+              <MenuIcon className="h-5 w-5" />
+            </button>
 
-          <Logo className="text-ink" />
+            <nav className="hidden items-center gap-8 lg:flex">
+              {navItems.map((item) => {
+                const active = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`text-xs uppercase tracking-[0.14em] transition-colors ${
+                      active ? "text-burgundy" : "text-ink hover:text-burgundy"
+                    }`}
+                  >
+                    {t(item.key)}
+                  </Link>
+                );
+              })}
+            </nav>
+          </div>
 
-          <nav className="hidden items-center gap-8 lg:flex">
-            {navItems.map((item) => {
-              const active = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`text-xs uppercase tracking-[0.14em] transition-colors ${
-                    active ? "text-burgundy" : "text-ink hover:text-burgundy"
-                  }`}
-                >
-                  {t(item.key)}
-                </Link>
-              );
-            })}
-          </nav>
+          <div className="flex justify-center">
+            <Logo className="text-ink" />
+          </div>
 
-          <div className="flex items-center gap-4 md:gap-5">
+          <div className="flex items-center justify-end gap-4 md:gap-5">
             <LanguageSwitcher className="hidden sm:flex" />
             <Link
               href="/wishlist"

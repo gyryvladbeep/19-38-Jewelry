@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
+import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import type { Product } from "@/data/products";
 import { formatPrice, materialLabels, personalizationLabels } from "@/lib/format";
 import { useStore } from "@/lib/store";
@@ -36,6 +38,7 @@ export default function ProductDetailClient({
 
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [added, setAdded] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
 
   const noteSummary = useMemo(() => {
     return product.personalization
@@ -51,15 +54,49 @@ export default function ProductDetailClient({
   }
 
   return (
-    <div className="container-content pb-28 pt-10 md:pb-16 md:pt-16">
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
-        <ProductImagePlaceholder
-          type={product.type}
-          pieceNumber={product.pieceNumber}
-          images={product.images}
-          className="aspect-square w-full"
-          iconClassName="w-24 h-24"
-        />
+    <div className="container-content pb-28 pt-6 md:pb-16 md:pt-10">
+      <Link
+        href="/catalog"
+        className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-muted hover:text-burgundy"
+      >
+        ← {t("backToCatalog")}
+      </Link>
+
+      <div className="mt-6 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
+        <div>
+          {product.images[activeImage] ? (
+            <div className="relative aspect-square w-full overflow-hidden bg-burgundy-tint">
+              <Image src={product.images[activeImage]} alt="" fill className="object-cover" />
+            </div>
+          ) : (
+            <ProductImagePlaceholder
+              type={product.type}
+              pieceNumber={product.pieceNumber}
+              images={[]}
+              className="aspect-square w-full"
+              iconClassName="w-24 h-24"
+            />
+          )}
+
+          {product.images.length > 1 && (
+            <div className="mt-3 flex gap-3">
+              {product.images.map((src, i) => (
+                <button
+                  key={src + i}
+                  type="button"
+                  onClick={() => setActiveImage(i)}
+                  aria-label={`${content.name} — ${i + 1}`}
+                  aria-current={i === activeImage}
+                  className={`relative h-16 w-16 shrink-0 overflow-hidden bg-burgundy-tint ${
+                    i === activeImage ? "ring-1 ring-ink" : "opacity-70 hover:opacity-100"
+                  }`}
+                >
+                  <Image src={src} alt="" fill className="object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         <div>
           <div className="flex flex-wrap gap-2">
