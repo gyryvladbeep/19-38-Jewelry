@@ -20,7 +20,7 @@ const sizeClasses: Record<Size, string> = {
 };
 
 const baseClasses =
-  "inline-flex items-center justify-center gap-2 uppercase tracking-[0.14em] font-medium transition-colors duration-200 disabled:opacity-40 disabled:pointer-events-none";
+  "inline-flex items-center justify-center gap-2 rounded-full uppercase tracking-[0.14em] font-medium transition-colors duration-200 disabled:opacity-40 disabled:pointer-events-none";
 
 interface ButtonProps {
   variant?: Variant;

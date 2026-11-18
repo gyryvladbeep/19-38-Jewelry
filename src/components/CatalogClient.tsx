@@ -90,7 +90,7 @@ export default function CatalogClient({ products }: { products: Product[] }) {
       {filtered.length === 0 ? (
         <p className="py-16 text-center text-sm text-muted">{t("empty")}</p>
       ) : (
-        <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-x-px gap-y-12 sm:grid-cols-3 lg:grid-cols-4">
           {filtered.map((product) => (
             <ProductCard key={product.slug} product={product} />
           ))}

@@ -19,7 +19,7 @@ import "../globals.css";
  * copy — see README.md ("Fonts").
  */
 const GOOGLE_FONTS_HREF =
-  "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Permanent+Marker&display=swap";
+  "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap";
 
 export async function generateMetadata({
   params,

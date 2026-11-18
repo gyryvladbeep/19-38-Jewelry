@@ -125,7 +125,7 @@ export default function ProductDetailClient({
             </Badge>
           </div>
 
-          <h1 className="mt-4 text-3xl md:text-4xl">{content.name}</h1>
+          <h1 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">{content.name}</h1>
           <p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted">
             {tp("pieceNumberLabel")} 19:38 / {product.pieceNumber}
           </p>
@@ -233,8 +233,8 @@ export default function ProductDetailClient({
       {/* Related products */}
       {related.length > 0 && (
         <section className="mt-20 border-t border-line pt-10">
-          <h2 className="text-2xl">{t("relatedProducts")}</h2>
-          <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+          <h2 className="text-2xl font-black tracking-tight">{t("relatedProducts")}</h2>
+          <div className="mt-8 grid grid-cols-2 gap-x-px gap-y-12 md:grid-cols-4">
             {related.map((p) => (
               <ProductCard key={p.slug} product={p} />
             ))}

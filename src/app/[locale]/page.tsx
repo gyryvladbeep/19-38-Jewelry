@@ -22,7 +22,7 @@ export default async function HomePage({
   return (
     <>
       {/* Hero — dark atmospheric block */}
-      <section className="relative flex min-h-[88vh] items-end overflow-hidden bg-burgundy-deep text-on-dark">
+      <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-burgundy-deep text-on-dark">
         <Image
           src="/brand/mood-texture.jpg"
           alt=""
@@ -36,7 +36,7 @@ export default async function HomePage({
           <p className="font-script text-2xl text-on-dark-muted md:text-3xl">
             {t("heroEyebrow")}
           </p>
-          <h1 className="mt-3 max-w-2xl text-4xl leading-[1.1] md:text-6xl">
+          <h1 className="mt-3 max-w-3xl text-5xl font-black leading-[0.98] tracking-tight md:text-7xl lg:text-8xl">
             {t("heroTitle")}
           </h1>
           <p className="mt-5 max-w-md text-sm text-on-dark-muted md:text-base">
@@ -75,7 +75,7 @@ export default async function HomePage({
       <section className="container-content pb-20 md:pb-28">
         <div className="mb-10 flex flex-col items-start justify-between gap-4 border-b border-line pb-6 md:flex-row md:items-end">
           <div>
-            <h2 className="text-2xl md:text-3xl">{t("bestsellersTitle")}</h2>
+            <h2 className="text-3xl font-black tracking-tight md:text-4xl">{t("bestsellersTitle")}</h2>
             <p className="mt-2 text-sm text-muted">{t("bestsellersSubtitle")}</p>
           </div>
           <Link
@@ -85,7 +85,7 @@ export default async function HomePage({
             {t("heroCta")}
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-px gap-y-12 md:grid-cols-4">
           {bestsellers.map((product) => (
             <ProductCard key={product.slug} product={product} />
           ))}
@@ -103,7 +103,7 @@ export default async function HomePage({
         />
         <div className="container-content relative grid gap-10 md:grid-cols-2 md:items-center">
           <div>
-            <h2 className="text-3xl leading-tight md:text-4xl">
+            <h2 className="text-3xl font-black leading-tight tracking-tight md:text-4xl">
               {t("aboutTeaserTitle")}
             </h2>
             <p className="mt-5 max-w-md text-on-dark-muted">
@@ -128,7 +128,7 @@ export default async function HomePage({
 
       {/* Trust block */}
       <section className="container-content py-20 md:py-28">
-        <h2 className="text-center text-2xl md:text-3xl">{t("trustTitle")}</h2>
+        <h2 className="text-center text-3xl font-black tracking-tight md:text-4xl">{t("trustTitle")}</h2>
         <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {(
             [

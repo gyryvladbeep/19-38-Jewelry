@@ -22,7 +22,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs uppercase tracking-[0.2em] text-on-dark-muted">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-on-dark-muted">
               {t("shop")}
             </h3>
             <ul className="mt-4 space-y-3 text-sm">
@@ -45,7 +45,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="text-xs uppercase tracking-[0.2em] text-on-dark-muted">
+            <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-on-dark-muted">
               {t("information")}
             </h3>
             <ul className="mt-4 space-y-3 text-sm">
@@ -85,11 +85,19 @@ export default function Footer() {
 
         <div className="mt-16 flex flex-col items-center gap-6 border-t border-white/10 pt-8 text-xs text-on-dark-muted">
           <div className="flex items-center gap-4">
-            <span className="uppercase tracking-[0.2em]">{t("followUs")}</span>
-            <a href="#" aria-label="Instagram" className="hover:text-on-dark">
+            <span className="font-bold uppercase tracking-[0.2em]">{t("followUs")}</span>
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-on-dark hover:text-on-dark"
+            >
               <InstagramIcon className="h-4 w-4" />
             </a>
-            <a href="#" aria-label="Telegram" className="hover:text-on-dark">
+            <a
+              href="#"
+              aria-label="Telegram"
+              className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-on-dark hover:text-on-dark"
+            >
               <TelegramIcon className="h-4 w-4" />
             </a>
           </div>

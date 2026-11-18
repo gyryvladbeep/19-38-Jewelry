@@ -65,8 +65,8 @@ export default function ProductCard({ product }: { product: Product }) {
         </button>
       </div>
 
-      <Link href={`/product/${product.slug}`} className="mt-4 flex flex-col gap-1">
-        <span className="text-sm text-ink">{content.name}</span>
+      <Link href={`/product/${product.slug}`} className="mt-4 flex flex-col gap-1 px-1">
+        <span className="text-sm font-black tracking-tight text-ink md:text-base">{content.name}</span>
         {onSale ? (
           <span className="flex items-center gap-2 text-sm">
             <span className="text-muted line-through">{formatPrice(product.price, locale)}</span>
