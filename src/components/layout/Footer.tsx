@@ -15,9 +15,7 @@ export default function Footer() {
       <div className="container-content py-16">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="[&_a]:text-on-dark">
-              <Logo />
-            </div>
+            <Logo variant="light" />
             <p className="mt-4 max-w-xs font-script text-2xl text-on-dark-muted">
               {t("tagline")}
             </p>

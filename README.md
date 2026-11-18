@@ -35,16 +35,20 @@ npm run lint    # ESLint
 {
   slug: "pearl-drop-necklace",     // используется в URL /product/<slug>
   pieceNumber: "007",               // номер экземпляра (19:38 / 007)
-  price: 9200,                      // цена в рублях (число)
+  price: 9200,                      // цена в драмах, ֏ (число)
+  salePrice: 7500,                  // цена со скидкой — показывается только если "sale" в collections
   type: "necklace",                 // ring | necklace | earrings | bracelet
-  materials: ["pearl", "rhodium"],  // stone | pearl | rhodium
+  materials: "жемчуг, родий",       // свободный текст, вводится в админке
+  size: "",                         // свободный текст (размер изделия), вводится в админке
   availability: "in_stock",         // in_stock | made_to_order
   personalization: ["size"],        // engraving | size | color (пусто — без персонализации)
   bestseller: true,                 // показывать на главной в "Заметные вещи"
+  editionType: "one_of_one",        // none | one_of_one | limited — плашка на товаре
+  collections: ["signature_piece"], // signature_piece | new | sale — товар может быть в нескольких
   images: ["https://....supabase.co/storage/v1/object/public/media/products/..."],
   reviews: [ { author, rating, ru, en } ],
-  ru: { name, shortDescription, description },
-  en: { name, shortDescription, description },
+  ru: { name, description },
+  en: { name, description },
 }
 ```
 

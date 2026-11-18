@@ -5,12 +5,18 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { Product } from "@/data/products";
-import { formatPrice, materialLabels, personalizationLabels } from "@/lib/format";
+import {
+  collectionLabels,
+  editionLabels,
+  editionNotes,
+  formatPrice,
+  personalizationLabels,
+} from "@/lib/format";
 import { useStore } from "@/lib/store";
 import ProductImagePlaceholder from "@/components/ProductImagePlaceholder";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { HeartIcon, StarIcon, CheckIcon } from "@/components/icons";
+import { HeartIcon, CheckIcon } from "@/components/icons";
 import ProductCard from "@/components/ProductCard";
 
 const personalizationFieldLabel: Record<
@@ -39,6 +45,8 @@ export default function ProductDetailClient({
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [added, setAdded] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
+
+  const onSale = product.collections.includes("sale") && Boolean(product.salePrice);
 
   const noteSummary = useMemo(() => {
     return product.personalization
@@ -100,7 +108,18 @@ export default function ProductDetailClient({
 
         <div>
           <div className="flex flex-wrap gap-2">
-            <Badge tone="burgundy">{tp("oneOfOneBadge")}</Badge>
+            {product.editionType !== "none" && (
+              <Badge tone="burgundy">{editionLabels[product.editionType]}</Badge>
+            )}
+            {product.collections.includes("sale") && (
+              <Badge tone="ink">{collectionLabels.sale}</Badge>
+            )}
+            {product.collections.includes("new") && (
+              <Badge tone="outline">{collectionLabels.new}</Badge>
+            )}
+            {product.collections.includes("signature_piece") && (
+              <Badge tone="outline">{collectionLabels.signature_piece}</Badge>
+            )}
             <Badge tone="outline">
               {product.availability === "in_stock" ? t("inStock") : t("madeToOrder")}
             </Badge>
@@ -110,21 +129,39 @@ export default function ProductDetailClient({
           <p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted">
             {tp("pieceNumberLabel")} 19:38 / {product.pieceNumber}
           </p>
-          <p className="mt-6 text-2xl text-ink">{formatPrice(product.price, locale)}</p>
+
+          {onSale ? (
+            <p className="mt-6 flex items-center gap-3 text-2xl">
+              <span className="text-muted line-through">{formatPrice(product.price, locale)}</span>
+              <span className="text-burgundy">{formatPrice(product.salePrice as number, locale)}</span>
+            </p>
+          ) : (
+            <p className="mt-6 text-2xl text-ink">{formatPrice(product.price, locale)}</p>
+          )}
+
+          {product.editionType !== "none" && (
+            <p className="mt-2 text-xs uppercase tracking-[0.08em] text-muted">
+              {editionLabels[product.editionType]} — {editionNotes[product.editionType][locale]}
+            </p>
+          )}
 
           <p className="mt-6 leading-relaxed text-ink">{content.description}</p>
 
-          <div className="mt-6">
-            <h2 className="text-xs uppercase tracking-[0.14em] text-muted">
-              {tp("materialsTitle")}
-            </h2>
-            <p className="mt-2 text-sm text-ink">
-              {product.materials
-                .map((m) => materialLabels[m][locale])
-                .filter((v, i, arr) => arr.indexOf(v) === i)
-                .join(", ")}
-            </p>
-          </div>
+          {product.materials && (
+            <div className="mt-6">
+              <h2 className="text-xs uppercase tracking-[0.14em] text-muted">
+                {tp("materialsTitle")}
+              </h2>
+              <p className="mt-2 text-sm text-ink">{product.materials}</p>
+            </div>
+          )}
+
+          {product.size && (
+            <div className="mt-6">
+              <h2 className="text-xs uppercase tracking-[0.14em] text-muted">{t("size")}</h2>
+              <p className="mt-2 text-sm text-ink">{product.size}</p>
+            </div>
+          )}
 
           {product.personalization.length > 0 && (
             <div className="mt-8 space-y-4 border-t border-line pt-6">
@@ -172,19 +209,6 @@ export default function ProductDetailClient({
             </p>
           )}
 
-          {/* Message card concept */}
-          <div className="mt-10 border border-line bg-surface p-6">
-            <h2 className="text-sm uppercase tracking-[0.14em] text-burgundy">
-              {tp("messageCardTitle")}
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-ink">
-              {tp("messageCardBody")}
-            </p>
-            <p className="mt-3 text-xs uppercase tracking-[0.1em] text-muted">
-              {tp("existsOnceNote")}
-            </p>
-          </div>
-
           <div className="mt-8 divide-y divide-line border-t border-b border-line">
             <details className="group py-4">
               <summary className="flex cursor-pointer list-none items-center justify-between text-sm">
@@ -206,36 +230,6 @@ export default function ProductDetailClient({
         </div>
       </div>
 
-      {/* Reviews */}
-      <section className="mt-20 border-t border-line pt-10">
-        <h2 className="text-2xl">{t("reviews")}</h2>
-        {product.reviews.length === 0 ? (
-          <p className="mt-4 text-sm text-muted">{t("noReviews")}</p>
-        ) : (
-          <ul className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {product.reviews.map((review, i) => (
-              <li key={i} className="border border-line p-5">
-                <div className="flex items-center gap-1 text-burgundy">
-                  {Array.from({ length: 5 }).map((_, starIndex) => (
-                    <StarIcon
-                      key={starIndex}
-                      filled={starIndex < review.rating}
-                      className="h-4 w-4"
-                    />
-                  ))}
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-ink">
-                  {locale === "ru" ? review.ru : review.en}
-                </p>
-                <p className="mt-3 text-xs uppercase tracking-[0.1em] text-muted">
-                  {review.author}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
-
       {/* Related products */}
       {related.length > 0 && (
         <section className="mt-20 border-t border-line pt-10">
@@ -250,7 +244,9 @@ export default function ProductDetailClient({
 
       {/* Sticky add-to-cart bar — mobile only */}
       <div className="fixed inset-x-0 bottom-0 z-30 flex items-center justify-between gap-4 border-t border-line bg-paper/95 px-4 py-3 backdrop-blur md:hidden">
-        <span className="text-sm text-ink">{formatPrice(product.price, locale)}</span>
+        <span className="text-sm text-ink">
+          {onSale ? formatPrice(product.salePrice as number, locale) : formatPrice(product.price, locale)}
+        </span>
         <Button onClick={handleAddToCart} size="sm" className="flex-1 max-w-[220px]">
           {added ? t("addedToCart") : t("addToCart")}
         </Button>

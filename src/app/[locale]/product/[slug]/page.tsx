@@ -21,7 +21,7 @@ export async function generateMetadata({
   const content = product[locale === "ru" ? "ru" : "en"];
   return {
     title: content.name,
-    description: content.shortDescription,
+    description: content.description,
   };
 }
 

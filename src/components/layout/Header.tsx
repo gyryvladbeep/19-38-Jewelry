@@ -68,7 +68,7 @@ export default function Header() {
           </div>
 
           <div className="flex justify-center">
-            <Logo className="text-ink" />
+            <Logo />
           </div>
 
           <div className="flex items-center justify-end gap-4 md:gap-5">
@@ -104,7 +104,7 @@ export default function Header() {
       {menuOpen && (
         <div className="fixed inset-0 z-50 flex flex-col bg-paper lg:hidden">
           <div className="container-content flex h-16 items-center justify-between">
-            <Logo className="text-ink" />
+            <Logo />
             <button
               type="button"
               onClick={() => setMenuOpen(false)}

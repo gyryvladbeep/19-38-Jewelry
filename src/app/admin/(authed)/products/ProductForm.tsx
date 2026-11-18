@@ -12,10 +12,16 @@ const typeOptions: { value: Product["type"]; label: string }[] = [
   { value: "bracelet", label: "Браслет" },
 ];
 
-const materialOptions: { value: Product["materials"][number]; label: string }[] = [
-  { value: "stone", label: "Натуральный камень" },
-  { value: "pearl", label: "Жемчуг" },
-  { value: "rhodium", label: "Родий" },
+const editionOptions: { value: Product["editionType"]; label: string }[] = [
+  { value: "none", label: "Нет" },
+  { value: "one_of_one", label: "One of One" },
+  { value: "limited", label: "Limited Edition" },
+];
+
+const collectionOptions: { value: Product["collections"][number]; label: string }[] = [
+  { value: "signature_piece", label: "Signature Piece" },
+  { value: "new", label: "New" },
+  { value: "sale", label: "Sale" },
 ];
 
 const personalizationOptions: { value: Product["personalization"][number]; label: string }[] = [
@@ -34,6 +40,7 @@ const initialDeleteState: ActionResult<null> | null = null;
 export default function ProductForm({ product }: { product?: Product }) {
   const router = useRouter();
   const [keepImages, setKeepImages] = useState<string[]>(product?.images ?? []);
+  const [collections, setCollections] = useState<string[]>(product?.collections ?? []);
   const [saveState, saveAction, saving] = useActionState(saveProduct, initialSaveState);
   const [deleteState, deleteAction, deleting] = useActionState(deleteProduct, initialDeleteState);
 
@@ -56,6 +63,7 @@ export default function ProductForm({ product }: { product?: Product }) {
   }, [deleteState, router]);
 
   const error = (saveState && !saveState.ok && saveState.error) || (deleteState && !deleteState.ok && deleteState.error) || null;
+  const saleSelected = collections.includes("sale");
 
   return (
     <div className="max-w-3xl space-y-10">
@@ -92,7 +100,7 @@ export default function ProductForm({ product }: { product?: Product }) {
             </div>
             <div>
               <label className={labelClass} htmlFor="price">
-                Цена, ₽
+                Цена, ֏
               </label>
               <input
                 id="price"
@@ -102,6 +110,21 @@ export default function ProductForm({ product }: { product?: Product }) {
                 step={1}
                 defaultValue={product?.price}
                 required
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass} htmlFor="salePrice">
+                Цена со скидкой, ֏ (для коллекции Sale)
+              </label>
+              <input
+                id="salePrice"
+                name="salePrice"
+                type="number"
+                min={0}
+                step={1}
+                defaultValue={product?.salePrice ?? ""}
+                placeholder="необязательно"
                 className={inputClass}
               />
             </div>
@@ -131,6 +154,26 @@ export default function ProductForm({ product }: { product?: Product }) {
                 <option value="made_to_order">Под заказ</option>
               </select>
             </div>
+            <div>
+              <label className={labelClass} htmlFor="editionType">
+                Тип тиража (плашка)
+              </label>
+              <select
+                id="editionType"
+                name="editionType"
+                defaultValue={product?.editionType ?? "none"}
+                className={inputClass}
+              >
+                {editionOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <p className="mt-1 text-xs text-muted">
+                Limited Edition — не забудьте указать количество экземпляров в описании товара.
+              </p>
+            </div>
             <label className="mt-6 flex items-center gap-2 text-sm text-ink">
               <input
                 type="checkbox"
@@ -143,20 +186,60 @@ export default function ProductForm({ product }: { product?: Product }) {
           </div>
 
           <div className="mt-5">
-            <span className={labelClass}>Материалы</span>
+            <span className={labelClass}>Коллекции</span>
             <div className="mt-2 flex flex-wrap gap-4">
-              {materialOptions.map((opt) => (
+              {collectionOptions.map((opt) => (
                 <label key={opt.value} className="flex items-center gap-2 text-sm">
                   <input
                     type="checkbox"
-                    name="materials"
+                    name="collections"
                     value={opt.value}
-                    defaultChecked={product?.materials.includes(opt.value)}
+                    defaultChecked={product?.collections.includes(opt.value)}
+                    onChange={(e) =>
+                      setCollections((prev) =>
+                        e.target.checked
+                          ? [...prev, opt.value]
+                          : prev.filter((v) => v !== opt.value)
+                      )
+                    }
                     className="h-4 w-4 accent-burgundy"
                   />
                   {opt.label}
                 </label>
               ))}
+            </div>
+            {saleSelected && (
+              <p className="mt-2 text-xs text-muted">
+                Товар отмечен как Sale — укажите цену со скидкой выше, иначе на сайте будет
+                показана обычная цена.
+              </p>
+            )}
+          </div>
+
+          <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <div>
+              <label className={labelClass} htmlFor="materials">
+                Материалы
+              </label>
+              <input
+                id="materials"
+                name="materials"
+                defaultValue={product?.materials}
+                placeholder="например: натуральный камень, родий"
+                className={inputClass}
+              />
+            </div>
+            <div>
+              <label className={labelClass} htmlFor="size">
+                Размер
+              </label>
+              <input
+                id="size"
+                name="size"
+                defaultValue={product?.size}
+                placeholder="например: 17 см / размер 16"
+                className={inputClass}
+              />
             </div>
           </div>
 
@@ -228,17 +311,6 @@ export default function ProductForm({ product }: { product?: Product }) {
                 <input id="nameRu" name="nameRu" defaultValue={product?.ru.name} required className={inputClass} />
               </div>
               <div>
-                <label className={labelClass} htmlFor="shortDescriptionRu">
-                  Короткое описание
-                </label>
-                <input
-                  id="shortDescriptionRu"
-                  name="shortDescriptionRu"
-                  defaultValue={product?.ru.shortDescription}
-                  className={inputClass}
-                />
-              </div>
-              <div>
                 <label className={labelClass} htmlFor="descriptionRu">
                   Полное описание
                 </label>
@@ -258,17 +330,6 @@ export default function ProductForm({ product }: { product?: Product }) {
                   Name
                 </label>
                 <input id="nameEn" name="nameEn" defaultValue={product?.en.name} required className={inputClass} />
-              </div>
-              <div>
-                <label className={labelClass} htmlFor="shortDescriptionEn">
-                  Short description
-                </label>
-                <input
-                  id="shortDescriptionEn"
-                  name="shortDescriptionEn"
-                  defaultValue={product?.en.shortDescription}
-                  className={inputClass}
-                />
               </div>
               <div>
                 <label className={labelClass} htmlFor="descriptionEn">

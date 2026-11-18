@@ -51,7 +51,7 @@ export default async function AdminProductsPage() {
                 </p>
               </div>
               <div className="shrink-0 text-right">
-                <p className="text-sm text-ink">{product.price.toLocaleString("ru-RU")} ₽</p>
+                <p className="text-sm text-ink">{product.price.toLocaleString("ru-RU")} ֏</p>
                 <p className="text-xs text-muted">
                   {product.availability === "in_stock" ? "В наличии" : "Под заказ"}
                 </p>

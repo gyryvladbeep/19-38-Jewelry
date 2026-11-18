@@ -1,16 +1,35 @@
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 
-export default function Logo({ className = "" }: { className?: string }) {
+// Source: the uploaded "19:38 JEWELRY — YEREVAN 2026" logo mark, processed
+// into two flat-color transparent PNGs (ink-on-light / on-dark-on-dark) so
+// it drops cleanly onto both the paper header and the burgundy-deep
+// footer without carrying its own background. See public/brand/logo-*.png.
+const LOGO_WIDTH = 1159;
+const LOGO_HEIGHT = 782;
+
+export default function Logo({
+  className = "",
+  variant = "ink",
+}: {
+  className?: string;
+  variant?: "ink" | "light";
+}) {
+  const src = variant === "light" ? "/brand/logo-light.png" : "/brand/logo-ink.png";
   return (
     <Link
       href="/"
-      className={`inline-flex items-baseline gap-2 leading-none ${className}`}
-      aria-label="19:38 Jewelry — home"
+      className={`inline-flex items-center ${className}`}
+      aria-label="19:38 Jewelry — Yerevan 2026 — home"
     >
-      <span className="font-script text-3xl">19:38</span>
-      <span className="text-[10px] font-medium uppercase tracking-[0.3em]">
-        Jewelry
-      </span>
+      <Image
+        src={src}
+        alt="19:38 Jewelry — Yerevan 2026"
+        width={LOGO_WIDTH}
+        height={LOGO_HEIGHT}
+        priority
+        className="h-10 w-auto md:h-12"
+      />
     </Link>
   );
 }

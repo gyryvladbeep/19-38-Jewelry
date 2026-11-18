@@ -21,13 +21,17 @@ import fallbackProductsData from "./fallback-products.json";
  */
 
 export type JewelryType = "ring" | "necklace" | "earrings" | "bracelet";
-export type MaterialKey = "stone" | "pearl" | "rhodium";
 export type Availability = "in_stock" | "made_to_order";
 export type PersonalizationOption = "engraving" | "size" | "color";
 
+/** Edition badge shown on the product (admin-editable, replaces the old always-on "one of one" badge). */
+export type EditionType = "none" | "one_of_one" | "limited";
+
+/** Catalog collections a product can belong to — a product may be in several at once. */
+export type CollectionTag = "signature_piece" | "new" | "sale";
+
 export interface ProductLocaleContent {
   name: string;
-  shortDescription: string;
   description: string;
 }
 
@@ -44,11 +48,18 @@ export interface Product {
   slug: string;
   pieceNumber: string;
   price: number;
+  /** Discounted price — shown struck-through-old + new only when "sale" is in `collections`. */
+  salePrice?: number | null;
   type: JewelryType;
-  materials: MaterialKey[];
+  /** Free text, e.g. "natural stone, rhodium" — admin types this directly. */
+  materials: string;
+  /** Free text, e.g. "17 cm / size 16" — admin types this directly. */
+  size: string;
   availability: Availability;
   personalization: PersonalizationOption[];
   bestseller?: boolean;
+  editionType: EditionType;
+  collections: CollectionTag[];
   /** Uploaded product photo URLs (Supabase Storage). Empty = show the placeholder. */
   images: string[];
   reviews: Review[];
@@ -63,17 +74,19 @@ interface ProductRow {
   slug: string;
   piece_number: string;
   price: number;
+  sale_price: number | null;
   type: JewelryType;
-  materials: MaterialKey[];
+  materials: string;
+  size: string;
   availability: Availability;
   personalization: PersonalizationOption[];
   bestseller: boolean;
+  edition_type: EditionType;
+  collections: CollectionTag[];
   images: string[];
   reviews: Review[];
   name_ru: string;
   name_en: string;
-  short_description_ru: string;
-  short_description_en: string;
   description_ru: string;
   description_en: string;
 }
@@ -84,21 +97,23 @@ function rowToProduct(row: ProductRow): Product {
     slug: row.slug,
     pieceNumber: row.piece_number,
     price: row.price,
+    salePrice: row.sale_price ?? null,
     type: row.type,
-    materials: row.materials,
+    materials: row.materials ?? "",
+    size: row.size ?? "",
     availability: row.availability,
     personalization: row.personalization,
     bestseller: row.bestseller,
+    editionType: row.edition_type ?? "none",
+    collections: row.collections ?? [],
     images: row.images ?? [],
     reviews: row.reviews ?? [],
     ru: {
       name: row.name_ru,
-      shortDescription: row.short_description_ru,
       description: row.description_ru,
     },
     en: {
       name: row.name_en,
-      shortDescription: row.short_description_en,
       description: row.description_en,
     },
   };

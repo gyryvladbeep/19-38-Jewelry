@@ -5,8 +5,9 @@ import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin, MEDIA_BUCKET } from "@/lib/supabase";
 import type {
   Availability,
+  CollectionTag,
+  EditionType,
   JewelryType,
-  MaterialKey,
   PersonalizationOption,
 } from "@/data/products";
 
@@ -87,20 +88,24 @@ export async function saveProduct(
       };
     }
 
+    const salePriceRaw = String(formData.get("salePrice") || "").trim();
+
     const row = {
       slug,
       piece_number: String(formData.get("pieceNumber") || "").trim(),
       price: Math.max(0, Number(formData.get("price") || 0)),
+      sale_price: salePriceRaw ? Math.max(0, Number(salePriceRaw)) : null,
       type: String(formData.get("type") || "ring") as JewelryType,
-      materials: getList(formData, "materials") as MaterialKey[],
+      materials: String(formData.get("materials") || "").trim(),
+      size: String(formData.get("size") || "").trim(),
       availability: String(formData.get("availability") || "in_stock") as Availability,
       personalization: getList(formData, "personalization") as PersonalizationOption[],
       bestseller: formData.get("bestseller") === "on",
+      edition_type: String(formData.get("editionType") || "none") as EditionType,
+      collections: getList(formData, "collections") as CollectionTag[],
       images,
       name_ru: String(formData.get("nameRu") || "").trim(),
       name_en: String(formData.get("nameEn") || "").trim(),
-      short_description_ru: String(formData.get("shortDescriptionRu") || "").trim(),
-      short_description_en: String(formData.get("shortDescriptionEn") || "").trim(),
       description_ru: String(formData.get("descriptionRu") || "").trim(),
       description_en: String(formData.get("descriptionEn") || "").trim(),
     };

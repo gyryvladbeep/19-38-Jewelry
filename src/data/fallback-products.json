@@ -3,11 +3,15 @@
     "slug": "signature-ring-19",
     "pieceNumber": "019",
     "price": 6800,
+    "salePrice": null,
     "type": "ring",
-    "materials": ["stone", "rhodium"],
+    "materials": "natural stone, rhodium",
+    "size": "",
     "availability": "in_stock",
     "personalization": ["size"],
     "bestseller": true,
+    "editionType": "one_of_one",
+    "collections": ["signature_piece"],
     "images": [],
     "reviews": [
       {
@@ -19,12 +23,10 @@
     ],
     "ru": {
       "name": "Кольцо Signature 19",
-      "shortDescription": "Тонкое кольцо с натуральным камнем и родиевым покрытием.",
       "description": "Минималистичное кольцо ручной работы: натуральный камень в родиевой оправе. Экземпляр 19:38 / 019 — существует в единственном числе, с карточкой-посланием в комплекте."
     },
     "en": {
       "name": "Signature 19 Ring",
-      "shortDescription": "A slim ring with a natural stone and rhodium plating.",
       "description": "A minimalist handmade ring: a natural stone set in rhodium. Piece 19:38 / 019 — exists in a single copy, with a message card included."
     }
   },
@@ -32,11 +34,15 @@
     "slug": "pearl-drop-necklace",
     "pieceNumber": "007",
     "price": 9200,
+    "salePrice": null,
     "type": "necklace",
-    "materials": ["pearl", "rhodium"],
+    "materials": "pearl, rhodium",
+    "size": "",
     "availability": "in_stock",
     "personalization": ["size"],
     "bestseller": true,
+    "editionType": "one_of_one",
+    "collections": ["signature_piece", "new"],
     "images": [],
     "reviews": [
       {
@@ -54,12 +60,10 @@
     ],
     "ru": {
       "name": "Колье Pearl Drop",
-      "shortDescription": "Тонкая цепочка с жемчужиной на родии.",
       "description": "Колье с одной жемчужиной на тонкой родированной цепочке. Экземпляр 19:38 / 007 — one of one, с фирменной карточкой-посланием."
     },
     "en": {
       "name": "Pearl Drop Necklace",
-      "shortDescription": "A delicate chain with a single pearl on rhodium.",
       "description": "A necklace with a single pearl on a fine rhodium-plated chain. Piece 19:38 / 007 — one of one, with the signature message card."
     }
   },
@@ -67,20 +71,22 @@
     "slug": "stone-hoop-earrings",
     "pieceNumber": "032",
     "price": 5400,
+    "salePrice": null,
     "type": "earrings",
-    "materials": ["stone", "rhodium"],
+    "materials": "natural stone, rhodium",
+    "size": "",
     "availability": "in_stock",
     "personalization": [],
+    "editionType": "none",
+    "collections": ["new"],
     "images": [],
     "reviews": [],
     "ru": {
       "name": "Серьги Stone Hoop",
-      "shortDescription": "Серьги-кольца с натуральным камнем.",
       "description": "Небольшие серьги-кольца с вкраплением натурального камня, родиевое покрытие. Экземпляр 19:38 / 032."
     },
     "en": {
       "name": "Stone Hoop Earrings",
-      "shortDescription": "Hoop earrings set with a natural stone.",
       "description": "Small hoop earrings featuring a natural stone accent, rhodium plated. Piece 19:38 / 032."
     }
   },
@@ -88,20 +94,22 @@
     "slug": "midnight-bar-bracelet",
     "pieceNumber": "014",
     "price": 7100,
+    "salePrice": 5500,
     "type": "bracelet",
-    "materials": ["rhodium", "stone"],
+    "materials": "rhodium, natural stone",
+    "size": "",
     "availability": "made_to_order",
     "personalization": ["engraving", "size"],
+    "editionType": "none",
+    "collections": ["sale"],
     "images": [],
     "reviews": [],
     "ru": {
       "name": "Браслет Midnight Bar",
-      "shortDescription": "Браслет-цепочка с планкой под гравировку.",
       "description": "Браслет на родированной цепочке с планкой, доступна персональная гравировка. Изготавливается под заказ — экземпляр 19:38 / 014."
     },
     "en": {
       "name": "Midnight Bar Bracelet",
-      "shortDescription": "A chain bracelet with an engravable bar.",
       "description": "A rhodium-plated chain bracelet with a bar available for personal engraving. Made to order — piece 19:38 / 014."
     }
   },
@@ -109,10 +117,14 @@
     "slug": "pearl-stud-earrings",
     "pieceNumber": "041",
     "price": 3600,
+    "salePrice": null,
     "type": "earrings",
-    "materials": ["pearl"],
+    "materials": "pearl",
+    "size": "",
     "availability": "in_stock",
     "personalization": [],
+    "editionType": "none",
+    "collections": [],
     "images": [],
     "reviews": [
       {
@@ -124,12 +136,10 @@
     ],
     "ru": {
       "name": "Серьги-пуссеты Pearl",
-      "shortDescription": "Классические жемчужные пуссеты.",
       "description": "Лаконичные пуссеты с натуральным жемчугом на родированной основе. Экземпляр 19:38 / 041."
     },
     "en": {
       "name": "Pearl Stud Earrings",
-      "shortDescription": "Classic natural pearl studs.",
       "description": "Understated studs featuring natural pearl on a rhodium-plated base. Piece 19:38 / 041."
     }
   },
@@ -137,42 +147,46 @@
     "slug": "sign-pendant-necklace",
     "pieceNumber": "003",
     "price": 8300,
+    "salePrice": null,
     "type": "necklace",
-    "materials": ["rhodium", "stone"],
+    "materials": "rhodium, natural stone",
+    "size": "",
     "availability": "made_to_order",
     "personalization": ["engraving"],
     "bestseller": true,
+    "editionType": "limited",
+    "collections": ["new"],
     "images": [],
     "reviews": [],
     "ru": {
       "name": "Колье Sign Pendant",
-      "shortDescription": "Подвеска с камнем и местом под гравировку.",
-      "description": "Подвеска на тонкой цепочке с натуральным камнем — оборотная сторона доступна для персональной гравировки. Экземпляр 19:38 / 003, под заказ."
+      "description": "Подвеска на тонкой цепочке с натуральным камнем — оборотная сторона доступна для персональной гравировки. Экземпляр 19:38 / 003, под заказ. Выпущено ограниченным тиражом — 12 экземпляров."
     },
     "en": {
       "name": "Sign Pendant Necklace",
-      "shortDescription": "A stone pendant with space for engraving.",
-      "description": "A pendant on a fine chain featuring a natural stone — the reverse side is available for a personal engraving. Piece 19:38 / 003, made to order."
+      "description": "A pendant on a fine chain featuring a natural stone — the reverse side is available for a personal engraving. Piece 19:38 / 003, made to order. Limited run of 12 pieces."
     }
   },
   {
     "slug": "twin-stone-ring",
     "pieceNumber": "026",
     "price": 6200,
+    "salePrice": 4900,
     "type": "ring",
-    "materials": ["stone", "stone"],
+    "materials": "natural stone, natural stone",
+    "size": "",
     "availability": "in_stock",
     "personalization": ["size"],
+    "editionType": "none",
+    "collections": ["sale"],
     "images": [],
     "reviews": [],
     "ru": {
       "name": "Кольцо Twin Stone",
-      "shortDescription": "Кольцо с двумя камнями разных оттенков.",
       "description": "Кольцо с двумя натуральными камнями на родированной основе. Экземпляр 19:38 / 026."
     },
     "en": {
       "name": "Twin Stone Ring",
-      "shortDescription": "A ring set with two stones in contrasting tones.",
       "description": "A ring featuring two natural stones on a rhodium-plated band. Piece 19:38 / 026."
     }
   },
@@ -180,20 +194,22 @@
     "slug": "pearl-chain-bracelet",
     "pieceNumber": "058",
     "price": 4900,
+    "salePrice": null,
     "type": "bracelet",
-    "materials": ["pearl", "rhodium"],
+    "materials": "pearl, rhodium",
+    "size": "",
     "availability": "in_stock",
     "personalization": ["size", "color"],
+    "editionType": "none",
+    "collections": [],
     "images": [],
     "reviews": [],
     "ru": {
       "name": "Браслет Pearl Chain",
-      "shortDescription": "Браслет с жемчужными вставками на цепочке.",
       "description": "Тонкий браслет с жемчужными вставками на родированной цепочке. Экземпляр 19:38 / 058."
     },
     "en": {
       "name": "Pearl Chain Bracelet",
-      "shortDescription": "A chain bracelet with pearl accents.",
       "description": "A delicate bracelet with pearl accents on a rhodium-plated chain. Piece 19:38 / 058."
     }
   }

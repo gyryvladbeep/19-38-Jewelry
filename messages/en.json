@@ -5,7 +5,7 @@
     "defaultDescription": "19:38 Jewelry — handmade jewelry made from natural stones, rhodium, and pearl. Every piece is numbered and exists only once."
   },
   "nav": {
-    "catalog": "Catalog",
+    "catalog": "THE COLLECTION",
     "about": "About",
     "shipping": "Shipping & Payment",
     "faq": "FAQ",
@@ -23,7 +23,7 @@
     "removeFromWishlist": "Remove from wishlist",
     "inStock": "In stock",
     "madeToOrder": "Made to order",
-    "currency": "₽",
+    "currency": "֏",
     "viewProduct": "View",
     "price": "Price",
     "material": "Material",
@@ -45,10 +45,8 @@
     "required": "Required",
     "sendRequest": "Submit request",
     "requestSent": "Request sent",
-    "backToCatalog": "Back to catalog",
+    "backToCatalog": "Back to THE COLLECTION",
     "relatedProducts": "You may also like",
-    "reviews": "Reviews",
-    "noReviews": "No reviews yet — be the first to leave your sign.",
     "filters": "Filters",
     "sortBy": "Sort by",
     "clearFilters": "Clear",
@@ -64,7 +62,7 @@
     "heroEyebrow": "19:38",
     "heroTitle": "Some moments are meant to be noticed",
     "heroSubtitle": "Some moments are meant to be noticed",
-    "heroCta": "Shop the catalog",
+    "heroCta": "Shop THE COLLECTION",
     "heroSecondaryCta": "About the brand",
     "signLine1": "Maybe it’s coincidence.",
     "signLine1Ru": "Maybe it’s coincidence.",
@@ -87,11 +85,7 @@
     "trustPersonalBody": "Engraving, size, and color — we discuss the details with you individually."
   },
   "product": {
-    "oneOfOneBadge": "One of one",
     "pieceNumberLabel": "Piece",
-    "existsOnceNote": "This piece exists only once.",
-    "messageCardTitle": "Message card",
-    "messageCardBody": "Every piece comes with a card: “What were you thinking about when you found this piece?” — a place for a personal story that stays with the jewelry.",
     "materialsTitle": "Materials",
     "careTitle": "Care instructions",
     "careBody": "Store the piece separately from other jewelry, avoid contact with water, perfume, and chemicals. Wipe gently with a soft cloth.",
@@ -103,7 +97,7 @@
     "statusMixedNote": "Some pieces are in stock, others made to order; exact status is confirmed when you submit your request."
   },
   "catalog": {
-    "title": "Catalog",
+    "title": "THE COLLECTION",
     "subtitle": "Handmade jewelry made from natural stones, rhodium, and pearl",
     "filterMaterial": "Material",
     "filterType": "Type",
@@ -114,7 +108,7 @@
   "cart": {
     "title": "Cart",
     "empty": "Your cart is empty for now.",
-    "goToCatalog": "Go to catalog",
+    "goToCatalog": "Go to THE COLLECTION",
     "orderNote": "Online payment isn’t available on the site yet: after you submit your request, we’ll contact you to confirm production, shipping, and payment details.",
     "itemRemoved": "Item removed from cart",
     "proceedToOrder": "Submit request"

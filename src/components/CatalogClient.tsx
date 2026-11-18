@@ -2,11 +2,12 @@
 
 import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import type { JewelryType, Product } from "@/data/products";
-import { typeLabels } from "@/lib/format";
+import type { CollectionTag, JewelryType, Product } from "@/data/products";
+import { collectionLabels, typeLabels } from "@/lib/format";
 import ProductCard from "@/components/ProductCard";
 
 const typeOptions: JewelryType[] = ["ring", "necklace", "earrings", "bracelet"];
+const collectionOptions: CollectionTag[] = ["signature_piece", "new", "sale"];
 
 export default function CatalogClient({ products }: { products: Product[] }) {
   const locale = useLocale() as "ru" | "en";
@@ -14,14 +15,47 @@ export default function CatalogClient({ products }: { products: Product[] }) {
   const tc = useTranslations("common");
 
   const [type, setType] = useState<JewelryType | "all">("all");
+  const [collection, setCollection] = useState<CollectionTag | "all">("all");
 
   const filtered = useMemo(() => {
-    if (type === "all") return products;
-    return products.filter((p) => p.type === type);
-  }, [products, type]);
+    return products
+      .filter((p) => type === "all" || p.type === type)
+      .filter((p) => collection === "all" || p.collections.includes(collection));
+  }, [products, type, collection]);
 
   return (
     <div>
+      <nav
+        aria-label="THE COLLECTION"
+        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pb-5"
+      >
+        <button
+          type="button"
+          onClick={() => setCollection("all")}
+          className={`text-xs uppercase tracking-[0.14em] transition-colors ${
+            collection === "all"
+              ? "border-b border-burgundy text-burgundy"
+              : "text-ink hover:text-burgundy"
+          }`}
+        >
+          {tc("all")}
+        </button>
+        {collectionOptions.map((opt) => (
+          <button
+            key={opt}
+            type="button"
+            onClick={() => setCollection(opt)}
+            className={`text-xs uppercase tracking-[0.14em] transition-colors ${
+              collection === opt
+                ? "border-b border-burgundy text-burgundy"
+                : "text-ink hover:text-burgundy"
+            }`}
+          >
+            {collectionLabels[opt]}
+          </button>
+        ))}
+      </nav>
+
       <nav
         aria-label={t("filterType")}
         className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-b border-line pb-6"

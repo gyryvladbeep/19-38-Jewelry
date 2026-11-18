@@ -11,22 +11,37 @@ create table if not exists products (
   slug text not null unique,
   piece_number text not null default '',
   price integer not null default 0,
+  sale_price integer,
   type text not null default 'ring',
-  materials text[] not null default '{}',
+  materials text not null default '',
+  size text not null default '',
   availability text not null default 'in_stock',
   personalization text[] not null default '{}',
   bestseller boolean not null default false,
+  edition_type text not null default 'none',
+  collections text[] not null default '{}',
   images text[] not null default '{}',
   reviews jsonb not null default '[]',
   name_ru text not null default '',
   name_en text not null default '',
-  short_description_ru text not null default '',
-  short_description_en text not null default '',
   description_ru text not null default '',
   description_en text not null default '',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+-- Migrating an existing database that still has the old columns? Run this
+-- block once instead of the create-table above (it's a no-op on a fresh
+-- project): adds the new columns, converts materials from text[] to free
+-- text, and drops the old short-description columns.
+-- alter table products add column if not exists sale_price integer;
+-- alter table products add column if not exists size text not null default '';
+-- alter table products add column if not exists edition_type text not null default 'none';
+-- alter table products add column if not exists collections text[] not null default '{}';
+-- alter table products alter column materials type text using array_to_string(materials, ', ');
+-- alter table products alter column materials set default '';
+-- alter table products drop column if exists short_description_ru;
+-- alter table products drop column if exists short_description_en;
 
 -- Editable site text (About, FAQ, Home, Shipping, Returns, Privacy,
 -- Contact copy). One row per field per locale; see src/lib/content.ts
