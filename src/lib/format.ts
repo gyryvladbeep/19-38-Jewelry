@@ -5,13 +5,6 @@ export function formatPrice(price: number, locale: string): string {
   return `${formatted} ֏`;
 }
 
-export const typeLabels: Record<string, { ru: string; en: string }> = {
-  ring: { ru: "Кольцо", en: "Ring" },
-  necklace: { ru: "Колье", en: "Necklace" },
-  earrings: { ru: "Серьги", en: "Earrings" },
-  bracelet: { ru: "Браслет", en: "Bracelet" },
-};
-
 export const personalizationLabels: Record<string, { ru: string; en: string }> = {
   engraving: { ru: "гравировка", en: "engraving" },
   size: { ru: "размер", en: "size" },
@@ -34,11 +27,4 @@ export const editionNotes: Record<string, { ru: string; en: string }> = {
     ru: "украшение выпущено ограниченным тиражом. Количество экземпляров указано в описании товара.",
     en: "this piece was made in a limited run. The exact quantity is stated in the product description.",
   },
-};
-
-/** Catalog collection tags — brand labels kept in English on both locales, like "ONE OF ONE". */
-export const collectionLabels: Record<string, string> = {
-  signature_piece: "SIGNATURE PIECE",
-  new: "NEW",
-  sale: "SALE",
 };

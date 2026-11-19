@@ -16,7 +16,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
             <Logo variant="light" />
-            <p className="mt-4 max-w-xs font-script text-2xl text-on-dark-muted">
+            <p className="mt-4 max-w-xs italic text-2xl text-on-dark-muted">
               {t("tagline")}
             </p>
           </div>
@@ -87,7 +87,9 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <span className="font-bold uppercase tracking-[0.2em]">{t("followUs")}</span>
             <a
-              href="#"
+              href="https://www.instagram.com/19.38_jewelry?hvrq=MW1jaDI1dnAxcnh2Yw%3D%3D&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
               aria-label="Instagram"
               className="flex h-8 w-8 items-center justify-center rounded-full border border-white/15 transition-colors hover:border-on-dark hover:text-on-dark"
             >

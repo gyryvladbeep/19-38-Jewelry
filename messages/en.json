@@ -80,9 +80,7 @@
     "trustOneOfOneTitle": "One of one",
     "trustOneOfOneBody": "A numbered piece and a message card make every jewel a near-collectible object.",
     "trustWorldwideTitle": "Worldwide shipping",
-    "trustWorldwideBody": "We ship orders anywhere in the world.",
-    "trustPersonalTitle": "Personalization",
-    "trustPersonalBody": "Engraving, size, and color — we discuss the details with you individually."
+    "trustWorldwideBody": "We ship orders anywhere in the world."
   },
   "product": {
     "pieceNumberLabel": "Piece",

@@ -4,6 +4,8 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import ProductCard from "@/components/ProductCard";
 import { fetchProducts, getBestsellers } from "@/data/products";
+import { fetchAlbums } from "@/lib/albums";
+import { SITE_IMAGE_KEYS, fetchSiteImages, siteImageUrl } from "@/lib/siteImages";
 
 export const revalidate = 60;
 
@@ -18,13 +20,15 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const products = await fetchProducts();
   const bestsellers = getBestsellers(products);
+  const albums = await fetchAlbums();
+  const siteImages = await fetchSiteImages();
 
   return (
     <>
       {/* Hero — dark atmospheric block */}
       <section className="relative flex min-h-[92vh] items-end overflow-hidden bg-burgundy-deep text-on-dark">
         <Image
-          src="/brand/mood-texture.jpg"
+          src={siteImageUrl(siteImages, SITE_IMAGE_KEYS.homeHero)}
           alt=""
           fill
           priority
@@ -33,10 +37,10 @@ export default async function HomePage({
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-burgundy-deep via-burgundy-deep/60 to-transparent" />
         <div className="container-content relative py-16 md:py-24">
-          <p className="font-script text-2xl text-on-dark-muted md:text-3xl">
+          <p className="italic text-2xl text-on-dark-muted md:text-3xl">
             {t("heroEyebrow")}
           </p>
-          <h1 className="mt-3 max-w-3xl text-5xl font-black leading-[0.98] tracking-tight md:text-7xl lg:text-8xl">
+          <h1 className="mt-3 max-w-3xl font-display text-5xl leading-[0.98] tracking-tight md:text-7xl lg:text-8xl">
             {t("heroTitle")}
           </h1>
           <p className="mt-5 max-w-md text-sm text-on-dark-muted md:text-base">
@@ -60,10 +64,10 @@ export default async function HomePage({
 
       {/* Sign intro teaser — light, editorial */}
       <section className="container-content py-20 text-center md:py-28">
-        <p className="font-script text-2xl text-burgundy md:text-3xl">
+        <p className="italic text-2xl text-burgundy md:text-3xl">
           {t("signLine1")}
         </p>
-        <p className="mt-1 font-script text-2xl text-burgundy md:text-3xl">
+        <p className="mt-1 italic text-2xl text-burgundy md:text-3xl">
           {t("signLine2")}
         </p>
         <p className="mx-auto mt-8 max-w-xl text-balance text-lg leading-relaxed text-ink md:text-xl">
@@ -75,7 +79,7 @@ export default async function HomePage({
       <section className="container-content pb-20 md:pb-28">
         <div className="mb-10 flex flex-col items-start justify-between gap-4 border-b border-line pb-6 md:flex-row md:items-end">
           <div>
-            <h2 className="text-3xl font-black tracking-tight md:text-4xl">{t("bestsellersTitle")}</h2>
+            <h2 className="font-display text-3xl tracking-tight md:text-4xl">{t("bestsellersTitle")}</h2>
             <p className="mt-2 text-sm text-muted">{t("bestsellersSubtitle")}</p>
           </div>
           <Link
@@ -87,7 +91,7 @@ export default async function HomePage({
         </div>
         <div className="grid grid-cols-2 gap-x-px gap-y-12 md:grid-cols-4">
           {bestsellers.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+            <ProductCard key={product.slug} product={product} albums={albums} />
           ))}
         </div>
       </section>
@@ -95,7 +99,7 @@ export default async function HomePage({
       {/* About teaser — dark block */}
       <section className="relative overflow-hidden bg-burgundy-deep py-20 text-on-dark md:py-28">
         <Image
-          src="/brand/mood-texture.jpg"
+          src={siteImageUrl(siteImages, SITE_IMAGE_KEYS.homeAboutTeaser)}
           alt=""
           fill
           aria-hidden
@@ -103,7 +107,7 @@ export default async function HomePage({
         />
         <div className="container-content relative grid gap-10 md:grid-cols-2 md:items-center">
           <div>
-            <h2 className="text-3xl font-black leading-tight tracking-tight md:text-4xl">
+            <h2 className="font-display text-3xl leading-tight tracking-tight md:text-4xl">
               {t("aboutTeaserTitle")}
             </h2>
             <p className="mt-5 max-w-md text-on-dark-muted">
@@ -119,7 +123,7 @@ export default async function HomePage({
             </Button>
           </div>
           <div className="flex justify-center">
-            <span className="font-script text-[7rem] leading-none text-on-dark-muted md:text-[10rem]">
+            <span className="font-display text-[7rem] leading-none tracking-tight text-on-dark-muted md:text-[10rem]">
               19:38
             </span>
           </div>
@@ -128,14 +132,13 @@ export default async function HomePage({
 
       {/* Trust block */}
       <section className="container-content py-20 md:py-28">
-        <h2 className="text-center text-3xl font-black tracking-tight md:text-4xl">{t("trustTitle")}</h2>
-        <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <h2 className="font-display text-center text-3xl tracking-tight md:text-4xl">{t("trustTitle")}</h2>
+        <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3">
           {(
             [
               ["trustHandmadeTitle", "trustHandmadeBody"],
               ["trustOneOfOneTitle", "trustOneOfOneBody"],
               ["trustWorldwideTitle", "trustWorldwideBody"],
-              ["trustPersonalTitle", "trustPersonalBody"],
             ] as const
           ).map(([titleKey, bodyKey]) => (
             <div key={titleKey} className="text-center sm:text-left">

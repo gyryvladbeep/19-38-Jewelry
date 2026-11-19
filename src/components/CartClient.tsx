@@ -81,7 +81,7 @@ export default function CartClient() {
               <li key={line.slug} className="flex gap-4 py-6">
                 <Link href={`/product/${product.slug}`} className="shrink-0">
                   <ProductImagePlaceholder
-                    type={product.type}
+                    albums={product.albums}
                     pieceNumber={product.pieceNumber}
                     images={product.images}
                     className="h-24 w-24"

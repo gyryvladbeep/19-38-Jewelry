@@ -20,15 +20,18 @@ import fallbackProductsData from "./fallback-products.json";
  * nothing here is a stand-in photo pretending to be real.
  */
 
-export type JewelryType = "ring" | "necklace" | "earrings" | "bracelet";
 export type Availability = "in_stock" | "made_to_order";
 export type PersonalizationOption = "engraving" | "size" | "color";
 
 /** Edition badge shown on the product (admin-editable, replaces the old always-on "one of one" badge). */
 export type EditionType = "none" | "one_of_one" | "limited";
 
-/** Catalog collections a product can belong to — a product may be in several at once. */
-export type CollectionTag = "signature_piece" | "new" | "sale";
+// Album type/constants live in ./albumTypes (a plain, non-server-only
+// module) so Client Components can import the runtime constants
+// (BESTSELLER_SLUG etc.) without pulling in this file's "server-only"
+// import via Supabase. Re-exported here as a type only — safe, since
+// type-only re-exports are erased at compile time.
+export type { Album } from "./albumTypes";
 
 export interface ProductLocaleContent {
   name: string;
@@ -48,9 +51,8 @@ export interface Product {
   slug: string;
   pieceNumber: string;
   price: number;
-  /** Discounted price — shown struck-through-old + new only when "sale" is in `collections`. */
+  /** Discounted price — shown struck-through-old + new only when "sale" is in `albums`. */
   salePrice?: number | null;
-  type: JewelryType;
   /** Free text, e.g. "natural stone, rhodium" — admin types this directly. */
   materials: string;
   /** Free text, e.g. "17 cm / size 16" — admin types this directly. */
@@ -59,7 +61,8 @@ export interface Product {
   personalization: PersonalizationOption[];
   bestseller?: boolean;
   editionType: EditionType;
-  collections: CollectionTag[];
+  /** Album slugs this product belongs to — see the `Album` type above. */
+  albums: string[];
   /** Uploaded product photo URLs (Supabase Storage). Empty = show the placeholder. */
   images: string[];
   reviews: Review[];
@@ -75,14 +78,13 @@ interface ProductRow {
   piece_number: string;
   price: number;
   sale_price: number | null;
-  type: JewelryType;
   materials: string;
   size: string;
   availability: Availability;
   personalization: PersonalizationOption[];
   bestseller: boolean;
   edition_type: EditionType;
-  collections: CollectionTag[];
+  albums: string[];
   images: string[];
   reviews: Review[];
   name_ru: string;
@@ -98,14 +100,13 @@ function rowToProduct(row: ProductRow): Product {
     pieceNumber: row.piece_number,
     price: row.price,
     salePrice: row.sale_price ?? null,
-    type: row.type,
     materials: row.materials ?? "",
     size: row.size ?? "",
     availability: row.availability,
     personalization: row.personalization,
     bestseller: row.bestseller,
     editionType: row.edition_type ?? "none",
-    collections: row.collections ?? [],
+    albums: row.albums ?? [],
     images: row.images ?? [],
     reviews: row.reviews ?? [],
     ru: {
@@ -154,8 +155,10 @@ export function getBestsellers(products: Product[]): Product[] {
 }
 
 export function getRelatedProducts(products: Product[], product: Product, count = 4): Product[] {
-  return products
-    .filter((p) => p.slug !== product.slug && p.type === product.type)
-    .concat(products.filter((p) => p.slug !== product.slug && p.type !== product.type))
+  const others = products.filter((p) => p.slug !== product.slug);
+  const sharesAlbum = (p: Product) => p.albums.some((a) => product.albums.includes(a));
+  return others
+    .filter(sharesAlbum)
+    .concat(others.filter((p) => !sharesAlbum(p)))
     .slice(0, count);
 }

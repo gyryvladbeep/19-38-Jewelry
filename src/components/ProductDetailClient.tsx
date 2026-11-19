@@ -5,8 +5,9 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { Product } from "@/data/products";
+import type { Album } from "@/data/albumTypes";
+import { BESTSELLER_SLUG, NEW_SLUG, SALE_SLUG, albumLabel } from "@/data/albumTypes";
 import {
-  collectionLabels,
   editionLabels,
   editionNotes,
   formatPrice,
@@ -31,9 +32,11 @@ const personalizationFieldLabel: Record<
 export default function ProductDetailClient({
   product,
   related,
+  albums,
 }: {
   product: Product;
   related: Product[];
+  albums: Album[];
 }) {
   const locale = useLocale() as "ru" | "en";
   const t = useTranslations("common");
@@ -46,7 +49,14 @@ export default function ProductDetailClient({
   const [added, setAdded] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
 
-  const onSale = product.collections.includes("sale") && Boolean(product.salePrice);
+  const onSale = product.albums.includes(SALE_SLUG) && Boolean(product.salePrice);
+  const findAlbum = (slug: string) =>
+    albums.find((a) => a.slug === slug) ?? {
+      slug,
+      nameRu: slug.toUpperCase(),
+      nameEn: slug.toUpperCase(),
+      sortOrder: 0,
+    };
 
   const noteSummary = useMemo(() => {
     return product.personalization
@@ -78,7 +88,7 @@ export default function ProductDetailClient({
             </div>
           ) : (
             <ProductImagePlaceholder
-              type={product.type}
+              albums={product.albums}
               pieceNumber={product.pieceNumber}
               images={[]}
               className="aspect-square w-full"
@@ -111,21 +121,21 @@ export default function ProductDetailClient({
             {product.editionType !== "none" && (
               <Badge tone="burgundy">{editionLabels[product.editionType]}</Badge>
             )}
-            {product.collections.includes("sale") && (
-              <Badge tone="ink">{collectionLabels.sale}</Badge>
+            {product.albums.includes(SALE_SLUG) && (
+              <Badge tone="ink">{albumLabel(findAlbum(SALE_SLUG), locale)}</Badge>
             )}
-            {product.collections.includes("new") && (
-              <Badge tone="outline">{collectionLabels.new}</Badge>
+            {product.albums.includes(NEW_SLUG) && (
+              <Badge tone="outline">{albumLabel(findAlbum(NEW_SLUG), locale)}</Badge>
             )}
-            {product.collections.includes("signature_piece") && (
-              <Badge tone="outline">{collectionLabels.signature_piece}</Badge>
+            {product.albums.includes(BESTSELLER_SLUG) && (
+              <Badge tone="outline">{albumLabel(findAlbum(BESTSELLER_SLUG), locale)}</Badge>
             )}
             <Badge tone="outline">
               {product.availability === "in_stock" ? t("inStock") : t("madeToOrder")}
             </Badge>
           </div>
 
-          <h1 className="mt-4 text-4xl font-black tracking-tight md:text-5xl">{content.name}</h1>
+          <h1 className="mt-4 font-display text-4xl tracking-tight md:text-5xl">{content.name}</h1>
           <p className="mt-2 text-xs uppercase tracking-[0.16em] text-muted">
             {tp("pieceNumberLabel")} 19:38 / {product.pieceNumber}
           </p>
@@ -233,10 +243,10 @@ export default function ProductDetailClient({
       {/* Related products */}
       {related.length > 0 && (
         <section className="mt-20 border-t border-line pt-10">
-          <h2 className="text-2xl font-black tracking-tight">{t("relatedProducts")}</h2>
+          <h2 className="font-display text-2xl tracking-tight">{t("relatedProducts")}</h2>
           <div className="mt-8 grid grid-cols-2 gap-x-px gap-y-12 md:grid-cols-4">
             {related.map((p) => (
-              <ProductCard key={p.slug} product={p} />
+              <ProductCard key={p.slug} product={p} albums={albums} />
             ))}
           </div>
         </section>

@@ -8,19 +8,6 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "../globals.css";
 
-/**
- * Fonts are loaded via a plain <link> tag below (not next/font/google).
- * next/font self-hosts fonts, which means it fetches them from
- * fonts.googleapis.com at BUILD time — that's blocked in some sandboxed
- * build environments (this one included) and would fail `next build`.
- * A runtime <link> avoids the build-time fetch entirely; the browser
- * loads the fonts normally when the deployed site is visited. Swap to
- * next/font/local + the real Aileron files once you have a licensed
- * copy — see README.md ("Fonts").
- */
-const GOOGLE_FONTS_HREF =
-  "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap";
-
 export async function generateMetadata({
   params,
 }: {
@@ -65,15 +52,6 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className="h-full">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link rel="stylesheet" href={GOOGLE_FONTS_HREF} />
-      </head>
       <body className="flex min-h-full flex-col antialiased">
         <NextIntlClientProvider>
           <StoreProvider>

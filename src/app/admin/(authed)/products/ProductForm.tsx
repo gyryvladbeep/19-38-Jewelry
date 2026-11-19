@@ -2,26 +2,14 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Product } from "@/data/products";
+import Link from "next/link";
+import type { Album, Product } from "@/data/products";
 import { saveProduct, deleteProduct, type ActionResult } from "./actions";
-
-const typeOptions: { value: Product["type"]; label: string }[] = [
-  { value: "ring", label: "Кольцо" },
-  { value: "necklace", label: "Колье" },
-  { value: "earrings", label: "Серьги" },
-  { value: "bracelet", label: "Браслет" },
-];
 
 const editionOptions: { value: Product["editionType"]; label: string }[] = [
   { value: "none", label: "Нет" },
   { value: "one_of_one", label: "One of One" },
   { value: "limited", label: "Limited Edition" },
-];
-
-const collectionOptions: { value: Product["collections"][number]; label: string }[] = [
-  { value: "signature_piece", label: "Signature Piece" },
-  { value: "new", label: "New" },
-  { value: "sale", label: "Sale" },
 ];
 
 const personalizationOptions: { value: Product["personalization"][number]; label: string }[] = [
@@ -37,10 +25,10 @@ const labelClass = "text-sm text-ink";
 const initialSaveState: ActionResult<{ id: string }> | null = null;
 const initialDeleteState: ActionResult<null> | null = null;
 
-export default function ProductForm({ product }: { product?: Product }) {
+export default function ProductForm({ product, albums }: { product?: Product; albums: Album[] }) {
   const router = useRouter();
   const [keepImages, setKeepImages] = useState<string[]>(product?.images ?? []);
-  const [collections, setCollections] = useState<string[]>(product?.collections ?? []);
+  const [selectedAlbums, setSelectedAlbums] = useState<string[]>(product?.albums ?? []);
   const [saveState, saveAction, saving] = useActionState(saveProduct, initialSaveState);
   const [deleteState, deleteAction, deleting] = useActionState(deleteProduct, initialDeleteState);
 
@@ -63,7 +51,8 @@ export default function ProductForm({ product }: { product?: Product }) {
   }, [deleteState, router]);
 
   const error = (saveState && !saveState.ok && saveState.error) || (deleteState && !deleteState.ok && deleteState.error) || null;
-  const saleSelected = collections.includes("sale");
+  const saleSelected = selectedAlbums.includes("sale");
+  const sortedAlbums = [...albums].sort((a, b) => a.sortOrder - b.sortOrder);
 
   return (
     <div className="max-w-3xl space-y-10">
@@ -129,18 +118,6 @@ export default function ProductForm({ product }: { product?: Product }) {
               />
             </div>
             <div>
-              <label className={labelClass} htmlFor="type">
-                Тип украшения
-              </label>
-              <select id="type" name="type" defaultValue={product?.type ?? "ring"} className={inputClass}>
-                {typeOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div>
               <label className={labelClass} htmlFor="availability">
                 Наличие
               </label>
@@ -186,28 +163,41 @@ export default function ProductForm({ product }: { product?: Product }) {
           </div>
 
           <div className="mt-5">
-            <span className={labelClass}>Коллекции</span>
+            <div className="flex items-center justify-between">
+              <span className={labelClass}>Альбомы (тип украшения и коллекции)</span>
+              <Link
+                href="/admin/albums"
+                target="_blank"
+                className="text-xs uppercase tracking-[0.1em] text-muted underline underline-offset-4 hover:text-burgundy"
+              >
+                Управлять альбомами ↗
+              </Link>
+            </div>
             <div className="mt-2 flex flex-wrap gap-4">
-              {collectionOptions.map((opt) => (
-                <label key={opt.value} className="flex items-center gap-2 text-sm">
+              {sortedAlbums.map((album) => (
+                <label key={album.slug} className="flex items-center gap-2 text-sm">
                   <input
                     type="checkbox"
-                    name="collections"
-                    value={opt.value}
-                    defaultChecked={product?.collections.includes(opt.value)}
+                    name="albums"
+                    value={album.slug}
+                    defaultChecked={product?.albums.includes(album.slug)}
                     onChange={(e) =>
-                      setCollections((prev) =>
+                      setSelectedAlbums((prev) =>
                         e.target.checked
-                          ? [...prev, opt.value]
-                          : prev.filter((v) => v !== opt.value)
+                          ? [...prev, album.slug]
+                          : prev.filter((v) => v !== album.slug)
                       )
                     }
                     className="h-4 w-4 accent-burgundy"
                   />
-                  {opt.label}
+                  {album.nameRu}
                 </label>
               ))}
             </div>
+            <p className="mt-2 text-xs text-muted">
+              Товар можно отметить сразу в нескольких альбомах — например «Серьги» и «New»
+              одновременно.
+            </p>
             {saleSelected && (
               <p className="mt-2 text-xs text-muted">
                 Товар отмечен как Sale — укажите цену со скидкой выше, иначе на сайте будет

@@ -1,6 +1,57 @@
 @import "tailwindcss";
 
 /*
+  19:38 Jewelry brand fonts (self-hosted, per the brand book: Peace Sans
+  for the "19:38" mark and large display headings, Aileron for everything
+  else). Both are free licensed (Peace Sans: SIL OFL via fontsource peace-sans;
+  Aileron: CC0 via fontsource aileron); see the LICENSE files under
+  public/fonts. Self-hosted as plain files (no next/font/google, no runtime
+  CDN dependency) since Peace Sans and Aileron are not on Google Fonts.
+*/
+@font-face {
+  font-family: "Peace Sans";
+  src: url("/fonts/peace-sans/peace-sans-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aileron";
+  src: url("/fonts/aileron/aileron-latin-400-normal.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aileron";
+  src: url("/fonts/aileron/aileron-latin-400-italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aileron";
+  src: url("/fonts/aileron/aileron-latin-600-normal.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aileron";
+  src: url("/fonts/aileron/aileron-latin-700-normal.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aileron";
+  src: url("/fonts/aileron/aileron-latin-800-normal.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
   19:38 Jewelry — design tokens.
   Colors are derived from the brand's own reference images
   (public/brand/burgundy-swatch.jpg + the brandbook notes: white / black / burgundy).
@@ -21,16 +72,9 @@
   --color-on-dark: #f3ece7; /* text on dark/burgundy blocks */
   --color-on-dark-muted: #cbb9b6;
 
-  /*
-    Aileron isn't distributed on Google Fonts, so Archivo stands in for
-    it (a similarly neutral grotesque sans) until real Aileron font
-    files are licensed and self-hosted via next/font/local. Permanent
-    Marker stands in for the hand-lettered logo mark until a real
-    logo/wordmark file replaces it. Both load via the <link> tag in
-    src/app/[locale]/layout.tsx.
-  */
-  --font-body: "Archivo", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-logo: "Permanent Marker", cursive;
+  --font-body: "Aileron", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* Display face for the "19:38" mark and large headings — see brand book. */
+  --font-display-face: "Peace Sans", ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme inline {
@@ -47,7 +91,7 @@
   --color-on-dark-muted: var(--color-on-dark-muted);
 
   --font-sans: var(--font-body);
-  --font-script: var(--font-logo);
+  --font-display: var(--font-display-face);
   --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   --container-content: 1280px;

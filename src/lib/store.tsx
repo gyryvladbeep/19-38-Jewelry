@@ -9,7 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { Product } from "@/data/products";
+import type { Album, Product } from "@/data/products";
 
 const CART_KEY = "1938-jewelry:cart";
 const WISHLIST_KEY = "1938-jewelry:wishlist";
@@ -47,6 +47,8 @@ interface StoreContextValue {
   products: Product[];
   productsLoaded: boolean;
   getProduct: (slug: string) => Product | undefined;
+  /** The full album list, fetched once from /api/albums — same reasoning as `products` above. */
+  albums: Album[];
 }
 
 const StoreContext = createContext<StoreContextValue | null>(null);
@@ -68,6 +70,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [productsLoaded, setProductsLoaded] = useState(false);
+  const [albums, setAlbums] = useState<Album[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -82,6 +85,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       })
       .finally(() => {
         if (!cancelled) setProductsLoaded(true);
+      });
+    fetch("/api/albums")
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data: Album[]) => {
+        if (!cancelled) setAlbums(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        // best-effort — ProductCard falls back to plain badge text when
+        // this hasn't loaded yet (or failed), see fallbackAlbum() there
       });
     return () => {
       cancelled = true;
@@ -198,6 +210,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       products,
       productsLoaded,
       getProduct,
+      albums,
     }),
     [
       cart,
@@ -214,6 +227,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       products,
       productsLoaded,
       getProduct,
+      albums,
     ]
   );
 

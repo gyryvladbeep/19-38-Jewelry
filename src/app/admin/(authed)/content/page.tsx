@@ -1,14 +1,17 @@
 import { isSupabaseConfigured } from "@/lib/supabase";
 import { CONTENT_FIELDS, fetchContentOverrideRows, getByPath } from "@/lib/content";
+import { fetchSiteImages } from "@/lib/siteImages";
 import ruMessages from "../../../../../messages/ru.json";
 import enMessages from "../../../../../messages/en.json";
 import ContentForm, { type FaqItem } from "./ContentForm";
+import SiteImagesPanel from "./SiteImagesPanel";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminContentPage() {
   const configured = isSupabaseConfigured();
   const rows = await fetchContentOverrideRows();
+  const siteImages = await fetchSiteImages();
   const overrideMap = new Map(rows.map((r) => [`${r.key}:${r.locale}`, r.value]));
 
   const textFields = CONTENT_FIELDS.filter((f) => f.type !== "json");
@@ -59,6 +62,10 @@ export default async function AdminContentPage() {
       )}
 
       <div className="mt-8">
+        <SiteImagesPanel currentUrls={siteImages} readOnly={!configured} />
+      </div>
+
+      <div className="mt-12">
         <ContentForm
           fields={textFields}
           initialValues={initialValues}

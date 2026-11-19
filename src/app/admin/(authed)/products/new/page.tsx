@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { isSupabaseConfigured } from "@/lib/supabase";
+import { fetchAlbums } from "@/lib/albums";
 import ProductForm from "../ProductForm";
 
 export const dynamic = "force-dynamic";
 
-export default function NewProductPage() {
+export default async function NewProductPage() {
   const configured = isSupabaseConfigured();
+  const albums = await fetchAlbums();
 
   if (!configured) {
     return (
@@ -28,7 +30,7 @@ export default function NewProductPage() {
     <div>
       <h1 className="text-2xl text-ink">Новый товар</h1>
       <div className="mt-8">
-        <ProductForm />
+        <ProductForm albums={albums} />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import type { SVGProps } from "react";
-import type { JewelryType } from "@/data/products";
+import { TYPE_ALBUM_SLUGS } from "@/data/albumTypes";
 
 /**
  * Minimal line-icon set for 19:38 Jewelry.
@@ -118,11 +118,28 @@ export function TelegramIcon(props: IconProps) {
   );
 }
 
-/** Jewelry-type line icons used on placeholder product imagery. */
+/** Generic fallback mark — used when a product has no recognized jewelry-type album. */
+export function SparkleIcon(props: IconProps) {
+  return (
+    <svg viewBox="0 0 64 64" {...base} strokeWidth={1.25} {...props}>
+      <path d="M32 10v14M32 40v14M10 32h14M40 32h14M18 18l8 8M46 46l-8-8M46 18l-8 8M18 46l8-8" />
+      <circle cx="32" cy="32" r="6" />
+    </svg>
+  );
+}
+
+/**
+ * Jewelry-type line icons used on placeholder product imagery. Takes the
+ * product's full `albums` list (type is no longer a single guaranteed
+ * field) and picks the icon for the first recognized type-album slug it
+ * finds, falling back to a generic sparkle mark when none match — e.g. a
+ * product filed only under a custom album like "SLOW SEASON".
+ */
 export function JewelryTypeIcon({
-  type,
+  albums,
   ...props
-}: IconProps & { type: JewelryType }) {
+}: IconProps & { albums: string[] }) {
+  const type = TYPE_ALBUM_SLUGS.find((slug) => albums.includes(slug));
   switch (type) {
     case "ring":
       return (
@@ -155,6 +172,6 @@ export function JewelryTypeIcon({
         </svg>
       );
     default:
-      return null;
+      return <SparkleIcon {...props} />;
   }
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import CatalogClient from "@/components/CatalogClient";
 import { fetchProducts } from "@/data/products";
+import { fetchAlbums } from "@/lib/albums";
 
 export const revalidate = 60;
 
@@ -23,11 +24,12 @@ export default async function CatalogPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const products = await fetchProducts();
+  const albums = await fetchAlbums();
 
   return (
     <div className="container-content py-8 md:py-10">
       <h1 className="sr-only">{(await getTranslations("catalog"))("title")}</h1>
-      <CatalogClient products={products} />
+      <CatalogClient products={products} albums={albums} />
     </div>
   );
 }

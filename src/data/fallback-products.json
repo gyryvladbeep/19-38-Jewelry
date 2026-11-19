@@ -4,14 +4,14 @@
     "pieceNumber": "019",
     "price": 6800,
     "salePrice": null,
-    "type": "ring",
     "materials": "natural stone, rhodium",
     "size": "",
     "availability": "in_stock",
-    "personalization": ["size"],
+    "personalization": [
+      "size"
+    ],
     "bestseller": true,
     "editionType": "one_of_one",
-    "collections": ["signature_piece"],
     "images": [],
     "reviews": [
       {
@@ -28,21 +28,25 @@
     "en": {
       "name": "Signature 19 Ring",
       "description": "A minimalist handmade ring: a natural stone set in rhodium. Piece 19:38 / 019 — exists in a single copy, with a message card included."
-    }
+    },
+    "albums": [
+      "ring",
+      "bestseller"
+    ]
   },
   {
     "slug": "pearl-drop-necklace",
     "pieceNumber": "007",
     "price": 9200,
     "salePrice": null,
-    "type": "necklace",
     "materials": "pearl, rhodium",
     "size": "",
     "availability": "in_stock",
-    "personalization": ["size"],
+    "personalization": [
+      "size"
+    ],
     "bestseller": true,
     "editionType": "one_of_one",
-    "collections": ["signature_piece", "new"],
     "images": [],
     "reviews": [
       {
@@ -65,20 +69,23 @@
     "en": {
       "name": "Pearl Drop Necklace",
       "description": "A necklace with a single pearl on a fine rhodium-plated chain. Piece 19:38 / 007 — one of one, with the signature message card."
-    }
+    },
+    "albums": [
+      "necklace",
+      "bestseller",
+      "new"
+    ]
   },
   {
     "slug": "stone-hoop-earrings",
     "pieceNumber": "032",
     "price": 5400,
     "salePrice": null,
-    "type": "earrings",
     "materials": "natural stone, rhodium",
     "size": "",
     "availability": "in_stock",
     "personalization": [],
     "editionType": "none",
-    "collections": ["new"],
     "images": [],
     "reviews": [],
     "ru": {
@@ -88,20 +95,25 @@
     "en": {
       "name": "Stone Hoop Earrings",
       "description": "Small hoop earrings featuring a natural stone accent, rhodium plated. Piece 19:38 / 032."
-    }
+    },
+    "albums": [
+      "earrings",
+      "new"
+    ]
   },
   {
     "slug": "midnight-bar-bracelet",
     "pieceNumber": "014",
     "price": 7100,
     "salePrice": 5500,
-    "type": "bracelet",
     "materials": "rhodium, natural stone",
     "size": "",
     "availability": "made_to_order",
-    "personalization": ["engraving", "size"],
+    "personalization": [
+      "engraving",
+      "size"
+    ],
     "editionType": "none",
-    "collections": ["sale"],
     "images": [],
     "reviews": [],
     "ru": {
@@ -111,20 +123,22 @@
     "en": {
       "name": "Midnight Bar Bracelet",
       "description": "A rhodium-plated chain bracelet with a bar available for personal engraving. Made to order — piece 19:38 / 014."
-    }
+    },
+    "albums": [
+      "bracelet",
+      "sale"
+    ]
   },
   {
     "slug": "pearl-stud-earrings",
     "pieceNumber": "041",
     "price": 3600,
     "salePrice": null,
-    "type": "earrings",
     "materials": "pearl",
     "size": "",
     "availability": "in_stock",
     "personalization": [],
     "editionType": "none",
-    "collections": [],
     "images": [],
     "reviews": [
       {
@@ -141,21 +155,24 @@
     "en": {
       "name": "Pearl Stud Earrings",
       "description": "Understated studs featuring natural pearl on a rhodium-plated base. Piece 19:38 / 041."
-    }
+    },
+    "albums": [
+      "earrings"
+    ]
   },
   {
     "slug": "sign-pendant-necklace",
     "pieceNumber": "003",
     "price": 8300,
     "salePrice": null,
-    "type": "necklace",
     "materials": "rhodium, natural stone",
     "size": "",
     "availability": "made_to_order",
-    "personalization": ["engraving"],
+    "personalization": [
+      "engraving"
+    ],
     "bestseller": true,
     "editionType": "limited",
-    "collections": ["new"],
     "images": [],
     "reviews": [],
     "ru": {
@@ -165,20 +182,24 @@
     "en": {
       "name": "Sign Pendant Necklace",
       "description": "A pendant on a fine chain featuring a natural stone — the reverse side is available for a personal engraving. Piece 19:38 / 003, made to order. Limited run of 12 pieces."
-    }
+    },
+    "albums": [
+      "necklace",
+      "new"
+    ]
   },
   {
     "slug": "twin-stone-ring",
     "pieceNumber": "026",
     "price": 6200,
     "salePrice": 4900,
-    "type": "ring",
     "materials": "natural stone, natural stone",
     "size": "",
     "availability": "in_stock",
-    "personalization": ["size"],
+    "personalization": [
+      "size"
+    ],
     "editionType": "none",
-    "collections": ["sale"],
     "images": [],
     "reviews": [],
     "ru": {
@@ -188,20 +209,25 @@
     "en": {
       "name": "Twin Stone Ring",
       "description": "A ring featuring two natural stones on a rhodium-plated band. Piece 19:38 / 026."
-    }
+    },
+    "albums": [
+      "ring",
+      "sale"
+    ]
   },
   {
     "slug": "pearl-chain-bracelet",
     "pieceNumber": "058",
     "price": 4900,
     "salePrice": null,
-    "type": "bracelet",
     "materials": "pearl, rhodium",
     "size": "",
     "availability": "in_stock",
-    "personalization": ["size", "color"],
+    "personalization": [
+      "size",
+      "color"
+    ],
     "editionType": "none",
-    "collections": [],
     "images": [],
     "reviews": [],
     "ru": {
@@ -211,6 +237,9 @@
     "en": {
       "name": "Pearl Chain Bracelet",
       "description": "A delicate bracelet with pearl accents on a rhodium-plated chain. Piece 19:38 / 058."
-    }
+    },
+    "albums": [
+      "bracelet"
+    ]
   }
 ]

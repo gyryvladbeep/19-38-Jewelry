@@ -1,6 +1,8 @@
 "use server";
 
-import { getSupabaseAdmin } from "@/lib/supabase";
+import { randomUUID } from "crypto";
+import { revalidatePath } from "next/cache";
+import { getSupabaseAdmin, MEDIA_BUCKET } from "@/lib/supabase";
 
 // See the comment on ActionResult in ../products/actions.ts: Server
 // Actions return expected errors as values rather than throwing, since
@@ -53,6 +55,58 @@ export async function saveContentBatch(
     return {
       ok: false,
       error: `Не удалось сохранить тексты: ${err instanceof Error ? err.message : String(err)}`,
+    };
+  }
+}
+
+/** Uploads one admin-picked photo for a site_images section key and saves its URL. */
+export async function saveSiteImage(
+  _prevState: ActionResult<{ url: string }> | null,
+  formData: FormData
+): Promise<ActionResult<{ url: string }>> {
+  const supabase = getSupabaseAdmin();
+  if (!supabase) {
+    return {
+      ok: false,
+      error:
+        "Supabase не настроен. Добавьте SUPABASE_URL и SUPABASE_SERVICE_ROLE_KEY в переменные окружения (см. README.md).",
+    };
+  }
+
+  const key = String(formData.get("key") || "").trim();
+  if (!key) return { ok: false, error: "Не указан ключ фото." };
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) {
+    return { ok: false, error: "Выберите файл изображения." };
+  }
+
+  try {
+    const ext = file.name.includes(".") ? file.name.split(".").pop() : "jpg";
+    const path = `site/${key}-${randomUUID()}.${ext}`;
+    const { error: uploadError } = await supabase.storage
+      .from(MEDIA_BUCKET)
+      .upload(path, file, { contentType: file.type || "image/jpeg", upsert: false });
+    if (uploadError) {
+      return {
+        ok: false,
+        error: `Не удалось загрузить фото: ${uploadError.message}. Проверьте, что в Supabase создан публичный бакет "media".`,
+      };
+    }
+    const { data } = supabase.storage.from(MEDIA_BUCKET).getPublicUrl(path);
+
+    const { error } = await supabase
+      .from("site_images")
+      .upsert({ key, url: data.publicUrl }, { onConflict: "key" });
+    if (error) return { ok: false, error: `Не удалось сохранить фото: ${error.message}` };
+
+    revalidatePath("/admin/content");
+    revalidatePath("/[locale]", "layout");
+    return { ok: true, data: { url: data.publicUrl } };
+  } catch (err) {
+    return {
+      ok: false,
+      error: `Не удалось сохранить фото: ${err instanceof Error ? err.message : String(err)}`,
     };
   }
 }

@@ -2,87 +2,63 @@
 
 import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import type { CollectionTag, JewelryType, Product } from "@/data/products";
-import { collectionLabels, typeLabels } from "@/lib/format";
+import type { Product } from "@/data/products";
+import type { Album } from "@/data/albumTypes";
+import { albumLabel } from "@/data/albumTypes";
 import ProductCard from "@/components/ProductCard";
 
-const typeOptions: JewelryType[] = ["ring", "necklace", "earrings", "bracelet"];
-const collectionOptions: CollectionTag[] = ["signature_piece", "new", "sale"];
-
-export default function CatalogClient({ products }: { products: Product[] }) {
+export default function CatalogClient({
+  products,
+  albums,
+}: {
+  products: Product[];
+  albums: Album[];
+}) {
   const locale = useLocale() as "ru" | "en";
   const t = useTranslations("catalog");
   const tc = useTranslations("common");
 
-  const [type, setType] = useState<JewelryType | "all">("all");
-  const [collection, setCollection] = useState<CollectionTag | "all">("all");
+  const [album, setAlbum] = useState<string | "all">("all");
+
+  const sortedAlbums = useMemo(
+    () => [...albums].sort((a, b) => a.sortOrder - b.sortOrder),
+    [albums]
+  );
 
   const filtered = useMemo(() => {
-    return products
-      .filter((p) => type === "all" || p.type === type)
-      .filter((p) => collection === "all" || p.collections.includes(collection));
-  }, [products, type, collection]);
+    if (album === "all") return products;
+    return products.filter((p) => p.albums.includes(album));
+  }, [products, album]);
 
   return (
     <div>
-      <nav
-        aria-label="THE COLLECTION"
-        className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pb-5"
-      >
-        <button
-          type="button"
-          onClick={() => setCollection("all")}
-          className={`text-xs uppercase tracking-[0.14em] transition-colors ${
-            collection === "all"
-              ? "border-b border-burgundy text-burgundy"
-              : "text-ink hover:text-burgundy"
-          }`}
-        >
-          {tc("all")}
-        </button>
-        {collectionOptions.map((opt) => (
-          <button
-            key={opt}
-            type="button"
-            onClick={() => setCollection(opt)}
-            className={`text-xs uppercase tracking-[0.14em] transition-colors ${
-              collection === opt
-                ? "border-b border-burgundy text-burgundy"
-                : "text-ink hover:text-burgundy"
-            }`}
-          >
-            {collectionLabels[opt]}
-          </button>
-        ))}
-      </nav>
-
       <nav
         aria-label={t("filterType")}
         className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 border-b border-line pb-6"
       >
         <button
           type="button"
-          onClick={() => setType("all")}
+          onClick={() => setAlbum("all")}
           className={`text-xs uppercase tracking-[0.14em] transition-colors ${
-            type === "all"
+            album === "all"
               ? "border-b border-burgundy text-burgundy"
               : "text-ink hover:text-burgundy"
           }`}
         >
           {tc("all")}
         </button>
-        {typeOptions.map((opt) => (
+        {sortedAlbums.map((a) => (
           <button
-            key={opt}
+            key={a.slug}
             type="button"
-            onClick={() => setType(opt)}
+            onClick={() => setAlbum(a.slug)}
             className={`text-xs uppercase tracking-[0.14em] transition-colors ${
-              type === opt
+              album === a.slug
                 ? "border-b border-burgundy text-burgundy"
                 : "text-ink hover:text-burgundy"
             }`}
           >
-            {typeLabels[opt][locale]}
+            {albumLabel(a, locale)}
           </button>
         ))}
       </nav>
@@ -92,7 +68,7 @@ export default function CatalogClient({ products }: { products: Product[] }) {
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-x-px gap-y-12 sm:grid-cols-3 lg:grid-cols-4">
           {filtered.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+            <ProductCard key={product.slug} product={product} albums={albums} />
           ))}
         </div>
       )}

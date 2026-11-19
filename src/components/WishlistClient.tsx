@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button";
 
 export default function WishlistClient() {
   const t = useTranslations("wishlist");
-  const { wishlist, addToCart, hydrated, getProduct, productsLoaded } = useStore();
+  const { wishlist, addToCart, hydrated, getProduct, productsLoaded, albums } = useStore();
 
   const products = useMemo(
     () => wishlist.map((slug) => getProduct(slug)).filter((p): p is Product => Boolean(p)),
@@ -50,7 +50,7 @@ export default function WishlistClient() {
       </div>
       <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
         {products.map((product) => product && (
-          <ProductCard key={product.slug} product={product} />
+          <ProductCard key={product.slug} product={product} albums={albums} />
         ))}
       </div>
     </div>

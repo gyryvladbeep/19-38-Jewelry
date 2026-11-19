@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ProductDetailClient from "@/components/ProductDetailClient";
 import { fetchProducts, getProductBySlug, getRelatedProducts } from "@/data/products";
+import { fetchAlbums } from "@/lib/albums";
 
 // Products can be added/edited any time through /admin, so this page is
 // rendered on demand (no generateStaticParams) and revalidated every
@@ -41,6 +42,7 @@ export default async function ProductPage({
   }
 
   const related = getRelatedProducts(products, product);
+  const albums = await fetchAlbums();
 
-  return <ProductDetailClient product={product} related={related} />;
+  return <ProductDetailClient product={product} related={related} albums={albums} />;
 }

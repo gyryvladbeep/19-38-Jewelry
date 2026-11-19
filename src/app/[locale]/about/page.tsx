@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { SITE_IMAGE_KEYS, fetchSiteImages, siteImageUrl } from "@/lib/siteImages";
 
 // Copy on this page is editable from /admin -> Content; re-checked every
 // minute so edits appear without a redeploy. See src/lib/content.ts.
@@ -24,12 +25,13 @@ export default async function AboutPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
+  const siteImages = await fetchSiteImages();
 
   return (
     <div>
       <section className="relative flex min-h-[50vh] items-end overflow-hidden bg-burgundy-deep text-on-dark">
         <Image
-          src="/brand/mood-texture.jpg"
+          src={siteImageUrl(siteImages, SITE_IMAGE_KEYS.aboutHero)}
           alt=""
           fill
           priority
@@ -38,15 +40,15 @@ export default async function AboutPage({
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-burgundy-deep via-burgundy-deep/50 to-transparent" />
         <div className="container-content relative py-16">
-          <p className="font-script text-2xl text-on-dark-muted">{t("heroLine")}</p>
-          <h1 className="mt-3 max-w-xl text-3xl leading-tight md:text-5xl">
+          <p className="italic text-2xl text-on-dark-muted">{t("heroLine")}</p>
+          <h1 className="mt-3 max-w-xl font-display text-3xl leading-tight tracking-tight md:text-5xl">
             {t("title")}
           </h1>
         </div>
       </section>
 
       <section className="container-content max-w-2xl py-16 md:py-24">
-        <p className="font-script text-2xl text-burgundy">{t("intro")}</p>
+        <p className="italic text-2xl text-burgundy">{t("intro")}</p>
         <p className="mt-8 leading-relaxed text-ink">{t("paragraph1")}</p>
         <p className="mt-6 leading-relaxed text-ink">{t("paragraph2")}</p>
         <p className="mt-8 border-l-2 border-burgundy pl-5 text-lg italic text-muted">
@@ -60,7 +62,7 @@ export default async function AboutPage({
 
       <section className="relative overflow-hidden bg-burgundy-deep py-16 text-on-dark md:py-24">
         <Image
-          src="/brand/mood-texture.jpg"
+          src={siteImageUrl(siteImages, SITE_IMAGE_KEYS.aboutClosing)}
           alt=""
           fill
           aria-hidden
@@ -70,7 +72,7 @@ export default async function AboutPage({
           <h2 className="text-xl uppercase tracking-[0.14em] text-on-dark-muted">
             {t("closingBrand")}
           </h2>
-          <p className="mt-4 font-script text-3xl">{t("closingLine")}</p>
+          <p className="mt-4 italic text-3xl">{t("closingLine")}</p>
           <p className="mt-6 text-lg leading-relaxed">{t("closingNote")}</p>
         </div>
       </section>

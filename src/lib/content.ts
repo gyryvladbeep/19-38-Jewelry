@@ -52,7 +52,6 @@ export const CONTENT_FIELDS: ContentField[] = [
   { key: "home.trustHandmadeBody", section: "Главная", label: "«Ручная работа» — текст", type: "textarea" },
   { key: "home.trustOneOfOneBody", section: "Главная", label: "«One of one» — текст", type: "textarea" },
   { key: "home.trustWorldwideBody", section: "Главная", label: "«Доставка» — текст", type: "textarea" },
-  { key: "home.trustPersonalBody", section: "Главная", label: "«Персонализация» — текст", type: "textarea" },
 
   { key: "shipping.shippingBody", section: "Доставка и оплата", label: "Доставка", type: "textarea" },
   { key: "shipping.paymentBody", section: "Доставка и оплата", label: "Оплата", type: "textarea" },

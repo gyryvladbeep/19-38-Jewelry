@@ -80,9 +80,7 @@
     "trustOneOfOneTitle": "One of one",
     "trustOneOfOneBody": "Нумерованный экземпляр и карточка-послание делают украшение почти коллекционным объектом.",
     "trustWorldwideTitle": "Доставка по всему миру",
-    "trustWorldwideBody": "Отправляем заказы в любую точку мира.",
-    "trustPersonalTitle": "Персонализация",
-    "trustPersonalBody": "Гравировка, размер и цвет — обсуждаем детали индивидуально."
+    "trustWorldwideBody": "Отправляем заказы в любую точку мира."
   },
   "product": {
     "pieceNumberLabel": "Экземпляр",

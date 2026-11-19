@@ -3,13 +3,7 @@
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin, MEDIA_BUCKET } from "@/lib/supabase";
-import type {
-  Availability,
-  CollectionTag,
-  EditionType,
-  JewelryType,
-  PersonalizationOption,
-} from "@/data/products";
+import type { Availability, EditionType, PersonalizationOption } from "@/data/products";
 
 /**
  * Server Actions must return expected errors as values, not throw them —
@@ -95,14 +89,13 @@ export async function saveProduct(
       piece_number: String(formData.get("pieceNumber") || "").trim(),
       price: Math.max(0, Number(formData.get("price") || 0)),
       sale_price: salePriceRaw ? Math.max(0, Number(salePriceRaw)) : null,
-      type: String(formData.get("type") || "ring") as JewelryType,
       materials: String(formData.get("materials") || "").trim(),
       size: String(formData.get("size") || "").trim(),
       availability: String(formData.get("availability") || "in_stock") as Availability,
       personalization: getList(formData, "personalization") as PersonalizationOption[],
       bestseller: formData.get("bestseller") === "on",
       edition_type: String(formData.get("editionType") || "none") as EditionType,
-      collections: getList(formData, "collections") as CollectionTag[],
+      albums: getList(formData, "albums"),
       images,
       name_ru: String(formData.get("nameRu") || "").trim(),
       name_en: String(formData.get("nameEn") || "").trim(),
