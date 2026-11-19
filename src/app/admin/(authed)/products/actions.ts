@@ -3,7 +3,7 @@
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin, MEDIA_BUCKET } from "@/lib/supabase";
-import type { Availability, EditionType, PersonalizationOption } from "@/data/products";
+import type { Availability, PersonalizationOption } from "@/data/products";
 
 /**
  * Server Actions must return expected errors as values, not throw them —
@@ -94,7 +94,7 @@ export async function saveProduct(
       availability: String(formData.get("availability") || "in_stock") as Availability,
       personalization: getList(formData, "personalization") as PersonalizationOption[],
       bestseller: formData.get("bestseller") === "on",
-      edition_type: String(formData.get("editionType") || "none") as EditionType,
+      badges: getList(formData, "badges"),
       albums: getList(formData, "albums"),
       images,
       name_ru: String(formData.get("nameRu") || "").trim(),

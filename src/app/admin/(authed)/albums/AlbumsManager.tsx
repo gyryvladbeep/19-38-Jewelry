@@ -78,7 +78,7 @@ function AlbumRow({ album }: { album: Album }) {
         </button>
         {reserved && (
           <span className="ml-3 text-[11px] text-muted">
-            Используется для плашек «Bestseller/New/Sale» и цены со скидкой — удаляйте с осторожностью.
+            Это одна из встроенных категорий каталога — удаляйте с осторожностью.
           </span>
         )}
       </form>

@@ -11,7 +11,10 @@
       "size"
     ],
     "bestseller": true,
-    "editionType": "one_of_one",
+    "badges": [
+      "one_of_one",
+      "bestseller"
+    ],
     "images": [],
     "reviews": [
       {
@@ -46,7 +49,11 @@
       "size"
     ],
     "bestseller": true,
-    "editionType": "one_of_one",
+    "badges": [
+      "one_of_one",
+      "bestseller",
+      "new"
+    ],
     "images": [],
     "reviews": [
       {
@@ -85,7 +92,9 @@
     "size": "",
     "availability": "in_stock",
     "personalization": [],
-    "editionType": "none",
+    "badges": [
+      "new"
+    ],
     "images": [],
     "reviews": [],
     "ru": {
@@ -113,7 +122,9 @@
       "engraving",
       "size"
     ],
-    "editionType": "none",
+    "badges": [
+      "sale"
+    ],
     "images": [],
     "reviews": [],
     "ru": {
@@ -138,7 +149,7 @@
     "size": "",
     "availability": "in_stock",
     "personalization": [],
-    "editionType": "none",
+    "badges": [],
     "images": [],
     "reviews": [
       {
@@ -172,7 +183,10 @@
       "engraving"
     ],
     "bestseller": true,
-    "editionType": "limited",
+    "badges": [
+      "limited",
+      "new"
+    ],
     "images": [],
     "reviews": [],
     "ru": {
@@ -199,7 +213,9 @@
     "personalization": [
       "size"
     ],
-    "editionType": "none",
+    "badges": [
+      "sale"
+    ],
     "images": [],
     "reviews": [],
     "ru": {
@@ -227,7 +243,7 @@
       "size",
       "color"
     ],
-    "editionType": "none",
+    "badges": [],
     "images": [],
     "reviews": [],
     "ru": {

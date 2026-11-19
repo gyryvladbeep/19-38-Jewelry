@@ -53,7 +53,7 @@ const rows = products
     availability: p.availability,
     personalization: p.personalization,
     bestseller: Boolean(p.bestseller),
-    edition_type: p.editionType ?? "none",
+    badges: p.badges ?? [],
     albums: p.albums ?? [],
     images: p.images ?? [],
     reviews: p.reviews ?? [],

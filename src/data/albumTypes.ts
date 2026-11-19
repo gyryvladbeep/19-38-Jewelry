@@ -19,11 +19,12 @@ export interface Album {
 }
 
 /**
- * These three album slugs get special treatment in the storefront UI
- * (a colored badge on the product card/detail page, and — for "sale" —
- * the struck-through price) regardless of what else they're renamed to.
- * Every other album (jewelry-type ones included) is filter-only, with no
- * visual badge, matching the pre-albums design.
+ * The site's three built-in marketing-category album slugs. These are
+ * filter-only, same as every other album — a product's visual plashki
+ * (ONE OF ONE/LIMITED EDITION/BESTSELLER/NEW/SALE) are a separate,
+ * independent admin multi-select, see src/data/badgeTypes.ts. Kept as
+ * named constants only so /admin/albums can warn before deleting one of
+ * these default categories.
  */
 export const BESTSELLER_SLUG = "bestseller";
 export const NEW_SLUG = "new";

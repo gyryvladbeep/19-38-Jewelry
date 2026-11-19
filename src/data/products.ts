@@ -23,9 +23,6 @@ import fallbackProductsData from "./fallback-products.json";
 export type Availability = "in_stock" | "made_to_order";
 export type PersonalizationOption = "engraving" | "size" | "color";
 
-/** Edition badge shown on the product (admin-editable, replaces the old always-on "one of one" badge). */
-export type EditionType = "none" | "one_of_one" | "limited";
-
 // Album type/constants live in ./albumTypes (a plain, non-server-only
 // module) so Client Components can import the runtime constants
 // (BESTSELLER_SLUG etc.) without pulling in this file's "server-only"
@@ -60,7 +57,8 @@ export interface Product {
   availability: Availability;
   personalization: PersonalizationOption[];
   bestseller?: boolean;
-  editionType: EditionType;
+  /** Display badges (ONE OF ONE/LIMITED EDITION/BESTSELLER/NEW/SALE) — see src/data/badgeTypes.ts. Independent of `albums`. */
+  badges: string[];
   /** Album slugs this product belongs to — see the `Album` type above. */
   albums: string[];
   /** Uploaded product photo URLs (Supabase Storage). Empty = show the placeholder. */
@@ -83,7 +81,7 @@ interface ProductRow {
   availability: Availability;
   personalization: PersonalizationOption[];
   bestseller: boolean;
-  edition_type: EditionType;
+  badges: string[];
   albums: string[];
   images: string[];
   reviews: Review[];
@@ -105,7 +103,7 @@ function rowToProduct(row: ProductRow): Product {
     availability: row.availability,
     personalization: row.personalization,
     bestseller: row.bestseller,
-    editionType: row.edition_type ?? "none",
+    badges: row.badges ?? [],
     albums: row.albums ?? [],
     images: row.images ?? [],
     reviews: row.reviews ?? [],

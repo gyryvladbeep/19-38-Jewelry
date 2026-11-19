@@ -3,23 +3,31 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import type { Product } from "@/data/products";
-import type { Album } from "@/data/albumTypes";
-import { BESTSELLER_SLUG, NEW_SLUG, SALE_SLUG, albumLabel } from "@/data/albumTypes";
-import { editionLabels, formatPrice } from "@/lib/format";
+import { BADGE_ORDER, type BadgeSlug, badgeLabel } from "@/data/badgeTypes";
+import { formatPrice } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import ProductImagePlaceholder from "@/components/ProductImagePlaceholder";
 import { Badge } from "@/components/ui/Badge";
 import { HeartIcon } from "@/components/icons";
 
-export default function ProductCard({ product, albums }: { product: Product; albums: Album[] }) {
+/** Badge visual tone on the product card — see src/data/badgeTypes.ts for the slugs. */
+const CARD_BADGE_TONE: Record<BadgeSlug, "ink" | "burgundy" | "outline"> = {
+  one_of_one: "ink",
+  limited: "ink",
+  sale: "burgundy",
+  new: "outline",
+  bestseller: "outline",
+};
+
+export default function ProductCard({ product }: { product: Product }) {
   const locale = useLocale() as "ru" | "en";
   const t = useTranslations("common");
   const content = product[locale];
   const { toggleWishlist, isWishlisted, hydrated } = useStore();
   const wishlisted = hydrated && isWishlisted(product.slug);
 
-  const onSale = product.albums.includes(SALE_SLUG) && Boolean(product.salePrice);
-  const findAlbum = (slug: string) => albums.find((a) => a.slug === slug);
+  const onSale = product.badges.includes("sale") && Boolean(product.salePrice);
+  const activeBadges = BADGE_ORDER.filter((slug) => product.badges.includes(slug));
 
   return (
     <div className="group relative flex flex-col">
@@ -35,22 +43,14 @@ export default function ProductCard({ product, albums }: { product: Product; alb
         </Link>
 
         <div className="absolute left-3 top-3 flex flex-col gap-1.5">
-          {product.editionType !== "none" && (
-            <Badge tone="ink">{editionLabels[product.editionType]}</Badge>
-          )}
-          {product.albums.includes(SALE_SLUG) && (
-            <Badge tone="burgundy">{albumLabel(findAlbum(SALE_SLUG) ?? fallbackAlbum(SALE_SLUG, "SALE"), locale)}</Badge>
-          )}
-          {product.albums.includes(NEW_SLUG) && (
-            <Badge tone="outline" className="bg-paper">
-              {albumLabel(findAlbum(NEW_SLUG) ?? fallbackAlbum(NEW_SLUG, "NEW"), locale)}
-            </Badge>
-          )}
-          {product.albums.includes(BESTSELLER_SLUG) && (
-            <Badge tone="outline" className="bg-paper">
-              {albumLabel(findAlbum(BESTSELLER_SLUG) ?? fallbackAlbum(BESTSELLER_SLUG, "BESTSELLER"), locale)}
-            </Badge>
-          )}
+          {activeBadges.map((slug) => {
+            const tone = CARD_BADGE_TONE[slug];
+            return (
+              <Badge key={slug} tone={tone} className={tone === "outline" ? "bg-paper" : undefined}>
+                {badgeLabel(slug, locale)}
+              </Badge>
+            );
+          })}
           {product.availability === "made_to_order" && (
             <Badge tone="outline" className="bg-paper">
               {t("madeToOrder")}
@@ -82,9 +82,4 @@ export default function ProductCard({ product, albums }: { product: Product; alb
       </Link>
     </div>
   );
-}
-
-/** Safety net if a reserved album (bestseller/new/sale) was ever deleted in /admin. */
-function fallbackAlbum(slug: string, label: string): Album {
-  return { slug, nameRu: label, nameEn: label, sortOrder: 0 };
 }

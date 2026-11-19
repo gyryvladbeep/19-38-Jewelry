@@ -56,7 +56,9 @@
     "all": "All",
     "from": "from",
     "pieces": "pcs",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "previousImage": "Previous photo",
+    "nextImage": "Next photo"
   },
   "home": {
     "heroEyebrow": "19:38",

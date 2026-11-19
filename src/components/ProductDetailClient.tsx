@@ -5,20 +5,26 @@ import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import type { Product } from "@/data/products";
-import type { Album } from "@/data/albumTypes";
-import { BESTSELLER_SLUG, NEW_SLUG, SALE_SLUG, albumLabel } from "@/data/albumTypes";
-import {
-  editionLabels,
-  editionNotes,
-  formatPrice,
-  personalizationLabels,
-} from "@/lib/format";
+import { BADGE_ORDER, type BadgeSlug, badgeLabel, badgeNotes } from "@/data/badgeTypes";
+import { formatPrice, personalizationLabels } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import ProductImagePlaceholder from "@/components/ProductImagePlaceholder";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { HeartIcon, CheckIcon } from "@/components/icons";
+import { HeartIcon, CheckIcon, ChevronLeftIcon, ChevronRightIcon } from "@/components/icons";
 import ProductCard from "@/components/ProductCard";
+
+/** Badge visual tone on the product detail page — see src/data/badgeTypes.ts for the slugs. */
+const DETAIL_BADGE_TONE: Record<BadgeSlug, "ink" | "burgundy" | "outline"> = {
+  one_of_one: "burgundy",
+  limited: "burgundy",
+  sale: "ink",
+  new: "outline",
+  bestseller: "outline",
+};
+
+/** The one or two badges (one_of_one/limited) that get an explanatory note under the price. */
+const EDITION_BADGES: BadgeSlug[] = ["one_of_one", "limited"];
 
 const personalizationFieldLabel: Record<
   string,
@@ -32,11 +38,9 @@ const personalizationFieldLabel: Record<
 export default function ProductDetailClient({
   product,
   related,
-  albums,
 }: {
   product: Product;
   related: Product[];
-  albums: Album[];
 }) {
   const locale = useLocale() as "ru" | "en";
   const t = useTranslations("common");
@@ -49,14 +53,17 @@ export default function ProductDetailClient({
   const [added, setAdded] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
 
-  const onSale = product.albums.includes(SALE_SLUG) && Boolean(product.salePrice);
-  const findAlbum = (slug: string) =>
-    albums.find((a) => a.slug === slug) ?? {
-      slug,
-      nameRu: slug.toUpperCase(),
-      nameEn: slug.toUpperCase(),
-      sortOrder: 0,
-    };
+  const onSale = product.badges.includes("sale") && Boolean(product.salePrice);
+  const activeBadges = BADGE_ORDER.filter((slug) => product.badges.includes(slug));
+  const editionBadge = EDITION_BADGES.find((slug) => product.badges.includes(slug));
+  const hasMultipleImages = product.images.length > 1;
+
+  function showPreviousImage() {
+    setActiveImage((i) => (i - 1 + product.images.length) % product.images.length);
+  }
+  function showNextImage() {
+    setActiveImage((i) => (i + 1) % product.images.length);
+  }
 
   const noteSummary = useMemo(() => {
     return product.personalization
@@ -85,6 +92,26 @@ export default function ProductDetailClient({
           {product.images[activeImage] ? (
             <div className="relative aspect-square w-full overflow-hidden bg-burgundy-tint">
               <Image src={product.images[activeImage]} alt="" fill className="object-cover" />
+              {hasMultipleImages && (
+                <>
+                  <button
+                    type="button"
+                    onClick={showPreviousImage}
+                    aria-label={t("previousImage")}
+                    className="absolute left-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center bg-paper/80 text-ink transition-colors hover:text-burgundy"
+                  >
+                    <ChevronLeftIcon className="h-5 w-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={showNextImage}
+                    aria-label={t("nextImage")}
+                    className="absolute right-2 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center bg-paper/80 text-ink transition-colors hover:text-burgundy"
+                  >
+                    <ChevronRightIcon className="h-5 w-5" />
+                  </button>
+                </>
+              )}
             </div>
           ) : (
             <ProductImagePlaceholder
@@ -118,18 +145,11 @@ export default function ProductDetailClient({
 
         <div>
           <div className="flex flex-wrap gap-2">
-            {product.editionType !== "none" && (
-              <Badge tone="burgundy">{editionLabels[product.editionType]}</Badge>
-            )}
-            {product.albums.includes(SALE_SLUG) && (
-              <Badge tone="ink">{albumLabel(findAlbum(SALE_SLUG), locale)}</Badge>
-            )}
-            {product.albums.includes(NEW_SLUG) && (
-              <Badge tone="outline">{albumLabel(findAlbum(NEW_SLUG), locale)}</Badge>
-            )}
-            {product.albums.includes(BESTSELLER_SLUG) && (
-              <Badge tone="outline">{albumLabel(findAlbum(BESTSELLER_SLUG), locale)}</Badge>
-            )}
+            {activeBadges.map((slug) => (
+              <Badge key={slug} tone={DETAIL_BADGE_TONE[slug]}>
+                {badgeLabel(slug, locale)}
+              </Badge>
+            ))}
             <Badge tone="outline">
               {product.availability === "in_stock" ? t("inStock") : t("madeToOrder")}
             </Badge>
@@ -149,9 +169,9 @@ export default function ProductDetailClient({
             <p className="mt-6 text-2xl text-ink">{formatPrice(product.price, locale)}</p>
           )}
 
-          {product.editionType !== "none" && (
+          {editionBadge && (
             <p className="mt-2 text-xs uppercase tracking-[0.08em] text-muted">
-              {editionLabels[product.editionType]} — {editionNotes[product.editionType][locale]}
+              {badgeLabel(editionBadge, locale)} — {badgeNotes[editionBadge]?.[locale]}
             </p>
           )}
 
@@ -246,7 +266,7 @@ export default function ProductDetailClient({
           <h2 className="font-display text-2xl tracking-tight">{t("relatedProducts")}</h2>
           <div className="mt-8 grid grid-cols-2 gap-x-px gap-y-12 md:grid-cols-4">
             {related.map((p) => (
-              <ProductCard key={p.slug} product={p} albums={albums} />
+              <ProductCard key={p.slug} product={p} />
             ))}
           </div>
         </section>

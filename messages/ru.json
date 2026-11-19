@@ -56,7 +56,9 @@
     "all": "Все",
     "from": "от",
     "pieces": "экз.",
-    "skipToContent": "Перейти к содержимому"
+    "skipToContent": "Перейти к содержимому",
+    "previousImage": "Предыдущее фото",
+    "nextImage": "Следующее фото"
   },
   "home": {
     "heroEyebrow": "19:38",

@@ -41,7 +41,9 @@ create table if not exists products (
   availability text not null default 'in_stock',
   personalization text[] not null default '{}',
   bestseller boolean not null default false,
-  edition_type text not null default 'none',
+  -- Display badges (ONE OF ONE / LIMITED EDITION / BESTSELLER / NEW / SALE)
+  -- — admin multi-select, independent of `albums`. See src/data/badgeTypes.ts.
+  badges text[] not null default '{}',
   albums text[] not null default '{}',
   images text[] not null default '{}',
   reviews jsonb not null default '[]',
@@ -69,6 +71,18 @@ create table if not exists products (
 -- ) where albums = '{}';
 -- alter table products drop column if exists type;
 -- alter table products drop column if exists collections;
+
+-- Migrating an existing database that still has the old single-select
+-- `edition_type` column (pre-badges)? Run this block once instead of the
+-- create-table above (it's a no-op on a fresh project): adds the new
+-- `badges` column, backfills it from `edition_type` plus whichever of the
+-- reserved bestseller/new/sale albums the product already belonged to
+-- (so existing products keep showing the same plashki after the switch —
+-- the admin can then pick badges independently of albums going forward),
+-- then drops `edition_type`.
+-- alter table products add column if not exists badges text[] not null default '{}';
+-- update products set badges = (select array_remove(array[case when edition_type = 'one_of_one' then 'one_of_one' end, case when edition_type = 'limited' then 'limited' end, case when 'bestseller' = any(albums) then 'bestseller' end, case when 'new' = any(albums) then 'new' end, case when 'sale' = any(albums) then 'sale' end], null)) where badges = '{}';
+-- alter table products drop column if exists edition_type;
 
 -- Editable site text (About, FAQ, Home, Shipping, Returns, Privacy,
 -- Contact copy). One row per field per locale; see src/lib/content.ts

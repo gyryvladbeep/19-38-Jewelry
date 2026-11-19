@@ -4,7 +4,6 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import ProductCard from "@/components/ProductCard";
 import { fetchProducts, getBestsellers } from "@/data/products";
-import { fetchAlbums } from "@/lib/albums";
 import { SITE_IMAGE_KEYS, fetchSiteImages, siteImageUrl } from "@/lib/siteImages";
 
 export const revalidate = 60;
@@ -20,7 +19,6 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const products = await fetchProducts();
   const bestsellers = getBestsellers(products);
-  const albums = await fetchAlbums();
   const siteImages = await fetchSiteImages();
 
   return (
@@ -91,7 +89,7 @@ export default async function HomePage({
         </div>
         <div className="grid grid-cols-2 gap-x-px gap-y-12 md:grid-cols-4">
           {bestsellers.map((product) => (
-            <ProductCard key={product.slug} product={product} albums={albums} />
+            <ProductCard key={product.slug} product={product} />
           ))}
         </div>
       </section>

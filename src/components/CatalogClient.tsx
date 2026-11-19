@@ -68,7 +68,7 @@ export default function CatalogClient({
       ) : (
         <div className="mt-8 grid grid-cols-2 gap-x-px gap-y-12 sm:grid-cols-3 lg:grid-cols-4">
           {filtered.map((product) => (
-            <ProductCard key={product.slug} product={product} albums={albums} />
+            <ProductCard key={product.slug} product={product} />
           ))}
         </div>
       )}

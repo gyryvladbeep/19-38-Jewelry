@@ -4,13 +4,8 @@ import { useActionState, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import type { Album, Product } from "@/data/products";
+import { BADGE_ORDER, badgeAdminLabels } from "@/data/badgeTypes";
 import { saveProduct, deleteProduct, type ActionResult } from "./actions";
-
-const editionOptions: { value: Product["editionType"]; label: string }[] = [
-  { value: "none", label: "Нет" },
-  { value: "one_of_one", label: "One of One" },
-  { value: "limited", label: "Limited Edition" },
-];
 
 const personalizationOptions: { value: Product["personalization"][number]; label: string }[] = [
   { value: "engraving", label: "Гравировка" },
@@ -28,7 +23,7 @@ const initialDeleteState: ActionResult<null> | null = null;
 export default function ProductForm({ product, albums }: { product?: Product; albums: Album[] }) {
   const router = useRouter();
   const [keepImages, setKeepImages] = useState<string[]>(product?.images ?? []);
-  const [selectedAlbums, setSelectedAlbums] = useState<string[]>(product?.albums ?? []);
+  const [selectedBadges, setSelectedBadges] = useState<string[]>(product?.badges ?? []);
   const [saveState, saveAction, saving] = useActionState(saveProduct, initialSaveState);
   const [deleteState, deleteAction, deleting] = useActionState(deleteProduct, initialDeleteState);
 
@@ -51,7 +46,7 @@ export default function ProductForm({ product, albums }: { product?: Product; al
   }, [deleteState, router]);
 
   const error = (saveState && !saveState.ok && saveState.error) || (deleteState && !deleteState.ok && deleteState.error) || null;
-  const saleSelected = selectedAlbums.includes("sale");
+  const saleBadgeSelected = selectedBadges.includes("sale");
   const sortedAlbums = [...albums].sort((a, b) => a.sortOrder - b.sortOrder);
 
   return (
@@ -131,26 +126,6 @@ export default function ProductForm({ product, albums }: { product?: Product; al
                 <option value="made_to_order">Под заказ</option>
               </select>
             </div>
-            <div>
-              <label className={labelClass} htmlFor="editionType">
-                Тип тиража (плашка)
-              </label>
-              <select
-                id="editionType"
-                name="editionType"
-                defaultValue={product?.editionType ?? "none"}
-                className={inputClass}
-              >
-                {editionOptions.map((opt) => (
-                  <option key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </option>
-                ))}
-              </select>
-              <p className="mt-1 text-xs text-muted">
-                Limited Edition — не забудьте указать количество экземпляров в описании товара.
-              </p>
-            </div>
             <label className="mt-6 flex items-center gap-2 text-sm text-ink">
               <input
                 type="checkbox"
@@ -160,6 +135,39 @@ export default function ProductForm({ product, albums }: { product?: Product; al
               />
               Показывать в «Заметных вещах» на главной
             </label>
+          </div>
+
+          <div className="mt-5">
+            <span className={labelClass}>Плашки (тип тиража)</span>
+            <div className="mt-2 flex flex-wrap gap-4">
+              {BADGE_ORDER.map((slug) => (
+                <label key={slug} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    name="badges"
+                    value={slug}
+                    defaultChecked={product?.badges.includes(slug)}
+                    onChange={(e) =>
+                      setSelectedBadges((prev) =>
+                        e.target.checked ? [...prev, slug] : prev.filter((v) => v !== slug)
+                      )
+                    }
+                    className="h-4 w-4 accent-burgundy"
+                  />
+                  {badgeAdminLabels[slug]}
+                </label>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-muted">
+              Можно отметить сразу несколько плашек — например Limited Edition и Sale
+              одновременно. Плашки не зависят от альбомов, в которые входит товар.
+            </p>
+            {saleBadgeSelected && (
+              <p className="mt-2 text-xs text-muted">
+                Товар отмечен плашкой Sale — укажите цену со скидкой выше, иначе на сайте будет
+                показана обычная цена.
+              </p>
+            )}
           </div>
 
           <div className="mt-5">
@@ -181,13 +189,6 @@ export default function ProductForm({ product, albums }: { product?: Product; al
                     name="albums"
                     value={album.slug}
                     defaultChecked={product?.albums.includes(album.slug)}
-                    onChange={(e) =>
-                      setSelectedAlbums((prev) =>
-                        e.target.checked
-                          ? [...prev, album.slug]
-                          : prev.filter((v) => v !== album.slug)
-                      )
-                    }
                     className="h-4 w-4 accent-burgundy"
                   />
                   {album.nameRu}
@@ -198,12 +199,6 @@ export default function ProductForm({ product, albums }: { product?: Product; al
               Товар можно отметить сразу в нескольких альбомах — например «Серьги» и «New»
               одновременно.
             </p>
-            {saleSelected && (
-              <p className="mt-2 text-xs text-muted">
-                Товар отмечен как Sale — укажите цену со скидкой выше, иначе на сайте будет
-                показана обычная цена.
-              </p>
-            )}
           </div>
 
           <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
