@@ -15,6 +15,7 @@ const CARD_BADGE_TONE: Record<BadgeSlug, "ink" | "burgundy" | "outline"> = {
   one_of_one: "ink",
   limited: "ink",
   sale: "burgundy",
+  last_chance: "burgundy",
   new: "outline",
   bestseller: "outline",
 };

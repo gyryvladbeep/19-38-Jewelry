@@ -57,7 +57,7 @@ export interface Product {
   availability: Availability;
   personalization: PersonalizationOption[];
   bestseller?: boolean;
-  /** Display badges (ONE OF ONE/LIMITED EDITION/BESTSELLER/NEW/SALE) — see src/data/badgeTypes.ts. Independent of `albums`. */
+  /** Display badges (ONE OF ONE/LIMITED EDITION/SALE/LAST CHANCE/NEW/BESTSELLER) — see src/data/badgeTypes.ts. Independent of `albums`. */
   badges: string[];
   /** Album slugs this product belongs to — see the `Album` type above. */
   albums: string[];
