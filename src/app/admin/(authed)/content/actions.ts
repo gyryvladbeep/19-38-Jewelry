@@ -3,6 +3,7 @@
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin, MEDIA_BUCKET } from "@/lib/supabase";
+import { normalizeUploadedImage } from "@/lib/imageUpload";
 
 // See the comment on ActionResult in ../products/actions.ts: Server
 // Actions return expected errors as values rather than throwing, since
@@ -82,11 +83,21 @@ export async function saveSiteImage(
   }
 
   try {
-    const ext = file.name.includes(".") ? file.name.split(".").pop() : "jpg";
-    const path = `site/${key}-${randomUUID()}.${ext}`;
+    let normalized;
+    try {
+      normalized = await normalizeUploadedImage(file);
+    } catch (conversionError) {
+      return {
+        ok: false,
+        error: `Не удалось обработать фото: ${
+          conversionError instanceof Error ? conversionError.message : String(conversionError)
+        }. Попробуйте другой файл.`,
+      };
+    }
+    const path = `site/${key}-${randomUUID()}.${normalized.extension}`;
     const { error: uploadError } = await supabase.storage
       .from(MEDIA_BUCKET)
-      .upload(path, file, { contentType: file.type || "image/jpeg", upsert: false });
+      .upload(path, normalized.buffer, { contentType: normalized.contentType, upsert: false });
     if (uploadError) {
       return {
         ok: false,

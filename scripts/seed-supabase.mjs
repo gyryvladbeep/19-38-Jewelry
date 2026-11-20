@@ -48,8 +48,6 @@ const rows = products
     piece_number: p.pieceNumber,
     price: p.price,
     sale_price: p.salePrice ?? null,
-    materials: p.materials ?? "",
-    size: p.size ?? "",
     availability: p.availability,
     personalization: p.personalization,
     bestseller: Boolean(p.bestseller),
@@ -61,6 +59,10 @@ const rows = products
     name_en: p.en.name,
     description_ru: p.ru.description,
     description_en: p.en.description,
+    materials_ru: p.ru.materials ?? "",
+    materials_en: p.en.materials ?? "",
+    size_ru: p.ru.size ?? "",
+    size_en: p.en.size ?? "",
   }));
 
 if (rows.length === 0) {

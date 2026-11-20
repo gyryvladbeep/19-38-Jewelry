@@ -3,6 +3,7 @@
 import { randomUUID } from "crypto";
 import { revalidatePath } from "next/cache";
 import { getSupabaseAdmin, MEDIA_BUCKET } from "@/lib/supabase";
+import { normalizeUploadedImage } from "@/lib/imageUpload";
 import type { Availability, PersonalizationOption } from "@/data/products";
 
 /**
@@ -54,11 +55,21 @@ export async function saveProduct(
 
     const uploaded: string[] = [];
     for (const file of newFiles) {
-      const ext = file.name.includes(".") ? file.name.split(".").pop() : "jpg";
-      const path = `products/${randomUUID()}.${ext}`;
+      let normalized;
+      try {
+        normalized = await normalizeUploadedImage(file);
+      } catch (conversionError) {
+        return {
+          ok: false,
+          error: `Не удалось обработать фото «${file.name}»: ${
+            conversionError instanceof Error ? conversionError.message : String(conversionError)
+          }. Попробуйте другой файл.`,
+        };
+      }
+      const path = `products/${randomUUID()}.${normalized.extension}`;
       const { error: uploadError } = await supabase.storage
         .from(MEDIA_BUCKET)
-        .upload(path, file, { contentType: file.type || "image/jpeg", upsert: false });
+        .upload(path, normalized.buffer, { contentType: normalized.contentType, upsert: false });
       if (uploadError) {
         return {
           ok: false,
@@ -89,8 +100,6 @@ export async function saveProduct(
       piece_number: String(formData.get("pieceNumber") || "").trim(),
       price: Math.max(0, Number(formData.get("price") || 0)),
       sale_price: salePriceRaw ? Math.max(0, Number(salePriceRaw)) : null,
-      materials: String(formData.get("materials") || "").trim(),
-      size: String(formData.get("size") || "").trim(),
       availability: String(formData.get("availability") || "in_stock") as Availability,
       personalization: getList(formData, "personalization") as PersonalizationOption[],
       bestseller: formData.get("bestseller") === "on",
@@ -101,6 +110,10 @@ export async function saveProduct(
       name_en: String(formData.get("nameEn") || "").trim(),
       description_ru: String(formData.get("descriptionRu") || "").trim(),
       description_en: String(formData.get("descriptionEn") || "").trim(),
+      materials_ru: String(formData.get("materialsRu") || "").trim(),
+      materials_en: String(formData.get("materialsEn") || "").trim(),
+      size_ru: String(formData.get("sizeRu") || "").trim(),
+      size_en: String(formData.get("sizeEn") || "").trim(),
     };
 
     if (id) {

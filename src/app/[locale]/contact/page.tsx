@@ -34,8 +34,8 @@ export default async function ContactPage({
       <div className="mt-6 flex flex-col gap-2 text-sm text-ink">
         <p>
           {t("emailLabel")}:{" "}
-          <a href="mailto:hello@1938jewelry.com" className="underline underline-offset-4">
-            hello@1938jewelry.com
+          <a href="mailto:1938jewshop@gmail.com" className="underline underline-offset-4">
+            1938jewshop@gmail.com
           </a>
         </p>
         <div className="flex items-center gap-4">

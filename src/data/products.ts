@@ -33,6 +33,10 @@ export type { Album } from "./albumTypes";
 export interface ProductLocaleContent {
   name: string;
   description: string;
+  /** Free text, e.g. "natural stone, rhodium" — admin types this directly, per language. */
+  materials: string;
+  /** Free text, e.g. "17 cm / size 16" — admin types this directly, per language. */
+  size: string;
 }
 
 export interface Review {
@@ -50,10 +54,6 @@ export interface Product {
   price: number;
   /** Discounted price — shown struck-through-old + new only when "sale" is in `albums`. */
   salePrice?: number | null;
-  /** Free text, e.g. "natural stone, rhodium" — admin types this directly. */
-  materials: string;
-  /** Free text, e.g. "17 cm / size 16" — admin types this directly. */
-  size: string;
   availability: Availability;
   personalization: PersonalizationOption[];
   bestseller?: boolean;
@@ -76,8 +76,6 @@ interface ProductRow {
   piece_number: string;
   price: number;
   sale_price: number | null;
-  materials: string;
-  size: string;
   availability: Availability;
   personalization: PersonalizationOption[];
   bestseller: boolean;
@@ -89,6 +87,10 @@ interface ProductRow {
   name_en: string;
   description_ru: string;
   description_en: string;
+  materials_ru: string;
+  materials_en: string;
+  size_ru: string;
+  size_en: string;
 }
 
 function rowToProduct(row: ProductRow): Product {
@@ -98,8 +100,6 @@ function rowToProduct(row: ProductRow): Product {
     pieceNumber: row.piece_number,
     price: row.price,
     salePrice: row.sale_price ?? null,
-    materials: row.materials ?? "",
-    size: row.size ?? "",
     availability: row.availability,
     personalization: row.personalization,
     bestseller: row.bestseller,
@@ -110,10 +110,14 @@ function rowToProduct(row: ProductRow): Product {
     ru: {
       name: row.name_ru,
       description: row.description_ru,
+      materials: row.materials_ru ?? "",
+      size: row.size_ru ?? "",
     },
     en: {
       name: row.name_en,
       description: row.description_en,
+      materials: row.materials_en ?? "",
+      size: row.size_en ?? "",
     },
   };
 }

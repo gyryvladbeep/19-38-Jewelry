@@ -36,7 +36,7 @@ function SiteImageField({
         <input
           type="file"
           name="file"
-          accept="image/*"
+          accept="image/*,.heic,.heif"
           disabled={readOnly}
           className="mt-2 block w-full text-sm"
         />

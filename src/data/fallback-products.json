@@ -4,8 +4,6 @@
     "pieceNumber": "019",
     "price": 6800,
     "salePrice": null,
-    "materials": "natural stone, rhodium",
-    "size": "",
     "availability": "in_stock",
     "personalization": [
       "size"
@@ -26,11 +24,15 @@
     ],
     "ru": {
       "name": "Кольцо Signature 19",
-      "description": "Минималистичное кольцо ручной работы: натуральный камень в родиевой оправе. Экземпляр 19:38 / 019 — существует в единственном числе, с карточкой-посланием в комплекте."
+      "description": "Минималистичное кольцо ручной работы: натуральный камень в родиевой оправе. Экземпляр 19:38 / 019 — существует в единственном числе, с карточкой-посланием в комплекте.",
+      "materials": "natural stone, rhodium",
+      "size": ""
     },
     "en": {
       "name": "Signature 19 Ring",
-      "description": "A minimalist handmade ring: a natural stone set in rhodium. Piece 19:38 / 019 — exists in a single copy, with a message card included."
+      "description": "A minimalist handmade ring: a natural stone set in rhodium. Piece 19:38 / 019 — exists in a single copy, with a message card included.",
+      "materials": "",
+      "size": ""
     },
     "albums": [
       "ring",
@@ -42,8 +44,6 @@
     "pieceNumber": "007",
     "price": 9200,
     "salePrice": null,
-    "materials": "pearl, rhodium",
-    "size": "",
     "availability": "in_stock",
     "personalization": [
       "size"
@@ -71,11 +71,15 @@
     ],
     "ru": {
       "name": "Колье Pearl Drop",
-      "description": "Колье с одной жемчужиной на тонкой родированной цепочке. Экземпляр 19:38 / 007 — one of one, с фирменной карточкой-посланием."
+      "description": "Колье с одной жемчужиной на тонкой родированной цепочке. Экземпляр 19:38 / 007 — one of one, с фирменной карточкой-посланием.",
+      "materials": "pearl, rhodium",
+      "size": ""
     },
     "en": {
       "name": "Pearl Drop Necklace",
-      "description": "A necklace with a single pearl on a fine rhodium-plated chain. Piece 19:38 / 007 — one of one, with the signature message card."
+      "description": "A necklace with a single pearl on a fine rhodium-plated chain. Piece 19:38 / 007 — one of one, with the signature message card.",
+      "materials": "",
+      "size": ""
     },
     "albums": [
       "necklace",
@@ -88,8 +92,6 @@
     "pieceNumber": "032",
     "price": 5400,
     "salePrice": null,
-    "materials": "natural stone, rhodium",
-    "size": "",
     "availability": "in_stock",
     "personalization": [],
     "badges": [
@@ -99,11 +101,15 @@
     "reviews": [],
     "ru": {
       "name": "Серьги Stone Hoop",
-      "description": "Небольшие серьги-кольца с вкраплением натурального камня, родиевое покрытие. Экземпляр 19:38 / 032."
+      "description": "Небольшие серьги-кольца с вкраплением натурального камня, родиевое покрытие. Экземпляр 19:38 / 032.",
+      "materials": "natural stone, rhodium",
+      "size": ""
     },
     "en": {
       "name": "Stone Hoop Earrings",
-      "description": "Small hoop earrings featuring a natural stone accent, rhodium plated. Piece 19:38 / 032."
+      "description": "Small hoop earrings featuring a natural stone accent, rhodium plated. Piece 19:38 / 032.",
+      "materials": "",
+      "size": ""
     },
     "albums": [
       "earrings",
@@ -115,8 +121,6 @@
     "pieceNumber": "014",
     "price": 7100,
     "salePrice": 5500,
-    "materials": "rhodium, natural stone",
-    "size": "",
     "availability": "made_to_order",
     "personalization": [
       "engraving",
@@ -129,11 +133,15 @@
     "reviews": [],
     "ru": {
       "name": "Браслет Midnight Bar",
-      "description": "Браслет на родированной цепочке с планкой, доступна персональная гравировка. Изготавливается под заказ — экземпляр 19:38 / 014."
+      "description": "Браслет на родированной цепочке с планкой, доступна персональная гравировка. Изготавливается под заказ — экземпляр 19:38 / 014.",
+      "materials": "rhodium, natural stone",
+      "size": ""
     },
     "en": {
       "name": "Midnight Bar Bracelet",
-      "description": "A rhodium-plated chain bracelet with a bar available for personal engraving. Made to order — piece 19:38 / 014."
+      "description": "A rhodium-plated chain bracelet with a bar available for personal engraving. Made to order — piece 19:38 / 014.",
+      "materials": "",
+      "size": ""
     },
     "albums": [
       "bracelet",
@@ -145,8 +153,6 @@
     "pieceNumber": "041",
     "price": 3600,
     "salePrice": null,
-    "materials": "pearl",
-    "size": "",
     "availability": "in_stock",
     "personalization": [],
     "badges": [],
@@ -161,11 +167,15 @@
     ],
     "ru": {
       "name": "Серьги-пуссеты Pearl",
-      "description": "Лаконичные пуссеты с натуральным жемчугом на родированной основе. Экземпляр 19:38 / 041."
+      "description": "Лаконичные пуссеты с натуральным жемчугом на родированной основе. Экземпляр 19:38 / 041.",
+      "materials": "pearl",
+      "size": ""
     },
     "en": {
       "name": "Pearl Stud Earrings",
-      "description": "Understated studs featuring natural pearl on a rhodium-plated base. Piece 19:38 / 041."
+      "description": "Understated studs featuring natural pearl on a rhodium-plated base. Piece 19:38 / 041.",
+      "materials": "",
+      "size": ""
     },
     "albums": [
       "earrings"
@@ -176,8 +186,6 @@
     "pieceNumber": "003",
     "price": 8300,
     "salePrice": null,
-    "materials": "rhodium, natural stone",
-    "size": "",
     "availability": "made_to_order",
     "personalization": [
       "engraving"
@@ -191,11 +199,15 @@
     "reviews": [],
     "ru": {
       "name": "Колье Sign Pendant",
-      "description": "Подвеска на тонкой цепочке с натуральным камнем — оборотная сторона доступна для персональной гравировки. Экземпляр 19:38 / 003, под заказ. Выпущено ограниченным тиражом — 12 экземпляров."
+      "description": "Подвеска на тонкой цепочке с натуральным камнем — оборотная сторона доступна для персональной гравировки. Экземпляр 19:38 / 003, под заказ. Выпущено ограниченным тиражом — 12 экземпляров.",
+      "materials": "rhodium, natural stone",
+      "size": ""
     },
     "en": {
       "name": "Sign Pendant Necklace",
-      "description": "A pendant on a fine chain featuring a natural stone — the reverse side is available for a personal engraving. Piece 19:38 / 003, made to order. Limited run of 12 pieces."
+      "description": "A pendant on a fine chain featuring a natural stone — the reverse side is available for a personal engraving. Piece 19:38 / 003, made to order. Limited run of 12 pieces.",
+      "materials": "",
+      "size": ""
     },
     "albums": [
       "necklace",
@@ -207,8 +219,6 @@
     "pieceNumber": "026",
     "price": 6200,
     "salePrice": 4900,
-    "materials": "natural stone, natural stone",
-    "size": "",
     "availability": "in_stock",
     "personalization": [
       "size"
@@ -220,11 +230,15 @@
     "reviews": [],
     "ru": {
       "name": "Кольцо Twin Stone",
-      "description": "Кольцо с двумя натуральными камнями на родированной основе. Экземпляр 19:38 / 026."
+      "description": "Кольцо с двумя натуральными камнями на родированной основе. Экземпляр 19:38 / 026.",
+      "materials": "natural stone, natural stone",
+      "size": ""
     },
     "en": {
       "name": "Twin Stone Ring",
-      "description": "A ring featuring two natural stones on a rhodium-plated band. Piece 19:38 / 026."
+      "description": "A ring featuring two natural stones on a rhodium-plated band. Piece 19:38 / 026.",
+      "materials": "",
+      "size": ""
     },
     "albums": [
       "ring",
@@ -236,8 +250,6 @@
     "pieceNumber": "058",
     "price": 4900,
     "salePrice": null,
-    "materials": "pearl, rhodium",
-    "size": "",
     "availability": "in_stock",
     "personalization": [
       "size",
@@ -248,11 +260,15 @@
     "reviews": [],
     "ru": {
       "name": "Браслет Pearl Chain",
-      "description": "Тонкий браслет с жемчужными вставками на родированной цепочке. Экземпляр 19:38 / 058."
+      "description": "Тонкий браслет с жемчужными вставками на родированной цепочке. Экземпляр 19:38 / 058.",
+      "materials": "pearl, rhodium",
+      "size": ""
     },
     "en": {
       "name": "Pearl Chain Bracelet",
-      "description": "A delicate bracelet with pearl accents on a rhodium-plated chain. Piece 19:38 / 058."
+      "description": "A delicate bracelet with pearl accents on a rhodium-plated chain. Piece 19:38 / 058.",
+      "materials": "",
+      "size": ""
     },
     "albums": [
       "bracelet"

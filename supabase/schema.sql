@@ -36,8 +36,12 @@ create table if not exists products (
   piece_number text not null default '',
   price integer not null default 0,
   sale_price integer,
-  materials text not null default '',
-  size text not null default '',
+  -- Materials/size are free text, per language — admin types them directly
+  -- in each language's column (same shape as name_ru/name_en below).
+  materials_ru text not null default '',
+  materials_en text not null default '',
+  size_ru text not null default '',
+  size_en text not null default '',
   availability text not null default 'in_stock',
   personalization text[] not null default '{}',
   bestseller boolean not null default false,
@@ -83,6 +87,17 @@ create table if not exists products (
 -- alter table products add column if not exists badges text[] not null default '{}';
 -- update products set badges = (select array_remove(array[case when edition_type = 'one_of_one' then 'one_of_one' end, case when edition_type = 'limited' then 'limited' end, case when 'bestseller' = any(albums) then 'bestseller' end, case when 'new' = any(albums) then 'new' end, case when 'sale' = any(albums) then 'sale' end], null)) where badges = '{}';
 -- alter table products drop column if exists edition_type;
+
+-- Migrating an existing database that still has single-language
+-- `materials`/`size` columns (pre-EN-materials)? Run this block once
+-- instead of the create-table above (it's a no-op on a fresh project):
+-- renames the old columns to their `_ru` equivalent (so nothing already
+-- typed in is lost) and adds empty `_en` columns for the admin to fill
+-- in separately.
+-- alter table products rename column materials to materials_ru;
+-- alter table products rename column size to size_ru;
+-- alter table products add column if not exists materials_en text not null default '';
+-- alter table products add column if not exists size_en text not null default '';
 
 -- Editable site text (About, FAQ, Home, Shipping, Returns, Privacy,
 -- Contact copy). One row per field per locale; see src/lib/content.ts

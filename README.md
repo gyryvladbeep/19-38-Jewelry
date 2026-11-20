@@ -109,10 +109,24 @@ npm run lint    # ESLint
 
 ## Подключение реальных уведомлений о заказах/сообщениях
 
-Сейчас `src/app/api/order/route.ts` и `src/app/api/contact/route.ts` только валидируют данные и логируют их (`console.log`) — заявки никуда не отправляются. Перед запуском подключите реальный канал, например:
+`src/app/api/order/route.ts` и `src/app/api/contact/route.ts` валидируют данные, логируют их (`console.log`) и отправляют письмо на `1938jewshop@gmail.com` через Gmail SMTP (см. `src/lib/email.ts`, пакет `nodemailer`). Если переменные окружения ниже не заданы, заявки всё равно принимаются и логируются — просто письмо не отправляется (ничего не падает).
 
-- **Telegram**: Bot API `sendMessage` (создать бота через @BotFather, добавить `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID` в переменные окружения, вызвать `fetch` в обоих route-файлах)
-- **E-mail**: Resend / Postmark — добавить API-ключ в переменные окружения и вызвать их SDK/API в тех же route-файлах
+**Чтобы включить отправку писем:**
+
+1. Зайдите в аккаунт `1938jewshop@gmail.com` → [Google Account → Security](https://myaccount.google.com/security) → включите **2-Step Verification** (без этого шага следующий пункт недоступен).
+2. Там же откройте **App passwords** (может быть на странице `https://myaccount.google.com/apppasswords`), создайте пароль приложения (например, с именем "19:38 Jewelry site") — Google покажет 16-значный код один раз.
+3. Добавьте переменные окружения (локально — в `.env.local`, см. `.env.example`; на проде — в Vercel: Project → Settings → Environment Variables):
+   ```
+   GMAIL_USER=1938jewshop@gmail.com
+   GMAIL_APP_PASSWORD=<16-значный код из шага 2>
+   SHOP_NOTIFICATION_EMAIL=1938jewshop@gmail.com
+   ```
+   `SHOP_NOTIFICATION_EMAIL` необязателен — без него письма идут на сам `GMAIL_USER`.
+4. Готово — и заявки из корзины ("Оформить заказ"), и сообщения со страницы "Контакты" будут приходить на эту почту.
+
+Пароль приложения — это не обычный пароль от почты, его нельзя использовать для входа в аккаунт, только для отправки писем через SMTP; его можно в любой момент отозвать на той же странице App passwords.
+
+Другие варианты на будущее (не реализованы, но легко добавить рядом): Telegram Bot API `sendMessage` для мгновенных уведомлений в чат — создать бота через @BotFather, добавить `TELEGRAM_BOT_TOKEN`/`TELEGRAM_CHAT_ID` и вызвать `fetch` в тех же route-файлах.
 
 ## Мультиязычность
 
@@ -132,9 +146,13 @@ SUPABASE_URL=...
 SUPABASE_SERVICE_ROLE_KEY=...
 ADMIN_PASSWORD=...
 ADMIN_SESSION_SECRET=...
+
+GMAIL_USER=...
+GMAIL_APP_PASSWORD=...
+SHOP_NOTIFICATION_EMAIL=...
 ```
 
-`NEXT_PUBLIC_SITE_URL` используется в `sitemap.ts` / `robots.ts` для абсолютных ссылок. Остальные четыре — для админ-панели, см. "Админ-панель и редактирование контента" выше.
+`NEXT_PUBLIC_SITE_URL` используется в `sitemap.ts` / `robots.ts` для абсолютных ссылок. Следующие четыре — для админ-панели, см. "Админ-панель и редактирование контента" выше. Последние три (необязательные) — для почтовых уведомлений о заказах/сообщениях, см. "Подключение реальных уведомлений о заказах/сообщениях" ниже.
 
 ## Деплой
 

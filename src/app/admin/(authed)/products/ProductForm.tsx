@@ -201,33 +201,6 @@ export default function ProductForm({ product, albums }: { product?: Product; al
             </p>
           </div>
 
-          <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            <div>
-              <label className={labelClass} htmlFor="materials">
-                Материалы
-              </label>
-              <input
-                id="materials"
-                name="materials"
-                defaultValue={product?.materials}
-                placeholder="например: натуральный камень, родий"
-                className={inputClass}
-              />
-            </div>
-            <div>
-              <label className={labelClass} htmlFor="size">
-                Размер
-              </label>
-              <input
-                id="size"
-                name="size"
-                defaultValue={product?.size}
-                placeholder="например: 17 см / размер 16"
-                className={inputClass}
-              />
-            </div>
-          </div>
-
           <div className="mt-5">
             <span className={labelClass}>Персонализация</span>
             <div className="mt-2 flex flex-wrap gap-4">
@@ -275,12 +248,14 @@ export default function ProductForm({ product, albums }: { product?: Product; al
             id="newImages"
             name="newImages"
             type="file"
-            accept="image/*"
+            accept="image/*,.heic,.heif"
             multiple
             className="mt-1 block w-full text-sm"
           />
           <p className="mt-1 text-xs text-muted">
-            Первое фото в списке используется как основное на карточке товара.
+            Первое фото в списке используется как основное на карточке товара. Поддерживается любой
+            формат, включая HEIC (фото «как снято» с iPhone) — такие фото автоматически
+            конвертируются при сохранении.
           </p>
         </section>
 
@@ -307,6 +282,30 @@ export default function ProductForm({ product, albums }: { product?: Product; al
                   className={inputClass}
                 />
               </div>
+              <div>
+                <label className={labelClass} htmlFor="materialsRu">
+                  Материалы
+                </label>
+                <input
+                  id="materialsRu"
+                  name="materialsRu"
+                  defaultValue={product?.ru.materials}
+                  placeholder="например: натуральный камень, родий"
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="sizeRu">
+                  Размер
+                </label>
+                <input
+                  id="sizeRu"
+                  name="sizeRu"
+                  defaultValue={product?.ru.size}
+                  placeholder="например: 17 см / размер 16"
+                  className={inputClass}
+                />
+              </div>
             </div>
             <div className="space-y-4">
               <p className="text-xs uppercase tracking-[0.1em] text-muted">English</p>
@@ -325,6 +324,30 @@ export default function ProductForm({ product, albums }: { product?: Product; al
                   name="descriptionEn"
                   rows={4}
                   defaultValue={product?.en.description}
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="materialsEn">
+                  Materials
+                </label>
+                <input
+                  id="materialsEn"
+                  name="materialsEn"
+                  defaultValue={product?.en.materials}
+                  placeholder="e.g. natural stone, rhodium"
+                  className={inputClass}
+                />
+              </div>
+              <div>
+                <label className={labelClass} htmlFor="sizeEn">
+                  Size
+                </label>
+                <input
+                  id="sizeEn"
+                  name="sizeEn"
+                  defaultValue={product?.en.size}
+                  placeholder="e.g. 17 cm / size 16"
                   className={inputClass}
                 />
               </div>

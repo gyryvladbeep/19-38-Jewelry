@@ -178,19 +178,19 @@ export default function ProductDetailClient({
 
           <p className="mt-6 leading-relaxed text-ink">{content.description}</p>
 
-          {product.materials && (
+          {content.materials && (
             <div className="mt-6">
               <h2 className="text-xs uppercase tracking-[0.14em] text-muted">
                 {tp("materialsTitle")}
               </h2>
-              <p className="mt-2 text-sm text-ink">{product.materials}</p>
+              <p className="mt-2 text-sm text-ink">{content.materials}</p>
             </div>
           )}
 
-          {product.size && (
+          {content.size && (
             <div className="mt-6">
               <h2 className="text-xs uppercase tracking-[0.14em] text-muted">{t("size")}</h2>
-              <p className="mt-2 text-sm text-ink">{product.size}</p>
+              <p className="mt-2 text-sm text-ink">{content.size}</p>
             </div>
           )}
 
