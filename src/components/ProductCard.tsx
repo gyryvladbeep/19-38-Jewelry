@@ -38,7 +38,7 @@ export default function ProductCard({ product }: { product: Product }) {
             albums={product.albums}
             pieceNumber={product.pieceNumber}
             images={product.images}
-            natural
+            hoverImage={product.images[1]}
             className="w-full transition-opacity duration-300 group-hover:opacity-90"
           />
         </Link>

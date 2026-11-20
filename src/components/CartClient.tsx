@@ -84,7 +84,7 @@ export default function CartClient() {
                     albums={product.albums}
                     pieceNumber={product.pieceNumber}
                     images={product.images}
-                    className="h-24 w-24"
+                    className="w-24"
                     iconClassName="w-8 h-8"
                   />
                 </Link>

@@ -91,8 +91,8 @@ export default function ProductDetailClient({
       <div className="mt-6 grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16">
         <div>
           {product.images[activeImage] ? (
-            <div className="relative aspect-square w-full overflow-hidden bg-burgundy-tint">
-              <Image src={product.images[activeImage]} alt="" fill className="object-cover" />
+            <div className="relative aspect-[3/4] w-full overflow-hidden bg-burgundy-tint">
+              <Image src={product.images[activeImage]} alt="" fill className="object-cover object-center" />
               {hasMultipleImages && (
                 <>
                   <button
@@ -119,7 +119,7 @@ export default function ProductDetailClient({
               albums={product.albums}
               pieceNumber={product.pieceNumber}
               images={[]}
-              className="aspect-square w-full"
+              className="w-full"
               iconClassName="w-24 h-24"
             />
           )}
@@ -133,11 +133,11 @@ export default function ProductDetailClient({
                   onClick={() => setActiveImage(i)}
                   aria-label={`${content.name} — ${i + 1}`}
                   aria-current={i === activeImage}
-                  className={`relative h-16 w-16 shrink-0 overflow-hidden bg-burgundy-tint ${
+                  className={`relative aspect-[3/4] w-16 shrink-0 overflow-hidden bg-burgundy-tint ${
                     i === activeImage ? "ring-1 ring-ink" : "opacity-70 hover:opacity-100"
                   }`}
                 >
-                  <Image src={src} alt="" fill className="object-cover" />
+                  <Image src={src} alt="" fill className="object-cover object-center" />
                 </button>
               ))}
             </div>
