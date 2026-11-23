@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import type { Product } from "@/data/products";
 import type { Album } from "@/data/albumTypes";
@@ -18,7 +19,15 @@ export default function CatalogClient({
   const t = useTranslations("catalog");
   const tc = useTranslations("common");
 
-  const [album, setAlbum] = useState<string | "all">("all");
+  // A link into the catalog can pre-select an album via ?album=<slug> (the
+  // homepage's "new collection" buttons use this) — falls back to "all"
+  // for a plain /catalog visit or an unknown/removed slug. Read once on
+  // mount; the filter buttons below then behave exactly as before.
+  const searchParams = useSearchParams();
+  const initialAlbum = searchParams.get("album");
+  const [album, setAlbum] = useState<string | "all">(
+    initialAlbum && albums.some((a) => a.slug === initialAlbum) ? initialAlbum : "all"
+  );
 
   const sortedAlbums = useMemo(
     () => [...albums].sort((a, b) => a.sortOrder - b.sortOrder),

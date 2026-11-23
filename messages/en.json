@@ -5,7 +5,7 @@
     "defaultDescription": "19:38 Jewelry — handmade jewelry made from natural stones, rhodium, and pearl. Every piece is numbered and exists only once."
   },
   "nav": {
-    "catalog": "THE COLLECTION",
+    "catalog": "Catalog",
     "about": "About",
     "shipping": "Shipping & Payment",
     "faq": "FAQ",
@@ -62,17 +62,17 @@
   },
   "home": {
     "heroEyebrow": "19:38",
-    "heroTitle": "Some moments are meant to be noticed",
-    "heroSubtitle": "Some moments are meant to be noticed",
-    "heroCta": "Shop THE COLLECTION",
-    "heroSecondaryCta": "About the brand",
+    "heroTitle": "FIRST MOMENTS",
+    "heroSubtitle": "The new 19:38 collection — be the first to see it",
+    "heroCta": "See It First",
     "signLine1": "Maybe it’s coincidence.",
     "signLine1Ru": "Maybe it’s coincidence.",
     "signLine2": "Maybe it’s a sign.",
     "signLine2Ru": "Maybe it’s a sign.",
     "signIntro": "19:38 is not just a time. It’s the moment you stop and notice a sign: someone remembers you, someone writes, something ends, something begins.",
-    "bestsellersTitle": "Pieces worth noticing",
-    "bestsellersSubtitle": "The ones people notice first",
+    "newCollectionSubtitle": "The ones people notice first",
+    "viewCollectionCta": "To the Collection",
+    "viewCatalogCta": "To the Catalog",
     "aboutTeaserTitle": "Every piece is a personal sign",
     "aboutTeaserBody": "You don’t just choose a piece of jewelry. You notice it. Every 19:38 piece carries its own number and a message card — it exists only once.",
     "aboutTeaserCta": "Read the brand story",
@@ -97,7 +97,7 @@
     "statusMixedNote": "Some pieces are in stock, others made to order; exact status is confirmed when you submit your request."
   },
   "catalog": {
-    "title": "THE COLLECTION",
+    "title": "Catalog",
     "subtitle": "Handmade jewelry made from natural stones, rhodium, and pearl",
     "filterMaterial": "Material",
     "filterType": "Type",
@@ -108,7 +108,7 @@
   "cart": {
     "title": "Cart",
     "empty": "Your cart is empty for now.",
-    "goToCatalog": "Go to THE COLLECTION",
+    "goToCatalog": "Go to catalog",
     "orderNote": "Online payment isn’t available on the site yet: after you submit your request, we’ll contact you to confirm production, shipping, and payment details.",
     "itemRemoved": "Item removed from cart",
     "proceedToOrder": "Submit request"

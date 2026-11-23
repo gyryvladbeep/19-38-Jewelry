@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import CatalogClient from "@/components/CatalogClient";
 import { fetchProducts } from "@/data/products";
@@ -29,7 +30,11 @@ export default async function CatalogPage({
   return (
     <div className="container-content py-8 md:py-10">
       <h1 className="sr-only">{(await getTranslations("catalog"))("title")}</h1>
-      <CatalogClient products={products} albums={albums} />
+      {/* useSearchParams (for the homepage's ?album= deep link) needs a
+          Suspense boundary during static prerendering. */}
+      <Suspense fallback={null}>
+        <CatalogClient products={products} albums={albums} />
+      </Suspense>
     </div>
   );
 }

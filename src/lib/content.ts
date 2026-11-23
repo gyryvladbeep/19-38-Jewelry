@@ -44,9 +44,15 @@ export const CONTENT_FIELDS: ContentField[] = [
 
   { key: "faq.items", section: "Частые вопросы", label: "Вопросы и ответы", type: "json" },
 
-  { key: "home.heroTitle", section: "Главная", label: "Заголовок героя", type: "text" },
+  { key: "home.heroTitle", section: "Главная", label: "Заголовок героя (название новой коллекции)", type: "text" },
   { key: "home.heroSubtitle", section: "Главная", label: "Подзаголовок героя", type: "text" },
   { key: "home.signIntro", section: "Главная", label: "Текст про 19:38", type: "textarea" },
+  {
+    key: "home.newCollectionSubtitle",
+    section: "Главная",
+    label: "Новая коллекция — подпись под названием",
+    type: "textarea",
+  },
   { key: "home.aboutTeaserTitle", section: "Главная", label: "Заголовок блока «О бренде»", type: "text" },
   { key: "home.aboutTeaserBody", section: "Главная", label: "Текст блока «О бренде»", type: "textarea" },
   { key: "home.trustHandmadeBody", section: "Главная", label: "«Ручная работа» — текст", type: "textarea" },

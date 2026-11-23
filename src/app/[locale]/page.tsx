@@ -1,12 +1,16 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/Button";
 import ProductCard from "@/components/ProductCard";
-import { fetchProducts, getBestsellers } from "@/data/products";
+import { fetchProducts } from "@/data/products";
+import { fetchAlbums, albumLabel } from "@/lib/albums";
+import { NEW_SLUG } from "@/data/albumTypes";
 import { SITE_IMAGE_KEYS, fetchSiteImages, siteImageUrl } from "@/lib/siteImages";
 
 export const revalidate = 60;
+
+/** Homepage "new collection" showcase shows at most this many products. */
+const NEW_COLLECTION_LIMIT = 4;
 
 export default async function HomePage({
   params,
@@ -18,8 +22,19 @@ export default async function HomePage({
 
   const t = await getTranslations("home");
   const products = await fetchProducts();
-  const bestsellers = getBestsellers(products);
+  const albums = await fetchAlbums();
   const siteImages = await fetchSiteImages();
+
+  // The homepage showcases whichever products the admin has tagged with
+  // the "new" album (renamed to e.g. "FIRST MOMENTS" from /admin/albums —
+  // the section heading below is that album's own name, so renaming it
+  // there is all it takes to relabel this section). Capped at
+  // NEW_COLLECTION_LIMIT so the grid always matches the 4-up layout;
+  // "К коллекции" links to the full, unclipped list in the catalog.
+  const newCollectionAlbum = albums.find((a) => a.slug === NEW_SLUG);
+  const newCollectionProducts = products
+    .filter((p) => p.albums.includes(NEW_SLUG))
+    .slice(0, NEW_COLLECTION_LIMIT);
 
   return (
     <>
@@ -45,16 +60,8 @@ export default async function HomePage({
             {t("heroSubtitle")}
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <Button href="/catalog" variant="primary" size="lg">
+            <Button href={`/catalog?album=${NEW_SLUG}`} variant="primary" size="lg">
               {t("heroCta")}
-            </Button>
-            <Button
-              href="/about"
-              variant="secondary"
-              size="lg"
-              className="border-on-dark text-on-dark hover:bg-on-dark hover:text-burgundy-deep"
-            >
-              {t("heroSecondaryCta")}
             </Button>
           </div>
         </div>
@@ -73,26 +80,32 @@ export default async function HomePage({
         </p>
       </section>
 
-      {/* Bestsellers */}
-      <section className="container-content pb-20 md:pb-28">
-        <div className="mb-10 flex flex-col items-start justify-between gap-4 border-b border-line pb-6 md:flex-row md:items-end">
-          <div>
-            <h2 className="font-display text-3xl tracking-tight md:text-4xl">{t("bestsellersTitle")}</h2>
-            <p className="mt-2 text-sm text-muted">{t("bestsellersSubtitle")}</p>
+      {/* New collection showcase — shows whichever products the admin has
+          tagged with the "new" album (named e.g. "FIRST MOMENTS" from
+          /admin/albums); hidden if nothing is tagged yet. */}
+      {newCollectionProducts.length > 0 && (
+        <section className="container-content pb-20 md:pb-28">
+          <div className="mb-10 border-b border-line pb-6 text-center">
+            <h2 className="font-display text-3xl tracking-tight md:text-4xl">
+              {newCollectionAlbum ? albumLabel(newCollectionAlbum, locale) : t("heroTitle")}
+            </h2>
+            <p className="mt-2 text-sm text-muted">{t("newCollectionSubtitle")}</p>
           </div>
-          <Link
-            href="/catalog"
-            className="text-xs uppercase tracking-[0.14em] text-ink underline underline-offset-4 hover:text-burgundy"
-          >
-            {t("heroCta")}
-          </Link>
-        </div>
-        <div className="grid grid-cols-2 gap-x-px gap-y-12 md:grid-cols-4">
-          {bestsellers.map((product) => (
-            <ProductCard key={product.slug} product={product} />
-          ))}
-        </div>
-      </section>
+          <div className="grid grid-cols-2 gap-x-px gap-y-12 md:grid-cols-4">
+            {newCollectionProducts.map((product) => (
+              <ProductCard key={product.slug} product={product} />
+            ))}
+          </div>
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
+            <Button href={`/catalog?album=${NEW_SLUG}`} variant="primary" size="md">
+              {t("viewCollectionCta")}
+            </Button>
+            <Button href="/catalog" variant="secondary" size="md">
+              {t("viewCatalogCta")}
+            </Button>
+          </div>
+        </section>
+      )}
 
       {/* About teaser — dark block */}
       <section className="relative overflow-hidden bg-burgundy-deep py-20 text-on-dark md:py-28">

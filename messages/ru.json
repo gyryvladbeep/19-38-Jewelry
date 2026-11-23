@@ -5,7 +5,7 @@
     "defaultDescription": "19:38 Jewelry — украшения ручной работы из натуральных камней, родия и жемчуга. Каждое изделие пронумеровано и существует в единственном экземпляре."
   },
   "nav": {
-    "catalog": "THE COLLECTION",
+    "catalog": "Каталог",
     "about": "О бренде",
     "shipping": "Доставка и оплата",
     "faq": "FAQ",
@@ -45,7 +45,7 @@
     "required": "Обязательное поле",
     "sendRequest": "Оформить заявку",
     "requestSent": "Заявка отправлена",
-    "backToCatalog": "Вернуться в THE COLLECTION",
+    "backToCatalog": "Вернуться в каталог",
     "relatedProducts": "Вам может понравиться",
     "filters": "Фильтры",
     "sortBy": "Сортировка",
@@ -62,17 +62,17 @@
   },
   "home": {
     "heroEyebrow": "19:38",
-    "heroTitle": "Some moments are meant to be noticed",
-    "heroSubtitle": "Некоторые моменты должны быть замечены",
-    "heroCta": "Смотреть THE COLLECTION",
-    "heroSecondaryCta": "О бренде",
+    "heroTitle": "FIRST MOMENTS",
+    "heroSubtitle": "Новая коллекция 19:38 — будьте первыми, кто её увидит",
+    "heroCta": "Увидеть первой",
     "signLine1": "Maybe it’s coincidence.",
     "signLine1Ru": "Возможно, это совпадение.",
     "signLine2": "Maybe it’s a sign.",
     "signLine2Ru": "Может быть, это знак.",
     "signIntro": "19:38 — это не просто время. Это момент, когда ты останавливаешься и замечаешь знак: кто-то вспоминает тебя, кто-то пишет, что-то заканчивается, что-то начинается.",
-    "bestsellersTitle": "Заметные вещи",
-    "bestsellersSubtitle": "То, что чаще всего замечают первым",
+    "newCollectionSubtitle": "То, что чаще всего замечают первым",
+    "viewCollectionCta": "К коллекции",
+    "viewCatalogCta": "В каталог",
     "aboutTeaserTitle": "Каждое украшение — личный знак",
     "aboutTeaserBody": "Ты не просто выбираешь украшение. Ты замечаешь его. У каждого изделия 19:38 есть номер экземпляра и карточка-послание — оно существует только один раз.",
     "aboutTeaserCta": "Узнать историю бренда",
@@ -97,7 +97,7 @@
     "statusMixedNote": "Часть изделий в наличии, часть — под заказ; точный статус уточняется при оформлении заявки."
   },
   "catalog": {
-    "title": "THE COLLECTION",
+    "title": "Каталог",
     "subtitle": "Украшения ручной работы из натуральных камней, родия и жемчуга",
     "filterMaterial": "Материал",
     "filterType": "Тип",
@@ -108,7 +108,7 @@
   "cart": {
     "title": "Корзина",
     "empty": "Ваша корзина пока пуста.",
-    "goToCatalog": "Перейти в THE COLLECTION",
+    "goToCatalog": "Перейти в каталог",
     "orderNote": "Онлайн-оплата на сайте пока недоступна: после отправки заявки мы свяжемся с вами, чтобы уточнить детали изготовления, доставки и оплаты.",
     "itemRemoved": "Товар удалён из корзины",
     "proceedToOrder": "Оформить заявку"
