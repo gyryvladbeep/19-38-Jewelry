@@ -9,8 +9,8 @@ import { SITE_IMAGE_KEYS, fetchSiteImages, siteImageUrl } from "@/lib/siteImages
 
 export const revalidate = 60;
 
-/** Homepage "new collection" showcase shows at most this many products. */
-const NEW_COLLECTION_LIMIT = 4;
+/** Homepage "new collection" showcase shows at most this many products (3 rows of 4). */
+const NEW_COLLECTION_LIMIT = 12;
 
 export default async function HomePage({
   params,
@@ -29,7 +29,7 @@ export default async function HomePage({
   // the "new" album (renamed to e.g. "FIRST MOMENTS" from /admin/albums —
   // the section heading below is that album's own name, so renaming it
   // there is all it takes to relabel this section). Capped at
-  // NEW_COLLECTION_LIMIT so the grid always matches the 4-up layout;
+  // NEW_COLLECTION_LIMIT so the grid never grows past its 3-row layout;
   // "К коллекции" links to the full, unclipped list in the catalog.
   const newCollectionAlbum = albums.find((a) => a.slug === NEW_SLUG);
   const newCollectionProducts = products
@@ -69,13 +69,7 @@ export default async function HomePage({
 
       {/* Sign intro teaser — light, editorial */}
       <section className="container-content py-20 text-center md:py-28">
-        <p className="italic text-2xl text-burgundy md:text-3xl">
-          {t("signLine1")}
-        </p>
-        <p className="mt-1 italic text-2xl text-burgundy md:text-3xl">
-          {t("signLine2")}
-        </p>
-        <p className="mx-auto mt-8 max-w-xl text-balance text-lg leading-relaxed text-ink md:text-xl">
+        <p className="mx-auto max-w-2xl text-balance text-lg leading-relaxed text-ink md:text-xl">
           {t("signIntro")}
         </p>
       </section>
