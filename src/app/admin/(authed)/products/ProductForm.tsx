@@ -281,6 +281,10 @@ export default function ProductForm({ product, albums }: { product?: Product; al
                   defaultValue={product?.ru.description}
                   className={inputClass}
                 />
+                <p className="mt-1 text-xs text-muted">
+                  Переносы строк и пробелы в начале строки (отступы) сохраняются как есть и
+                  видны на сайте.
+                </p>
               </div>
               <div>
                 <label className={labelClass} htmlFor="materialsRu">
@@ -326,6 +330,10 @@ export default function ProductForm({ product, albums }: { product?: Product; al
                   defaultValue={product?.en.description}
                   className={inputClass}
                 />
+                <p className="mt-1 text-xs text-muted">
+                  Line breaks and leading spaces (indents) are kept as typed and shown on the
+                  site.
+                </p>
               </div>
               <div>
                 <label className={labelClass} htmlFor="materialsEn">

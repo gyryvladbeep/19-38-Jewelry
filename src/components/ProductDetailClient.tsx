@@ -176,7 +176,7 @@ export default function ProductDetailClient({
             </p>
           )}
 
-          <p className="mt-6 leading-relaxed text-ink">{content.description}</p>
+          <p className="mt-6 whitespace-pre-wrap leading-relaxed text-ink">{content.description}</p>
 
           {content.materials && (
             <div className="mt-6">
