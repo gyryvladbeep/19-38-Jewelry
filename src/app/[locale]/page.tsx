@@ -50,10 +50,7 @@ export default async function HomePage({
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-burgundy-deep via-burgundy-deep/60 to-transparent" />
         <div className="container-content relative py-16 md:py-24">
-          <p className="italic text-2xl text-on-dark-muted md:text-3xl">
-            {t("heroEyebrow")}
-          </p>
-          <h1 className="mt-3 max-w-3xl font-display text-5xl leading-[0.98] tracking-tight md:text-7xl lg:text-8xl">
+          <h1 className="max-w-3xl font-display text-5xl leading-[0.98] tracking-tight md:text-7xl lg:text-8xl">
             {t("heroTitle")}
           </h1>
           <p className="mt-5 max-w-md text-sm text-on-dark-muted md:text-base">
@@ -132,29 +129,6 @@ export default async function HomePage({
               19:38
             </span>
           </div>
-        </div>
-      </section>
-
-      {/* Trust block */}
-      <section className="container-content py-20 md:py-28">
-        <h2 className="font-display text-center text-3xl tracking-tight md:text-4xl">{t("trustTitle")}</h2>
-        <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3">
-          {(
-            [
-              ["trustHandmadeTitle", "trustHandmadeBody"],
-              ["trustOneOfOneTitle", "trustOneOfOneBody"],
-              ["trustWorldwideTitle", "trustWorldwideBody"],
-            ] as const
-          ).map(([titleKey, bodyKey]) => (
-            <div key={titleKey} className="text-center sm:text-left">
-              <h3 className="text-sm uppercase tracking-[0.14em] text-burgundy">
-                {t(titleKey)}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted">
-                {t(bodyKey)}
-              </p>
-            </div>
-          ))}
         </div>
       </section>
     </>

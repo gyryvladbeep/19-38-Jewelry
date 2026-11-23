@@ -61,7 +61,6 @@
     "nextImage": "Следующее фото"
   },
   "home": {
-    "heroEyebrow": "19:38",
     "heroTitle": "FIRST MOMENTS",
     "heroSubtitle": "Новая коллекция 19:38 — будьте первыми, кто её увидит",
     "heroCta": "Увидеть первой",
@@ -71,14 +70,7 @@
     "viewCatalogCta": "В каталог",
     "aboutTeaserTitle": "Каждое украшение — личный знак",
     "aboutTeaserBody": "Ты не просто выбираешь украшение. Ты замечаешь его. У каждого изделия 19:38 есть номер экземпляра и карточка-послание — оно существует только один раз.",
-    "aboutTeaserCta": "Узнать историю бренда",
-    "trustTitle": "Почему 19:38",
-    "trustHandmadeTitle": "Ручная работа",
-    "trustHandmadeBody": "Натуральные камни, родий и жемчуг — каждое изделие сделано вручную.",
-    "trustOneOfOneTitle": "One of one",
-    "trustOneOfOneBody": "Нумерованный экземпляр и карточка-послание делают украшение почти коллекционным объектом.",
-    "trustWorldwideTitle": "Доставка по всему миру",
-    "trustWorldwideBody": "Отправляем заказы в любую точку мира."
+    "aboutTeaserCta": "Узнать историю бренда"
   },
   "product": {
     "pieceNumberLabel": "Экземпляр",

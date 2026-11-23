@@ -61,7 +61,6 @@
     "nextImage": "Next photo"
   },
   "home": {
-    "heroEyebrow": "19:38",
     "heroTitle": "FIRST MOMENTS",
     "heroSubtitle": "The new 19:38 collection — be the first to see it",
     "heroCta": "See It First",
@@ -71,14 +70,7 @@
     "viewCatalogCta": "To the Catalog",
     "aboutTeaserTitle": "Every piece is a personal sign",
     "aboutTeaserBody": "You don’t just choose a piece of jewelry. You notice it. Every 19:38 piece carries its own number and a message card — it exists only once.",
-    "aboutTeaserCta": "Read the brand story",
-    "trustTitle": "Why 19:38",
-    "trustHandmadeTitle": "Handmade",
-    "trustHandmadeBody": "Natural stones, rhodium, and pearl — every piece is made by hand.",
-    "trustOneOfOneTitle": "One of one",
-    "trustOneOfOneBody": "A numbered piece and a message card make every jewel a near-collectible object.",
-    "trustWorldwideTitle": "Worldwide shipping",
-    "trustWorldwideBody": "We ship orders anywhere in the world."
+    "aboutTeaserCta": "Read the brand story"
   },
   "product": {
     "pieceNumberLabel": "Piece",

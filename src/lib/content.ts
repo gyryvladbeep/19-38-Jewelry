@@ -55,9 +55,6 @@ export const CONTENT_FIELDS: ContentField[] = [
   },
   { key: "home.aboutTeaserTitle", section: "Главная", label: "Заголовок блока «О бренде»", type: "text" },
   { key: "home.aboutTeaserBody", section: "Главная", label: "Текст блока «О бренде»", type: "textarea" },
-  { key: "home.trustHandmadeBody", section: "Главная", label: "«Ручная работа» — текст", type: "textarea" },
-  { key: "home.trustOneOfOneBody", section: "Главная", label: "«One of one» — текст", type: "textarea" },
-  { key: "home.trustWorldwideBody", section: "Главная", label: "«Доставка» — текст", type: "textarea" },
 
   { key: "shipping.shippingBody", section: "Доставка и оплата", label: "Доставка", type: "textarea" },
   { key: "shipping.paymentBody", section: "Доставка и оплата", label: "Оплата", type: "textarea" },
