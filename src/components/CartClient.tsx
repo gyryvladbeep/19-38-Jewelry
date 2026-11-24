@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { getPromoDiscount } from "@/data/promocodes";
+import { CERTIFICATE_SLUG } from "@/data/certificate";
 import { formatPrice } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import ProductImagePlaceholder from "@/components/ProductImagePlaceholder";
@@ -14,14 +15,22 @@ export default function CartClient() {
   const locale = useLocale() as "ru" | "en";
   const t = useTranslations("cart");
   const tc = useTranslations("common");
+  const tCert = useTranslations("certificate");
   const { cart, setQuantity, removeFromCart, promoCode, setPromoCode, hydrated, getProduct } =
     useStore();
   const [promoInput, setPromoInput] = useState(promoCode ?? "");
   const [promoMessage, setPromoMessage] = useState<string | null>(null);
 
+  // The gift-certificate line (see src/data/certificate.ts) isn't a catalog
+  // product, so it's resolved and rendered separately from the lines below
+  // — its price is whatever the buyer typed on /certificate, carried on
+  // the cart line itself (certificateAmount), not looked up via getProduct.
+  const certificateLine = cart.find((line) => line.slug === CERTIFICATE_SLUG);
+
   const lines = useMemo(
     () =>
       cart
+        .filter((line) => line.slug !== CERTIFICATE_SLUG)
         .map((line) => ({ line, product: getProduct(line.slug) }))
         .filter((entry): entry is { line: typeof entry.line; product: NonNullable<typeof entry.product> } =>
           Boolean(entry.product)
@@ -29,10 +38,14 @@ export default function CartClient() {
     [cart, getProduct]
   );
 
-  const subtotal = lines.reduce(
-    (sum, { line, product }) => sum + product.price * line.quantity,
-    0
-  );
+  const catalogCartCount = cart.filter((line) => line.slug !== CERTIFICATE_SLUG).length;
+  const certificateTotal = certificateLine
+    ? certificateLine.certificateAmount! * certificateLine.quantity
+    : 0;
+
+  const subtotal =
+    lines.reduce((sum, { line, product }) => sum + product.price * line.quantity, 0) +
+    certificateTotal;
   const discountRate = promoCode ? getPromoDiscount(promoCode) : 0;
   const discount = Math.round(subtotal * discountRate);
   const total = subtotal - discount;
@@ -50,14 +63,15 @@ export default function CartClient() {
 
   if (!hydrated) return null;
 
-  if (lines.length === 0 && cart.length > 0) {
-    // Products haven't finished loading yet (cart has slugs, but
+  if (lines.length === 0 && catalogCartCount > 0) {
+    // Products haven't finished loading yet (cart has catalog slugs, but
     // getProduct() can't resolve them until /api/products responds) —
-    // render nothing rather than flashing an "empty cart" message.
+    // render nothing rather than flashing an "empty cart" message. The
+    // certificate line never depends on this fetch, so it doesn't gate it.
     return null;
   }
 
-  if (lines.length === 0) {
+  if (lines.length === 0 && !certificateLine) {
     return (
       <div className="container-content py-20 text-center">
         <h1 className="text-3xl">{t("title")}</h1>
@@ -137,6 +151,52 @@ export default function CartClient() {
               </li>
             );
           })}
+          {certificateLine && (
+            <li className="flex gap-4 py-6">
+              <div className="flex w-24 shrink-0 items-center justify-center border border-line bg-burgundy-tint text-xs text-burgundy">
+                19:38
+              </div>
+              <div className="flex flex-1 flex-col justify-between">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <span className="text-sm text-ink">{tCert("cartLineName")}</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => removeFromCart(CERTIFICATE_SLUG)}
+                    aria-label={tc("remove")}
+                    className="text-muted hover:text-burgundy"
+                  >
+                    <CloseIcon className="h-4 w-4" />
+                  </button>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center border border-line">
+                    <button
+                      type="button"
+                      onClick={() => setQuantity(CERTIFICATE_SLUG, certificateLine.quantity - 1)}
+                      className="px-3 py-1 text-sm hover:text-burgundy"
+                      aria-label="-"
+                    >
+                      {"−"}
+                    </button>
+                    <span className="min-w-8 px-2 text-center text-sm">
+                      {certificateLine.quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setQuantity(CERTIFICATE_SLUG, certificateLine.quantity + 1)}
+                      className="px-3 py-1 text-sm hover:text-burgundy"
+                      aria-label="+"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <span className="text-sm text-ink">{formatPrice(certificateTotal, locale)}</span>
+                </div>
+              </div>
+            </li>
+          )}
         </ul>
 
         <div className="h-fit border border-line p-6">

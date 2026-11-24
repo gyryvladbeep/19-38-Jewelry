@@ -10,6 +10,7 @@ const SECTIONS: { key: string; label: string }[] = [
   { key: "home.aboutTeaser", label: "Главная — фото в блоке «О бренде»" },
   { key: "about.hero", label: "О бренде — фото в шапке страницы" },
   { key: "about.closing", label: "О бренде — фото в финальном блоке" },
+  { key: "certificate.photo", label: "Сертификат — фото на странице" },
 ];
 
 function SiteImageField({

@@ -19,12 +19,20 @@ export interface CartLine {
   slug: string;
   quantity: number;
   note?: string;
+  /**
+   * Set only for the gift-certificate line (slug === CERTIFICATE_SLUG, see
+   * src/data/certificate.ts) — the amount the buyer typed in on
+   * /certificate, in ֏. Every other line's price comes from the matching
+   * catalog product instead; CartClient/OrderClient check this field to
+   * tell the two kinds of line apart.
+   */
+  certificateAmount?: number;
 }
 
 interface StoreContextValue {
   cart: CartLine[];
   wishlist: string[];
-  addToCart: (slug: string, quantity?: number, note?: string) => void;
+  addToCart: (slug: string, quantity?: number, note?: string, certificateAmount?: number) => void;
   removeFromCart: (slug: string) => void;
   setQuantity: (slug: string, quantity: number) => void;
   clearCart: () => void;
@@ -124,23 +132,27 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }
   }, [wishlist, hydrated]);
 
-  const addToCart = useCallback((slug: string, quantity = 1, note?: string) => {
-    setCart((prev) => {
-      const existing = prev.find((line) => line.slug === slug);
-      if (existing) {
-        return prev.map((line) =>
-          line.slug === slug
-            ? {
-                ...line,
-                quantity: line.quantity + quantity,
-                note: note ?? line.note,
-              }
-            : line
-        );
-      }
-      return [...prev, { slug, quantity, note }];
-    });
-  }, []);
+  const addToCart = useCallback(
+    (slug: string, quantity = 1, note?: string, certificateAmount?: number) => {
+      setCart((prev) => {
+        const existing = prev.find((line) => line.slug === slug);
+        if (existing) {
+          return prev.map((line) =>
+            line.slug === slug
+              ? {
+                  ...line,
+                  quantity: line.quantity + quantity,
+                  note: note ?? line.note,
+                  certificateAmount: certificateAmount ?? line.certificateAmount,
+                }
+              : line
+          );
+        }
+        return [...prev, { slug, quantity, note, certificateAmount }];
+      });
+    },
+    []
+  );
 
   const removeFromCart = useCallback((slug: string) => {
     setCart((prev) => prev.filter((line) => line.slug !== slug));

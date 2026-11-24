@@ -6,6 +6,7 @@
   },
   "nav": {
     "catalog": "Catalog",
+    "certificate": "Certificate",
     "about": "About",
     "shipping": "Shipping & Payment",
     "faq": "FAQ",
@@ -71,6 +72,15 @@
     "aboutTeaserTitle": "Every piece is a personal sign",
     "aboutTeaserBody": "You don’t just choose a piece of jewelry. You notice it. Every 19:38 piece carries its own number and a message card — it exists only once.",
     "aboutTeaserCta": "Read the brand story"
+  },
+  "certificate": {
+    "pageTitle": "Digital Gift Certificate",
+    "intro": "If you don't know what to give — give the choice!",
+    "body": "The recipient picks the jewelry they've been dreaming of themselves. All you need to do is choose the certificate amount.",
+    "note": "After you place the order, we'll contact you to confirm the sender's and recipient's names. The certificate is delivered electronically. It's valid for a year and can be used once.",
+    "amountLabel": "Certificate amount",
+    "amountHint": "Enter any amount — minimum 1000 ֏.",
+    "cartLineName": "Digital Gift Certificate"
   },
   "product": {
     "pieceNumberLabel": "Piece",
@@ -197,13 +207,13 @@
   },
   "returns": {
     "title": "Returns",
-    "intro": "Draft terms — review and adjust before publishing.",
+    "intro": "19:38 Jewelry's return and exchange terms follow the consumer-protection legislation of the Republic of Armenia.",
     "section1Title": "Returning an item",
-    "section1Body": "Items in good condition that were not made to a personal order can be returned within 14 days of receipt, provided they keep their original condition and packaging.",
+    "section1Body": "Under Armenia's distance-selling rules, you can return a piece with no reason given within 14 calendar days of receiving your order, provided it hasn't been worn and keeps its original condition, tags, and packaging.",
     "section2Title": "Personalized pieces",
-    "section2Body": "Pieces made to a personal order (engraving, altered size) cannot be returned or exchanged, except in the case of a manufacturing defect.",
+    "section2Body": "Pieces made to a personal order (engraving, altered size, custom color) and digital gift certificates fall outside the 14-day return right and cannot be returned or exchanged, except in the case of a manufacturing defect.",
     "section3Title": "How to request a return",
-    "section3Body": "Contact us via the Contact page with your order number and the reason for the return — we’ll guide you through the next steps."
+    "section3Body": "Contact us via the Contact page with your order number and the reason for the return. We’ll agree on the details with you — including how to send the piece back and how the payment is refunded — and guide you through the next steps. Return shipping for a no-fault cancellation is paid by the customer."
   },
   "footer": {
     "tagline": "A sign worth keeping.",

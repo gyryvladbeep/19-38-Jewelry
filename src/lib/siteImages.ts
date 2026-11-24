@@ -14,6 +14,7 @@ export const SITE_IMAGE_KEYS = {
   homeAboutTeaser: "home.aboutTeaser",
   aboutHero: "about.hero",
   aboutClosing: "about.closing",
+  certificatePhoto: "certificate.photo",
 } as const;
 
 export type SiteImageKey = (typeof SITE_IMAGE_KEYS)[keyof typeof SITE_IMAGE_KEYS];

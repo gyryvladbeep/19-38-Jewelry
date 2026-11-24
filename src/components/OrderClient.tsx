@@ -3,6 +3,7 @@
 import { useMemo, useState, type FormEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { getPromoDiscount } from "@/data/promocodes";
+import { CERTIFICATE_SLUG } from "@/data/certificate";
 import { formatPrice } from "@/lib/format";
 import { useStore } from "@/lib/store";
 import { Button } from "@/components/ui/Button";
@@ -13,15 +14,23 @@ export default function OrderClient() {
   const locale = useLocale() as "ru" | "en";
   const t = useTranslations("order");
   const tc = useTranslations("common");
+  const tCert = useTranslations("certificate");
   const { cart, promoCode, clearCart, hydrated, getProduct } = useStore();
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle"
   );
   const [method, setMethod] = useState<(typeof contactMethods)[number]>("whatsapp");
 
+  // See the identical split in CartClient.tsx: the gift-certificate line
+  // isn't a catalog product, so it's kept out of `lines` (which resolves
+  // via getProduct) and handled alongside it instead.
+  const certificateLine = cart.find((line) => line.slug === CERTIFICATE_SLUG);
+  const certificateName = tCert("cartLineName");
+
   const lines = useMemo(
     () =>
       cart
+        .filter((line) => line.slug !== CERTIFICATE_SLUG)
         .map((line) => ({ line, product: getProduct(line.slug) }))
         .filter((e): e is { line: typeof e.line; product: NonNullable<typeof e.product> } =>
           Boolean(e.product)
@@ -29,10 +38,13 @@ export default function OrderClient() {
     [cart, getProduct]
   );
 
-  const subtotal = lines.reduce(
-    (sum, { line, product }) => sum + product.price * line.quantity,
-    0
-  );
+  const certificateTotal = certificateLine
+    ? certificateLine.certificateAmount! * certificateLine.quantity
+    : 0;
+
+  const subtotal =
+    lines.reduce((sum, { line, product }) => sum + product.price * line.quantity, 0) +
+    certificateTotal;
   const discountRate = promoCode ? getPromoDiscount(promoCode) : 0;
   const total = subtotal - Math.round(subtotal * discountRate);
 
@@ -52,13 +64,26 @@ export default function OrderClient() {
           contactMethod: method,
           comment: data.get("comment"),
           promoCode,
-          items: lines.map(({ line, product }) => ({
-            slug: product.slug,
-            name: product[locale].name,
-            quantity: line.quantity,
-            price: product.price,
-            note: line.note ?? null,
-          })),
+          items: [
+            ...lines.map(({ line, product }) => ({
+              slug: product.slug,
+              name: product[locale].name,
+              quantity: line.quantity,
+              price: product.price,
+              note: line.note ?? null,
+            })),
+            ...(certificateLine
+              ? [
+                  {
+                    slug: CERTIFICATE_SLUG,
+                    name: certificateName,
+                    quantity: certificateLine.quantity,
+                    price: certificateLine.certificateAmount ?? 0,
+                    note: certificateLine.note ?? null,
+                  },
+                ]
+              : []),
+          ],
         }),
       });
       if (!res.ok) throw new Error("failed");
@@ -71,9 +96,10 @@ export default function OrderClient() {
 
   if (!hydrated) return null;
 
-  if (lines.length === 0 && cart.length > 0) {
-    // Cart has slugs, but the catalog hasn't finished loading yet —
-    // render nothing rather than flashing an "empty cart" message.
+  if (lines.length === 0 && !certificateLine && cart.length > 0) {
+    // Cart has catalog slugs, but the catalog hasn't finished loading yet —
+    // render nothing rather than flashing an "empty cart" message. The
+    // certificate line never depends on this fetch, so it doesn't gate it.
     return null;
   }
 
@@ -89,7 +115,7 @@ export default function OrderClient() {
     );
   }
 
-  if (lines.length === 0) {
+  if (lines.length === 0 && !certificateLine) {
     return (
       <div className="container-content max-w-lg py-24 text-center">
         <h1 className="text-3xl">{t("title")}</h1>
@@ -184,6 +210,14 @@ export default function OrderClient() {
                 </span>
               </li>
             ))}
+            {certificateLine && (
+              <li className="flex justify-between gap-3">
+                <span>
+                  {certificateName} &times; {certificateLine.quantity}
+                </span>
+                <span className="shrink-0">{formatPrice(certificateTotal, locale)}</span>
+              </li>
+            )}
           </ul>
           {promoCode && discountRate > 0 && (
             <p className="mt-3 text-xs text-burgundy">

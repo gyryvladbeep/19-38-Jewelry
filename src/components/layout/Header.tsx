@@ -10,6 +10,7 @@ import { CartIcon, HeartIcon, MenuIcon, CloseIcon } from "@/components/icons";
 
 const navItems = [
   { href: "/catalog", key: "catalog" },
+  { href: "/certificate", key: "certificate" },
   { href: "/about", key: "about" },
   { href: "/shipping", key: "shipping" },
   { href: "/faq", key: "faq" },

@@ -56,6 +56,11 @@ export const CONTENT_FIELDS: ContentField[] = [
   { key: "home.aboutTeaserTitle", section: "Главная", label: "Заголовок блока «О бренде»", type: "text" },
   { key: "home.aboutTeaserBody", section: "Главная", label: "Текст блока «О бренде»", type: "textarea" },
 
+  { key: "certificate.pageTitle", section: "Сертификат", label: "Заголовок страницы", type: "text" },
+  { key: "certificate.intro", section: "Сертификат", label: "Вступление (жирным)", type: "textarea" },
+  { key: "certificate.body", section: "Сертификат", label: "Основной текст", type: "textarea" },
+  { key: "certificate.note", section: "Сертификат", label: "Мелкий текст (условия, курсив)", type: "textarea" },
+
   { key: "shipping.shippingBody", section: "Доставка и оплата", label: "Доставка", type: "textarea" },
   { key: "shipping.paymentBody", section: "Доставка и оплата", label: "Оплата", type: "textarea" },
   { key: "shipping.productionBody", section: "Доставка и оплата", label: "Изготовление под заказ", type: "textarea" },
