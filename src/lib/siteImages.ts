@@ -21,6 +21,16 @@ export type SiteImageKey = (typeof SITE_IMAGE_KEYS)[keyof typeof SITE_IMAGE_KEYS
 
 export const SITE_IMAGE_FALLBACK = "/brand/mood-texture.jpg";
 
+/**
+ * Per-key fallbacks for sections that ship with their own real photo rather
+ * than the generic mood-texture placeholder — currently just the gift
+ * certificate design itself (public/brand/certificate.jpg). Admin can still
+ * replace it from /admin/content; this is only what shows before that.
+ */
+const SITE_IMAGE_SPECIFIC_FALLBACKS: Partial<Record<SiteImageKey, string>> = {
+  [SITE_IMAGE_KEYS.certificatePhoto]: "/brand/certificate.jpg",
+};
+
 interface SiteImageRow {
   key: string;
   url: string;
@@ -47,5 +57,5 @@ export async function fetchSiteImages(): Promise<Record<string, string>> {
 }
 
 export function siteImageUrl(images: Record<string, string>, key: SiteImageKey): string {
-  return images[key] || SITE_IMAGE_FALLBACK;
+  return images[key] || SITE_IMAGE_SPECIFIC_FALLBACKS[key] || SITE_IMAGE_FALLBACK;
 }

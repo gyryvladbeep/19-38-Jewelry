@@ -30,8 +30,12 @@ export default function CertificateClient({ photoUrl }: { photoUrl: string }) {
 
   return (
     <div className="container-content pb-20 pt-6 md:pb-28 md:pt-10">
-      <div className="relative aspect-[16/9] w-full overflow-hidden bg-burgundy-tint md:aspect-[21/9]">
-        <Image src={photoUrl} alt="" fill className="object-cover object-center" priority />
+      {/* object-contain + an aspect ratio close to the uploaded certificate
+          photo's own (commonly ~8:5 for a gift-card design) so the whole
+          image shows — a photo like this one is the product itself, unlike
+          the cropped mood photos used as backgrounds elsewhere on the site. */}
+      <div className="relative aspect-[8/5] w-full overflow-hidden bg-paper">
+        <Image src={photoUrl} alt="" fill className="object-contain object-center" priority />
       </div>
 
       <div className="mx-auto mt-10 max-w-xl text-center">
