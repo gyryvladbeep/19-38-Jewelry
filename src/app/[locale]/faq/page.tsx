@@ -37,7 +37,7 @@ export default async function FaqPage({
                 +
               </span>
             </summary>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{item.a}</p>
+            <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-muted">{item.a}</p>
           </details>
         ))}
       </div>
